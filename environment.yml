@@ -5,8 +5,6 @@ dependencies:
   - pip=23.1.2
   - python=3.10.11
   - numpy-base
-  - libpq-dev 
-  - python3-dev
   - pip:
     - -r requirements.txt
 
