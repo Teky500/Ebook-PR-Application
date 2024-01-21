@@ -1,7 +1,11 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QComboBox, QVBoxLayout, QWidget
+import sqlite3 as sq
 
 class MyMainWindow(QMainWindow):
+    db_path = 'source/storage/database/proj.db'
+    db = sq.connect(db_path)
+    cursor = db.cursor()
     def __init__(self):
         super().__init__()
 
@@ -30,6 +34,7 @@ class MyMainWindow(QMainWindow):
         # This method will be called when the selection in the combo box changes
         selected_text = self.sender().currentText()
         print(f"Selected option: {selected_text}")
+        cursor.execute("SELECT * FROM books LIMIT 10;")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
