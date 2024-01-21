@@ -1,0 +1,6 @@
+CREATE TABLE students (
+	student_ID INTEGER PRIMARY KEY,
+	first_Name TEXT NOT NULL,
+	last_name TEXT NOT NULL,
+	email TEXT NOT NULL
+);
