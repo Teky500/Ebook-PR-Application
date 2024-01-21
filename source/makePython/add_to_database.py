@@ -12,17 +12,18 @@ if os.path.isfile(db_path):
 # using skiprows=[0,1] to skip the first two fluff lines. Not a long term solution, we have to look for something else, but this will do for now.
 spreadsheet_csv = pd.read_csv('source/spreadsheets/spreadsheet_1.csv', skiprows=[0,1])
 df = pd.DataFrame(spreadsheet_csv)
+uni = df.columns.get_loc(University)
 db = sq.connect(db_path)
 cursor = db.cursor()
 cursor.executescript(sql_script)
 db.commit()
 for row in df.iterrows():
-  print(row)
-  title = row['Title']
-  publisher = row['Publisher']
-  platform_yob = row['Platform_YOP']
-  ISBN = row['Platform_eISBN']
-  OCN = row['OCN']
-  result = row[University]
+  print(row.describe())
+  title = row[0]
+  publisher = row[1]
+  platform_yob = row[2]
+  ISBN = row[3]
+  OCN = row[4]
+  result = row[uni]
   cursor.execute(f'INSERT INTO books (title, publisher, platform_yob, ISBN, OCN, result) VALUES ({title}, {publisher}, {platform_yob}, {ISBN}, {OCN}, {result});')
 db.close()
