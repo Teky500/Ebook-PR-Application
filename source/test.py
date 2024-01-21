@@ -13,4 +13,4 @@ def create_connection(db_file):
         print('FAILED', e)
 
 if __name__ == '__main__':
-    create_connection("code/storage/tests/test.db")
+    create_connection("source/storage/tests/test.db")

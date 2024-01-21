@@ -1,6 +1,6 @@
 fetch_sql_db_python:
-	python code/test.py
+	python source/test.py
 populate_sql_file_python:
-	python code/makePython/pop_db.py
+	python source/makePython/pop_db.py
 remove_sql_file_bash:
-	rm code/storage/tests/test.db
+	rm source/storage/tests/test.db
