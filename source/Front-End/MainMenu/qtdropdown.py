@@ -28,7 +28,7 @@ class MyMainWindow(QMainWindow):
 
         layout.addWidget(confirm_button)
 
-    def on_combobox_changed(self, index):
+    def on_combobox_changed(self):
         selected_text = self.sender().currentText()
         print(f"Selected option: {selected_text}")
         setDatabaseUni(selected_text)
