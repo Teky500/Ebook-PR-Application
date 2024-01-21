@@ -1,6 +1,4 @@
-fetch_sql_db_python:
-	python source/test.py
-populate_sql_file_python:
-	python source/makePython/pop_db.py
-remove_sql_file_bash:
-	rm source/storage/tests/test.db
+set_institution_db:
+	python source/makePython/download_excel.py
+	python source/makePython/parse_excel.py
+	python source/makePython/add_to_database.py
