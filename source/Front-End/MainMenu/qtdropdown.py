@@ -3,9 +3,7 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QComboBox, QVBoxLayout, Q
 import sqlite3 as sq
 
 class MyMainWindow(QMainWindow):
-    db_path = 'source/storage/database/proj.db'
-    db = sq.connect(db_path)
-    cursor = db.cursor()
+
     def __init__(self):
         super().__init__()
 
@@ -20,7 +18,7 @@ class MyMainWindow(QMainWindow):
 
         # Create a combo box
         combo_box = QComboBox(self)
-        combo_box.addItem("Option 1")
+        combo_box.addItem("UEPI")
         combo_box.addItem("Option 2")
         combo_box.addItem("Option 3")
 
@@ -34,7 +32,15 @@ class MyMainWindow(QMainWindow):
         # This method will be called when the selection in the combo box changes
         selected_text = self.sender().currentText()
         print(f"Selected option: {selected_text}")
+
+        db_path = 'source/storage/database/proj.db'
+        db = sq.connect(db_path)
+        cursor = db.cursor()
+        
         cursor.execute("SELECT * FROM books LIMIT 10")
+        x = cursor.fetchall()
+        print(x)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
