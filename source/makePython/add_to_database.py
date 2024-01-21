@@ -7,23 +7,30 @@ with open('source/sqlscripts/newdb.sql', 'r') as sql_file:
 db_path = 'source/storage/tests/database/proj.db'
 # check if the db exists first
 if os.path.isfile(db_path):
+    print('Removed Old Path')
     os.remove(db_path)
 # clean csv file (should be done in another file, but done here for now)
 # using skiprows=[0,1] to skip the first two fluff lines. Not a long term solution, we have to look for something else, but this will do for now.
 spreadsheet_csv = pd.read_csv('source/spreadsheets/spreadsheet_1.csv', skiprows=[0,1])
 df = pd.DataFrame(spreadsheet_csv)
+df = df[df['Platform_eISBN'].notna()]
 uni = df.columns.get_loc(University)
 db = sq.connect(db_path)
 cursor = db.cursor()
 cursor.executescript(sql_script)
 db.commit()
 for row in df.iterrows():
-  print(row.describe())
-  title = row[0]
-  publisher = row[1]
-  platform_yob = row[2]
-  ISBN = row[3]
-  OCN = row[4]
-  result = row[uni]
-  cursor.execute(f'INSERT INTO books (title, publisher, platform_yob, ISBN, OCN, result) VALUES ({title}, {publisher}, {platform_yob}, {ISBN}, {OCN}, {result});')
+  title = row[1]['Title']
+  publisher = row[1]['Publisher']
+  platform_yob = row[1]['Platform_YOP']
+  ISBN = row[1]['Platform_eISBN']
+  OCN = row[1]['OCN']
+  result = row[1][University]
+  print('ADDING ROW TO DATABASE', (title, publisher, platform_yob, ISBN, OCN, result))
+  try:
+    cursor.execute("INSERT INTO books (title, publisher, platform_yop, ISBN, OCN, result) VALUES(?, ?, ?, ?, ?, ?)", 
+                   (title, publisher, platform_yob, ISBN, OCN, result))
+  except sq.IntegrityError:
+     print('FAILED ADDITION', (title, publisher, platform_yob, ISBN, OCN, result))
+db.commit()
 db.close()
