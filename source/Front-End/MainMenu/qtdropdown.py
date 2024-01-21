@@ -18,9 +18,9 @@ class MyMainWindow(QMainWindow):
 
         # Create a combo box
         combo_box = QComboBox(self)
-        combo_box.addItem("UEPI")
-        combo_box.addItem("Option 2")
-        combo_box.addItem("Option 3")
+        combo_box.addItem("2000")
+        combo_box.addItem("2001")
+        combo_box.addItem("2002")
 
         # Connect a slot to handle the selection change
         combo_box.currentIndexChanged.connect(self.on_combobox_changed)
@@ -36,8 +36,7 @@ class MyMainWindow(QMainWindow):
         db_path = 'source/storage/database/proj.db'
         db = sq.connect(db_path)
         cursor = db.cursor()
-        
-        cursor.execute("SELECT * FROM books LIMIT 10")
+        cursor.execute("SELECT * FROM books where platform_yop = (?)", (selected_text))
         x = cursor.fetchall()
         print(x)
 
