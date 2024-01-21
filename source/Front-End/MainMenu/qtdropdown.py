@@ -1,39 +1,41 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QComboBox, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QComboBox, QVBoxLayout, QWidget, QPushButton
 import sqlite3 as sq
 import pandas as pd
+
 class MyMainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
 
-        # Set up the main window
         self.setWindowTitle("DropDown")
         self.setGeometry(100, 100, 400, 200)
 
-        # Create a central widget and set a layout
         central_widget = QWidget(self)
         self.setCentralWidget(central_widget)
         layout = QVBoxLayout(central_widget)
 
-        # Create a combo box
-        combo_box = QComboBox(self)
-        combo_box.addItem("Univ. of Prince Edward Island")
-        combo_box.addItem("Acadia Univ.")
-        combo_box.addItem("Algoma Univ.")
-        download_excel()
-        parse_excel()
+        self.combo_box = QComboBox(self)
+        self.combo_box.addItem("")
+        self.combo_box.addItem("Univ. of Prince Edward Island")
+        self.combo_box.addItem("Acadia Univ.")
+        self.combo_box.addItem("Algoma Univ.")
 
-        # Connect a slot to handle the selection change
-        combo_box.currentIndexChanged.connect(self.on_combobox_changed)
+        layout.addWidget(self.combo_box)
 
-        # Add the combo box to the layout
-        layout.addWidget(combo_box)
+        confirm_button = QPushButton("Confirm", self)
+        confirm_button.clicked.connect(self.on_confirm_clicked)
+
+        layout.addWidget(confirm_button)
 
     def on_combobox_changed(self, index):
-        # This method will be called when the selection in the combo box changes
         selected_text = self.sender().currentText()
         print(f"Selected option: {selected_text}")
+        setDatabaseUni(selected_text)
+
+    def on_confirm_clicked(self):
+        selected_text = self.combo_box.currentText()
+        print(f"Confirmed option: {selected_text}")
         setDatabaseUni(selected_text)
 
 import sqlite3 as sq
@@ -75,6 +77,7 @@ def setDatabaseUni(university):
   db.commit()
   db.close()
 
+
 def parse_excel():
     xfile = pd.read_excel('source/storage/spreadsheets/spreadsheet_1.xlsx', sheet_name= "PA-Rights")
     print(xfile)
@@ -85,6 +88,10 @@ def download_excel():
     url = 'https://library.upei.ca/sites/default/files/TaylorFrancis_CRKN_EbookPARightsTracking.xlsx'
     filename = ('source/storage/spreadsheets/spreadsheet_1.xlsx')
     urlretrieve(url, filename)
+
+
+
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
