@@ -7,4 +7,4 @@ This is done by scraping excel files from the CRKN Website (using this test page
 Set up by using ```pip install -r requirements.txt```, to download the required packages to your current environment, alternatively, run the ```setup.bat``` file in the setup folder to install requirements on Windows.
 
 # Running
-Currently, there is a brief prototype functionality to add records to the database based on the institution. After installing the requirements, run ```make set_institution_db``` to download spreadsheet, set the database and insert records on linux, or use the ```run.bat``` file on Windows. 
+Currently, there is a brief prototype functionality to add records to the database based on the institution. After installing the requirements, run ```make set_institution_db``` to download spreadsheet, set the database and insert records on linux, or use the ```run.bat``` file on Windows. Use ```make search``` to run the sample search.

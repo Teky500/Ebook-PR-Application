@@ -7,8 +7,10 @@ class SetInstitution(QWidget):
         super(SetInstitution, self).__init__()
         loadUi("source/program/driver/features/dropdown.ui", self)
 
-
-app = QApplication(sys.argv) 
+        self.submit_button_1.clicked.connect(self.clicked_function())
+    def clicked_function():
+        selected_text = self.institutions.currentText()
+        print(selected_text)
 
 app.setStyleSheet (
         """
