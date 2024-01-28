@@ -17,3 +17,12 @@ def search_ISBN(ISBN, db_path):
     print("No Results Found!")
   else:
     print(result)
+def search_OCN(OCN, db_path):
+  db = start_connection(db_path)
+  cursor = db.cursor()
+  cursor.execute(f"SELECT * FROM books where OCN = '{OCN}'")
+  result = cursor.fetchall()
+  if result == []:
+    print("No Results Found!")
+  else:
+    print(result)
