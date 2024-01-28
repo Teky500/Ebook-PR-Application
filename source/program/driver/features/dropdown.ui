@@ -191,16 +191,6 @@ QComboBox::indicator {
            <string/>
           </property>
          </item>
-         <item>
-          <property name="text">
-           <string>Reem</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Mohab</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item>

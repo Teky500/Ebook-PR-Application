@@ -15,8 +15,7 @@ def setDatabaseUni(university):
   spreadsheet_csv = pd.read_csv('source/storage/spreadsheets/spreadsheet_1.csv', skiprows=[0,1])
   df = pd.DataFrame(spreadsheet_csv)
   df = df[df['Platform_eISBN'].notna()]
-  
-  df['Platform_eISBN'] = (df['Platform_eISBN'].astype(int).astype(str))
+  df['Platform_eISBN'] = (df['Platform_eISBN'].apply(int).astype(str))
   uni = df.columns.get_loc(University)
   db = sq.connect(db_path)
   cursor = db.cursor()
@@ -36,6 +35,7 @@ def setDatabaseUni(university):
     # sometimes the the same ISBN will be there twice. For now, ignore those rows.
     except sq.IntegrityError:
       print('FAILED ADDITION', (title, publisher, platform_yob, ISBN, OCN, result))
+      print(str(sq.IntegrityError))
   db.commit()
   db.close()
 
