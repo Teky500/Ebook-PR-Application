@@ -1,1 +1,1 @@
-CREATE TABLE books (ISBN int PRIMARY KEY NOT NULL, title text NOT NULL, publisher text NOT NULL, platform_yop int, OCN int, result text NOT NULL);
+CREATE TABLE books (ISBN text PRIMARY KEY NOT NULL, title text NOT NULL, publisher text NOT NULL, platform_yop int, OCN int, result text NOT NULL);
