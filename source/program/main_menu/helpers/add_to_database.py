@@ -15,6 +15,7 @@ def setDatabaseUni(university):
   spreadsheet_csv = pd.read_csv('source/storage/spreadsheets/spreadsheet_1.csv', skiprows=[0,1])
   df = pd.DataFrame(spreadsheet_csv)
   df = df[df['Platform_eISBN'].notna()]
+  
   df['Platform_eISBN'] = (df['Platform_eISBN'].astype(int).astype(str))
   uni = df.columns.get_loc(University)
   db = sq.connect(db_path)
