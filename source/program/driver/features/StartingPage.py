@@ -1,11 +1,11 @@
 import sys
-import Themes
+from Themes import Theme, getTheme
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
 from SetInstitutionPage import SetInstitution
 
-starting_text = Themes.theme.starting
-
+theme = Theme(getTheme())
+themeColour = theme.getColor()
 class WelcomePage(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -13,7 +13,7 @@ class WelcomePage(QWidget):
 
     def setup_ui(self):
         layout = QVBoxLayout(self)
-        label = QLabel(f"{starting_text}", self)
+        label = QLabel(f"Starting", self)
 
         font = label.font()
         font.setPointSize(35) 
@@ -40,7 +40,7 @@ class WelcomePage(QWidget):
     def animate_text(self):
         dots = '.' * (self.animation_counter % 4)
         label = self.findChild(QLabel)
-        label.setText(f"{starting_text}{dots}")
+        label.setText(f"Starting{dots}")
         self.animation_counter += 1
 
     def show_next_page(self):
@@ -154,9 +154,13 @@ if __name__ == "__main__":
         color: white;
     }"""
     )
-
+    
     main_window = QWidget()
     main_layout = QVBoxLayout(main_window)
+    if themeColour == "default":
+        pass
+    else:
+        main_window.setStyleSheet(f'background-color: {themeColour};')
 
     stacked_widget = QStackedWidget(main_window)
     welcome_page = WelcomePage(stacked_widget)
