@@ -33,7 +33,7 @@ class WelcomePage(QWidget):
         self.animation_timer.start(600)
         self.page_timer.start(5000)
 
-        self.window().setFixedSize(400, 250)
+        self.window().setFixedSize(500, 280)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint) 
 
 
@@ -53,22 +53,12 @@ class WelcomePage(QWidget):
 
     def openNewWindow(self):
         global m
-        new_window = MainPage()
+        new_window = SetInstitution()
         m = new_window
-        new_window.show()
-
-class MainPage(QWidget):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-    
-        layout = QVBoxLayout(self)
-        institution_widget = SetInstitution()
-        layout.addWidget(institution_widget)  
-        self.window().setWindowTitle("Ebook PR Application")
-        self.window().resize(963, 571)
+        new_window.run()
 
 
-        
+      
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -165,11 +155,8 @@ if __name__ == "__main__":
 
     stacked_widget = QStackedWidget(main_window)
     welcome_page = WelcomePage(stacked_widget)
-    main_page = MainPage(stacked_widget)
   
     stacked_widget.addWidget(welcome_page)
-    stacked_widget.addWidget(main_page)
-
     main_layout.addWidget(stacked_widget)
 
     

@@ -2,13 +2,13 @@ import sys
 from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QProgressBar, QHBoxLayout, QVBoxLayout, QFrame, QLabel
 from PyQt6.QtCore import Qt, QTimer
 from HomePage import SetHomePage
-
+from SetInstitutionPage import SetInstitution
 
 class SplashScreen(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('Splash Screen')
-        self.setFixedSize(400, 250)
+        self.setFixedSize(500, 280)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint) 
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
@@ -41,8 +41,8 @@ class SplashScreen(QWidget):
 
         # progress bar 
         self.progressBar = QProgressBar(self.frame)
-        self.progressBar.resize(self.width() - 130 , 25)
-        self.progressBar.move(60, self.labelTitle.y() + 130)
+        self.progressBar.resize(self.width() - 130 , 32)
+        self.progressBar.move(55, self.labelTitle.y() + 140)
         self.progressBar.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.progressBar.setFormat('%p%')
         self.progressBar.setTextVisible(True)
@@ -69,31 +69,18 @@ class SplashScreen(QWidget):
         new_window.run()
 
 
-# class HomePage(QWidget):
-#     def __init__(self):
-#         super().__init__()
-#         self.window_width, self.window_height = 1200, 800
-#         self.setMinimumSize(self.window_width, self.window_height)
-
-#         layout = QVBoxLayout()
-#         self.setLayout(layout)
-
-#         homepage_widget = SetHomePage()
-#         layout.addWidget(homepage_widget)  
-#         self.window().resize(963, 571)
-
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     app.setStyleSheet('''
 
         #LabelTitle {
-            font-size: 23px;
+            font-size: 28px;
             border-radius: 10px;
             color: white;             
         }
           
-                       
+                      
         QFrame {
             background-color: #333333;
             color: white;
