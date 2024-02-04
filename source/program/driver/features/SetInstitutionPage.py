@@ -13,11 +13,13 @@ class SetInstitution(QWidget):
 
         theme = Theme(getTheme())
         themeColour = theme.getColor()
-        if themeColour == "default":
+        if themeColour == {}:
             pass
         else:
-            self.setStyleSheet(f'background-color: {themeColour};')
-        spreadsheet_csv = pd.read_csv('source/storage/spreadsheets/spreadsheet_1.csv', skiprows=[0,1])
+            bg_col = themeColour['background_color']
+            txt_col = themeColour['text_color']
+            self.setStyleSheet(f'background-color: {bg_col}; color: {txt_col};')
+        spreadsheet_csv = pd.read_csv('source/storage/spreadsheets/CRKN_EbookPARightsTracking_TaylorFrancis_2024_01_19_01.csv', skiprows=[0,1])
         df = pd.DataFrame(spreadsheet_csv)
         Universities = df.columns[9:]
         for i in Universities:

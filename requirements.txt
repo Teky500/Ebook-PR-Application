@@ -3,3 +3,5 @@ openpyxl
 PyQt6
 bs4
 Pyyaml
+requests
+pyarrow

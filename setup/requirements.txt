@@ -3,3 +3,4 @@ openpyxl
 PyQt6
 bs4
 pyyaml
+requests

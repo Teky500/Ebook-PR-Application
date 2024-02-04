@@ -157,10 +157,13 @@ if __name__ == "__main__":
     
     main_window = QWidget()
     main_layout = QVBoxLayout(main_window)
-    if themeColour == "default":
+    if themeColour == {}:
         pass
+        
     else:
-        main_window.setStyleSheet(f'background-color: {themeColour};')
+        bg_col = themeColour['background_color']
+        txt_col = themeColour['text_color']
+        main_window.setStyleSheet(f'background-color: {bg_col}; color: {txt_col}')
 
     stacked_widget = QStackedWidget(main_window)
     welcome_page = WelcomePage(stacked_widget)
