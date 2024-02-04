@@ -1,6 +1,12 @@
 import sqlite3 as sq
 import os
 import pandas as pd
+
+def openExcel(file):
+    workbook = pd.read_excel(file, sheet_name='PA-Rights')
+    workbook = pd.DataFrame(workbook)
+    value = workbook.columns
+    return value[0]
 def access_csv(file):
   spreadsheet_csv = pd.read_csv(f'source/storage/spreadsheets/{file}', skiprows=[0,1])
   df = pd.DataFrame(spreadsheet_csv)
@@ -24,6 +30,7 @@ def setDatabaseUni(university):
   cursor = db.cursor()
   cursor.executescript(sql_script)
   for i in csv_files:
+      filename =i[:-4] + '.xlsx'
       df = access_csv(i)  
       uni = df.columns.get_loc(University)
 
@@ -35,14 +42,17 @@ def setDatabaseUni(university):
         ISBN = row[1]['Platform_eISBN']
         OCN = row[1]['OCN']
         result = row[1][University]
-        print('ADDING ROW TO DATABASE', (title, publisher, platform_yob, ISBN, OCN, result))
+        print('ADDING ROW TO DATABASE', (title, publisher, platform_yob, ISBN, OCN, result, filename))
         try:
-          cursor.execute("INSERT INTO books (title, publisher, platform_yop, ISBN, OCN, result) VALUES(?, ?, ?, ?, ?, ?)", 
-                        (title, publisher, platform_yob, ISBN, OCN, result))
+          cursor.execute("INSERT INTO books (title, publisher, platform_yop, ISBN, OCN, result, spreadsheet) VALUES(?, ?, ?, ?, ?, ?, ?)", 
+                        (title, publisher, platform_yob, ISBN, OCN, result, filename))
         # sometimes the the same ISBN will be there twice. For now, ignore those rows.
-        except sq.IntegrityError:
-          print('FAILED ADDITION', (title, publisher, platform_yob, ISBN, OCN, result))
-          print(str(sq.IntegrityError))
+        except sq.IntegrityError as e:
+          print('FAILED ADDITION', (title, publisher, platform_yob, ISBN, OCN, result, filename))
+          print(str(e))
+      platform = openExcel(f'source/storage/spreadsheets/{filename}')
+      print(platform)
+      cursor.execute('INSERT INTO platforms (spreadsheet, platform) VALUES(?, ?)', (filename, platform))
   db.commit()
   db.close()
 
