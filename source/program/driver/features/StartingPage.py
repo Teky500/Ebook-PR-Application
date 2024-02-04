@@ -64,6 +64,7 @@ class MainPage(QWidget):
         layout = QVBoxLayout(self)
         institution_widget = SetInstitution()
         layout.addWidget(institution_widget)  
+        self.window().setWindowTitle("Ebook PR Application")
         self.window().resize(963, 571)
 
 

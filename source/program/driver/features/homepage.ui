@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1106</width>
+    <height>783</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">  QWidget {
+        background-color: #333333;
+        color: #ffffff;
+        border: none;
+    }
+    QPushButton {
+        background-color: #4d4d4d;
+        border: 1px solid #4d4d4d;
+        border-radius: 4px;
+        color: #ffffff;
+        padding: 5px;
+    }
+    QPushButton:hover {
+        background-color: #5a5a5a;
+        border: 1px solid #5a5a5a;
+    }
+    QCheckBox {
+        color: #ffffff;
+    }
+    QLineEdit {
+        background-color: #4d4d4d;
+        border: 1px solid #4d4d4d;
+        color: #ffffff;
+        padding: 5px;
+    }
+    QTextEdit {
+        background-color: #4d4d4d;
+        border: 1px solid #4d4d4d;
+        color: #ffffff;
+        padding: 5px;
+    }
+    QProgressBar {
+        border: 1px solid #444444;
+        border-radius: 7px;
+        background-color: #2e2e2e;
+        text-align: center;
+        font-size: 10pt;
+        color: white;
+    }
+    QProgressBar::chunk {
+        background-color: #3a3a3a;
+        width: 5px;
+    }
+    QScrollBar:vertical {
+        border: none;
+        background-color: #3a3a3a;
+        width: 10px;
+        margin: 16px 0 16px 0;
+    }
+    QScrollBar::handle:vertical {
+        background-color: #444444;
+        border-radius: 5px;
+    }
+    QScrollBar:horizontal {
+        border: none;
+        background-color: #3a3a3a;
+        height: 10px;
+        margin: 0px 16px 0 16px;
+    }
+    QScrollBar::handle:horizontal {
+        background-color: #444444;
+        border-radius: 5px;
+    }
+    QTabWidget {
+        background-color: #2e2e2e;
+        border: none;
+    }
+    QTabBar::tab {
+        background-color: #2e2e2e;
+        color: #b1b1b1;
+        padding: 8px 20px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border: none;
+    }
+ 
+    QTabBar::tab:selected, QTabBar::tab:hover {
+        background-color: #3a3a3a;
+        color: white;
+    }</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_3">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>50</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>1000</width>
+           <height>208</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 700 110pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>HOME PAGE</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0,0,0">
+       <property name="spacing">
+        <number>20</number>
+       </property>
+       <property name="sizeConstraint">
+        <enum>QLayout::SetDefaultConstraint</enum>
+       </property>
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>50</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>400</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="search">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>550</width>
+           <height>80</height>
+          </size>
+         </property>
+         <property name="sizeIncrement">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::NoContextMenu</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Search</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="change">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>550</width>
+           <height>80</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Change</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="update">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>550</width>
+           <height>80</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Update</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="upload">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>550</width>
+           <height>80</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Upload</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="unload">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>60</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>550</width>
+           <height>80</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Unload</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

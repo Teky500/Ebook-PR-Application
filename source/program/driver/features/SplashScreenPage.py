@@ -1,0 +1,121 @@
+import sys 
+from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QProgressBar, QHBoxLayout, QVBoxLayout, QFrame, QLabel
+from PyQt6.QtCore import Qt, QTimer
+from HomePage import SetHomePage
+
+
+class SplashScreen(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle('Splash Screen')
+        self.setFixedSize(400, 250)
+        self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint) 
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+
+        self.counter = 0
+        self.n = 300  # total instance
+
+        self.initUI()
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.loading)
+        self.timer.start(30)
+
+    def initUI(self):
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        self.frame = QFrame()
+        layout.addWidget(self.frame)
+
+        self.labelTitle = QLabel(self.frame)
+        self.labelTitle.setObjectName('LabelTitle')
+ 
+        #center labels
+        self.labelTitle.resize(self.width() - 20, 150)
+        self.labelTitle.move(0, 10) # x,y
+        self.labelTitle.setText('<strong>Loading Institution Information</strong>')
+        self.labelTitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        
+        self.labelDescription = QLabel(self.frame)
+        self.labelDescription.move(0, self.labelTitle.height()) 
+
+        # progress bar 
+        self.progressBar = QProgressBar(self.frame)
+        self.progressBar.resize(self.width() - 130 , 25)
+        self.progressBar.move(60, self.labelTitle.y() + 130)
+        self.progressBar.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.progressBar.setFormat('%p%')
+        self.progressBar.setTextVisible(True)
+        self.progressBar.setRange(0, self.n)
+        self.progressBar.setValue(20)
+
+
+    def loading(self):
+        self.progressBar.setValue(self.counter)
+
+        
+        if self.counter >= self.n:
+            self.timer.stop()
+            self.timer.singleShot(1000, self.show_home_page)
+            self.window().hide()
+
+        self.counter += 1
+
+
+    def show_home_page(self):
+        global m
+        new_window = SetHomePage()
+        m = new_window
+        new_window.run()
+
+
+# class HomePage(QWidget):
+#     def __init__(self):
+#         super().__init__()
+#         self.window_width, self.window_height = 1200, 800
+#         self.setMinimumSize(self.window_width, self.window_height)
+
+#         layout = QVBoxLayout()
+#         self.setLayout(layout)
+
+#         homepage_widget = SetHomePage()
+#         layout.addWidget(homepage_widget)  
+#         self.window().resize(963, 571)
+
+if __name__ == '__main__':
+
+    app = QApplication(sys.argv)
+    app.setStyleSheet('''
+
+        #LabelTitle {
+            font-size: 23px;
+            border-radius: 10px;
+            color: white;             
+        }
+          
+                       
+        QFrame {
+            background-color: #333333;
+            color: white;
+        }
+
+        QProgressBar {
+            background-color: white;
+            color: black;
+            border-style: none;
+            text-align: center;  
+            font-size: 15px;    
+            font-weight: bold;
+        }
+                      
+        QProgressBar::chunk {
+            background-color: qlineargradient(spread:pad x1:0, x2:1, y1:0.511364, y2:0.523, stop:0 #4d4d4d, stop:1 #4d4d4d);      
+        }  
+        
+                 
+    ''')
+
+    splash = SplashScreen()
+    splash.show()
+
+    sys.exit(app.exec())
