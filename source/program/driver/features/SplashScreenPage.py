@@ -2,7 +2,6 @@ import sys
 from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QProgressBar, QHBoxLayout, QVBoxLayout, QFrame, QLabel
 from PyQt6.QtCore import Qt, QTimer
 from HomePage import SetHomePage
-from SetInstitutionPage import SetInstitution
 
 class SplashScreen(QWidget):
     def __init__(self):
@@ -19,6 +18,32 @@ class SplashScreen(QWidget):
         self.timer = QTimer()
         self.timer.timeout.connect(self.loading)
         self.timer.start(30)
+        self.setStyleSheet('''
+
+        #LabelTitle {
+            font-size: 28px;
+            color: white;             
+        }
+                      
+        QFrame {
+            background-color: #333333;
+            color: white;
+        }
+
+        QProgressBar {
+            background-color: white;
+            color: black;
+            border-style: none;
+            text-align: center;  
+            font-size: 15px;    
+            font-weight: bold;
+        }
+                      
+        QProgressBar::chunk {
+            background-color: qlineargradient(spread:pad x1:0, x2:1, y1:0.511364, y2:0.523, stop:0 #4d4d4d, stop:1 #4d4d4d);      
+        }  
+        
+        ''')
 
     def initUI(self):
         layout = QVBoxLayout()
@@ -68,41 +93,3 @@ class SplashScreen(QWidget):
         m = new_window
         new_window.run()
 
-
-if __name__ == '__main__':
-
-    app = QApplication(sys.argv)
-    app.setStyleSheet('''
-
-        #LabelTitle {
-            font-size: 28px;
-            border-radius: 10px;
-            color: white;             
-        }
-          
-                      
-        QFrame {
-            background-color: #333333;
-            color: white;
-        }
-
-        QProgressBar {
-            background-color: white;
-            color: black;
-            border-style: none;
-            text-align: center;  
-            font-size: 15px;    
-            font-weight: bold;
-        }
-                      
-        QProgressBar::chunk {
-            background-color: qlineargradient(spread:pad x1:0, x2:1, y1:0.511364, y2:0.523, stop:0 #4d4d4d, stop:1 #4d4d4d);      
-        }  
-        
-                 
-    ''')
-
-    splash = SplashScreen()
-    splash.show()
-
-    sys.exit(app.exec())

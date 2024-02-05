@@ -13,7 +13,8 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.setEnabled(True)
-        Form.resize(1106, 783)
+        Form.resize(1092, 683)
+        Form.setMinimumSize(QtCore.QSize(700, 500))
         Form.setStyleSheet("  QWidget {\n"
 "        background-color: #333333;\n"
 "        color: #ffffff;\n"
@@ -115,7 +116,7 @@ class Ui_Form(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint)
-        self.horizontalLayout_2.setContentsMargins(5, 50, 5, 400)
+        self.horizontalLayout_2.setContentsMargins(5, 50, 5, 300)
         self.horizontalLayout_2.setSpacing(20)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.search = QtWidgets.QPushButton(parent=Form)

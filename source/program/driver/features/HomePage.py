@@ -10,7 +10,7 @@ class SetHomePage(QWidget):
 
         loadUi("source/program/driver/features/homepage.ui", self)
 
-        self.window().resize(963, 800)
+        # self.window().resize(850, 800)
 
     def run(self):
 
