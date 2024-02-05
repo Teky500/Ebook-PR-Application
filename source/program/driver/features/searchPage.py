@@ -124,23 +124,14 @@ class Ui_Search_page(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
         self.lineEdit.setSizePolicy(sizePolicy)
-        self.lineEdit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(77, 77, 77);\n"
-"border: 1px solid #4d4d4d;\n"
-"padding: 5px;\n"
-"")
+        self.lineEdit.setStyleSheet("")
         self.lineEdit.setText("")
         self.lineEdit.setPlaceholderText("")
         self.lineEdit.setClearButtonEnabled(False)
         self.lineEdit.setObjectName("lineEdit")
         self.horizontalLayout_2.addWidget(self.lineEdit)
         self.pushButton = QtWidgets.QPushButton(parent=Search_page)
-        self.pushButton.setStyleSheet("background-color: rgb(77, 77, 77);\n"
-"color: rgb(255, 255, 255);\n"
-"border: 1px solid #4d4d4d;\n"
-"border-radius: 4px;\n"
-"padding: 5px;\n"
-"")
+        self.pushButton.setStyleSheet("font: 11pt \"Segoe UI\";")
         self.pushButton.setObjectName("pushButton")
         self.horizontalLayout_2.addWidget(self.pushButton)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
@@ -151,7 +142,7 @@ class Ui_Search_page(object):
         font.setPointSize(18)
         font.setBold(True)
         self.radioButton_2.setFont(font)
-        self.radioButton_2.setStyleSheet("color: rgb(255, 255, 255);")
+        self.radioButton_2.setStyleSheet("")
         self.radioButton_2.setObjectName("radioButton_2")
         self.horizontalLayout_3.addWidget(self.radioButton_2, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.radioButton_3 = QtWidgets.QRadioButton(parent=Search_page)
@@ -159,7 +150,7 @@ class Ui_Search_page(object):
         font.setPointSize(18)
         font.setBold(True)
         self.radioButton_3.setFont(font)
-        self.radioButton_3.setStyleSheet("color: rgb(255, 255, 255);")
+        self.radioButton_3.setStyleSheet("")
         self.radioButton_3.setObjectName("radioButton_3")
         self.horizontalLayout_3.addWidget(self.radioButton_3, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.radioButton = QtWidgets.QRadioButton(parent=Search_page)
@@ -167,7 +158,7 @@ class Ui_Search_page(object):
         font.setPointSize(18)
         font.setBold(True)
         self.radioButton.setFont(font)
-        self.radioButton.setStyleSheet("color: rgb(255, 255, 255);")
+        self.radioButton.setStyleSheet("")
         self.radioButton.setObjectName("radioButton")
         self.horizontalLayout_3.addWidget(self.radioButton, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.radioButton_4 = QtWidgets.QRadioButton(parent=Search_page)
@@ -175,12 +166,11 @@ class Ui_Search_page(object):
         font.setPointSize(18)
         font.setBold(True)
         self.radioButton_4.setFont(font)
-        self.radioButton_4.setStyleSheet("color: rgb(255, 255, 255);")
+        self.radioButton_4.setStyleSheet("")
         self.radioButton_4.setObjectName("radioButton_4")
         self.horizontalLayout_3.addWidget(self.radioButton_4, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.formLayout.setLayout(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.verticalLayout)
-
         self.retranslateUi(Search_page)
         QtCore.QMetaObject.connectSlotsByName(Search_page)
 
@@ -198,8 +188,8 @@ class Ui_Search_page(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Search_page = QtWidgets.QWidget()
+    Search_p = QtWidgets.QWidget()
     ui = Ui_Search_page()
-    ui.setupUi(Search_page)
-    Search_page.show()
+    ui.setupUi(Search_p)
+    Search_p.show()
     sys.exit(app.exec())

@@ -152,11 +152,7 @@
           </sizepolicy>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(77, 77, 77);
-border: 1px solid #4d4d4d;
-padding: 5px;
-</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string/>
@@ -172,12 +168,7 @@ padding: 5px;
        <item>
         <widget class="QPushButton" name="pushButton">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(77, 77, 77);
-color: rgb(255, 255, 255);
-border: 1px solid #4d4d4d;
-border-radius: 4px;
-padding: 5px;
-</string>
+          <string notr="true">font: 11pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Search</string>
@@ -197,7 +188,7 @@ padding: 5px;
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Keyword</string>
@@ -213,7 +204,7 @@ padding: 5px;
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>OCN</string>
@@ -229,7 +220,7 @@ padding: 5px;
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Title</string>
@@ -245,7 +236,7 @@ padding: 5px;
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>eISBN</string>
