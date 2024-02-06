@@ -40,8 +40,14 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
     def search(self):
         text = self.lineEdit.text()
         if (len(text) == 0):
-            raise ValueError("Search field can not be empty")
-        #print("Searching the data base for %s." % (text))
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle("messageBox")
+            msg.setText("Search field can not be empty!")
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+            msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok | QtWidgets.QMessageBox.StandardButton.Cancel)
+            msg.exec()
+            return
+
         match self.radio:
             case 0:
                 print("Please select a search criteria")

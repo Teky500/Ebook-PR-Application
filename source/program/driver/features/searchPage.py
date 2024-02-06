@@ -34,9 +34,9 @@ class Ui_Search_page(object):
 "        color: #ffffff;\n"
 "    }\n"
 "    QLineEdit {\n"
-"        background-color: #4d4d4d;\n"
+"        background-color: #ffffff;\n"
 "        border: 1px solid #4d4d4d;\n"
-"        color: #ffffff;\n"
+"        color: #000000;\n"
 "        padding: 5px;\n"
 "    }\n"
 "    QTextEdit {\n"
@@ -171,6 +171,7 @@ class Ui_Search_page(object):
         self.horizontalLayout_3.addWidget(self.radioButton_4, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.formLayout.setLayout(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.verticalLayout)
+
         self.retranslateUi(Search_page)
         QtCore.QMetaObject.connectSlotsByName(Search_page)
 
@@ -188,8 +189,8 @@ class Ui_Search_page(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Search_p = QtWidgets.QWidget()
+    Search_page = QtWidgets.QWidget()
     ui = Ui_Search_page()
-    ui.setupUi(Search_p)
-    Search_p.show()
+    ui.setupUi(Search_page)
+    Search_page.show()
     sys.exit(app.exec())

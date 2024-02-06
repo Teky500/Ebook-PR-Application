@@ -37,9 +37,9 @@
         color: #ffffff;
     }
     QLineEdit {
-        background-color: #4d4d4d;
+        background-color: #ffffff;
         border: 1px solid #4d4d4d;
-        color: #ffffff;
+        color: #000000;
         padding: 5px;
     }
     QTextEdit {
