@@ -133,8 +133,11 @@ if __name__ == "__main__":
 
     if themeColour == "default":
         pass
+        
     else:
-        main_window.setStyleSheet(f'background-color: {themeColour};')
+        bg_col = themeColour['background_color']
+        txt_col = themeColour['text_color']
+        main_window.setStyleSheet(f'background-color: {bg_col}; color: {txt_col}')
 
     stacked_widget = QStackedWidget(main_window)
     welcome_page = WelcomePage(stacked_widget)

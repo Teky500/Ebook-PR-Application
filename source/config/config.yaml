@@ -1,4 +1,7 @@
 # These do nothing for now.
-link: https://library.upei.ca/sites/default/files/Proquest_CRKN_EbookPARightsTracking.xlsx
+link: https://library.upei.ca/test-page-ebooks-perpetual-access-project
 University: Univ. of Prince Edward Island
-Theme: Default
+Theme: Test
+excel_links:
+- https://library.upei.ca/sites/default/files/CRKN_EbookPARightsTracking_Proquest_2024_01_20_02.xlsx
+- https://library.upei.ca/sites/default/files/CRKN_EbookPARightsTracking_TaylorFrancis_2024_01_19_01.xlsx
