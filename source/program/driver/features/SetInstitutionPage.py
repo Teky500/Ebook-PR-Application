@@ -5,12 +5,13 @@ from helpers.add_to_database import setDatabaseUni
 import pandas as pd
 from Themes import Theme, getTheme
 from SplashScreenPage import SplashScreen
+import time
 
 class SetInstitution(QWidget):
     def __init__(self):
         super(SetInstitution, self).__init__()
 
-        loadUi("source/program/driver/features/dropdown.ui", self)
+        loadUi("source/program/driver/features/ui/dropdown.ui", self)
 
         self.setStyleSheet('''
 
@@ -136,7 +137,6 @@ class SetInstitution(QWidget):
             print('You need to select an institution')
         else:
             self.show_splash_screen()
-            self.window().hide()
             setDatabaseUni(selected_text)
 
 
@@ -144,6 +144,7 @@ class SetInstitution(QWidget):
     def show_splash_screen(self):
         self.splash_screen = SplashScreen()
         self.splash_screen.show()
+        self.window().hide()
 
     def run(self):
         self.window().show()

@@ -153,7 +153,7 @@ class Ui_Form(object):
         self.horizontalLayout_2.addWidget(self.unload)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_3.addLayout(self.verticalLayout)
-
+        self.search.clicked.connect(self.func1)
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -166,3 +166,5 @@ class Ui_Form(object):
         self.update.setText(_translate("Form", "Update"))
         self.upload.setText(_translate("Form", "Upload"))
         self.unload.setText(_translate("Form", "Unload"))
+    def func1(self)
+        print('searching!')

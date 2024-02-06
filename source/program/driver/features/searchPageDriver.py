@@ -1,10 +1,12 @@
 from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import QMainWindow
 from searchPage import Ui_Search_page
+from helpers.search import search_title_substring, search_ISBN, search_OCN
 
 class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
     def __init__(self, parent = None):
         super().__init__(parent)
+        print('test')
         self.setupUi(self)
        
         #search button
@@ -24,19 +26,14 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
 
     # 0 = no button selected
         self.radio = 0
-
     def byTitle(self):
         self.radio = 1
-
     def byKeyword(self):
         self.radio = 2
-
     def byOCN(self):
         self.radio = 3
-
     def by_eISBN(self):
         self.radio = 4
-    
     def search(self):
         text = self.lineEdit.text()
         if (len(text) == 0):
@@ -46,13 +43,13 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
             case 0:
                 print("Please select a search criteria")
             case 1:
-                print("Searching the data base for %s by Title." % (text))
+                search_title_substring(text, 'source/storage/database/proj.db')
             case 2:
                 print("Searching the data base for %s by Keyword" % (text))
-            case 3:
-                print("Searching the data base for %s by OCN" % (text))
+            case 3: 
+                search_OCN(text, 'source/storage/database/proj.db')
             case 4:
-                print("Searching the data base for %s by eISBN" % (text))
+                search_ISBN(text, 'source/storage/database/proj.db')
 
 if __name__ == "__main__":
     import sys
