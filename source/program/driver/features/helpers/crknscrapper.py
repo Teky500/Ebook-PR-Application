@@ -60,8 +60,11 @@ class CrknExcelExtractor:
             self.config['excel_links'] = []
         self.config['excel_links'].extend(excel_links)
         
-        with open(self.config_path, 'a') as config_file:
-            yaml.dump({'excel_links': excel_links}, config_file, default_flow_style=False)
+        with open(self.config_path, 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            yaml_file['excel_links'] = excel_links
+        with open(self.config_path, 'w') as file:
+            yaml.dump(yaml_file, file)
 
 # Example usage
 extractor = CrknExcelExtractor()

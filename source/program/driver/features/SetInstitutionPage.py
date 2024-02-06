@@ -6,6 +6,7 @@ import pandas as pd
 from Themes import Theme, getTheme
 from SplashScreenPage import SplashScreen
 import time
+import yaml
 
 class SetInstitution(QWidget):
     def __init__(self):
@@ -122,12 +123,13 @@ class SetInstitution(QWidget):
             bg_col = themeColour['background_color']
             txt_col = themeColour['text_color']
             self.setStyleSheet(f'background-color: {bg_col}; color: {txt_col};')
-        spreadsheet_csv = pd.read_csv('source/storage/spreadsheets/CRKN_EbookPARightsTracking_TaylorFrancis_2024_01_19_01.csv', skiprows=[0,1])
-        df = pd.DataFrame(spreadsheet_csv)
-        Universities = df.columns[9:]
-        for i in Universities:
-            # should be changed to show a pop up on the front-end telling them to select an institution.
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            uniList = yaml_file['Universities'] 
+        for i in uniList:
             self.institutions.addItem(i)
+
+
         self.submit_button_1.clicked.connect(self.clicked_function)
         self.splash_screen = None
 
