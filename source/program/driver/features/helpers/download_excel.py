@@ -10,14 +10,14 @@ link_list = openYaml("source/config/config.yaml")
 def downloadExcel(url):
     name_convention = url.split('/')
     file_name = name_convention[-1]
-    urlretrieve(url, f'source/storage/spreadsheets/{file_name}')
+    urlretrieve(url, f'source/storage/excel/{file_name}')
 def parseExcel(file):
-    xfile = pd.read_excel(f'source/storage/spreadsheets/{file}', sheet_name= "PA-Rights")
+    xfile = pd.read_excel(f'source/storage/excel/{file}', sheet_name= "PA-Rights")
     print(xfile)
     xfile.to_csv(f'source/storage/spreadsheets/{file[:-5]}.csv')
 for i in link_list:
     downloadExcel(i)
-entries = os.listdir('source/storage/spreadsheets/')
+entries = os.listdir('source/storage/excel/')
 excel_files = [i for i in entries if 'xlsx' in i]
 for i in excel_files:
     parseExcel(i)
