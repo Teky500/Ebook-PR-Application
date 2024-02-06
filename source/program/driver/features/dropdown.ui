@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>963</width>
-    <height>571</height>
+    <width>1141</width>
+    <height>685</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>963</width>
-    <height>571</height>
+    <width>700</width>
+    <height>500</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -118,7 +118,7 @@
        <item>
         <widget class="QLabel" name="institution">
          <property name="styleSheet">
-          <string notr="true">font: 700 50pt &quot;Segoe UI&quot;;</string>
+          <string notr="true">font: 700 65pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Set Your Institution Below</string>
@@ -151,7 +151,7 @@
          </property>
          <property name="maximumSize">
           <size>
-           <width>600</width>
+           <width>850</width>
            <height>60</height>
           </size>
          </property>
@@ -197,14 +197,14 @@ QComboBox::indicator {
         <widget class="QPushButton" name="submit_button_1">
          <property name="minimumSize">
           <size>
-           <width>120</width>
-           <height>50</height>
+           <width>100</width>
+           <height>60</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>120</width>
-           <height>60</height>
+           <width>150</width>
+           <height>80</height>
           </size>
          </property>
          <property name="styleSheet">
