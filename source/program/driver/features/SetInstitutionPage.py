@@ -138,6 +138,11 @@ class SetInstitution(QWidget):
         if selected_text == '':
             print('You need to select an institution')
         else:
+            with open('source/config/config.yaml', 'r') as config_file:
+                yaml_file = yaml.safe_load(config_file)
+                yaml_file['University'] = selected_text
+            with open('source/config/config.yaml', 'w') as config_file:
+                yaml.dump(yaml_file, config_file) 
             self.show_splash_screen()
             setDatabaseUni(selected_text)
 

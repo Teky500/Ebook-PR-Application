@@ -131,7 +131,7 @@ if __name__ == "__main__":
     main_window = QWidget()
     main_layout = QVBoxLayout(main_window)
 
-    if themeColour == "default":
+    if themeColour == {}:
         pass
         
     else:

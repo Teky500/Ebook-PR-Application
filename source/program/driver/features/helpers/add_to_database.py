@@ -14,6 +14,12 @@ def access_csv(file):
   df['Platform_eISBN'] = (df['Platform_eISBN'].apply(int).astype(str))
   return df
 def singleAddition(df, cursor, platform, University, filename):
+  try:
+    cursor.execute('INSERT INTO platforms (spreadsheet, platform) VALUES(?, ?)', (filename, platform))
+  except sq.IntegrityError as e:
+    print('Already added file previously!')
+    print(str(e))
+    return 0
   for row in df.iterrows():
     title = row[1]['Title']
     publisher = row[1]['Publisher']
@@ -30,7 +36,7 @@ def singleAddition(df, cursor, platform, University, filename):
       print('FAILED ADDITION', (title, publisher, platform_yob, ISBN, OCN, result, filename))
       print(str(e))
 
-  cursor.execute('INSERT INTO platforms (spreadsheet, platform) VALUES(?, ?)', (filename, platform))  
+   
 def setDatabaseUni(university):
   University = university
   with open('source/sqlscripts/db_setup.sql', 'r') as sql_file:
