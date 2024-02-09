@@ -67,10 +67,6 @@ class CrknExcelExtractor:
             yaml.dump(yaml_file, file)
 
 # Example usage
-extractor = CrknExcelExtractor()
-excel_links = extractor.extract_excel_links()
-print("Excel Links Found:")
-print(excel_links)
 
 
 

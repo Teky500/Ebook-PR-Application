@@ -141,6 +141,7 @@ class SetInstitution(QWidget):
             with open('source/config/config.yaml', 'r') as config_file:
                 yaml_file = yaml.safe_load(config_file)
                 yaml_file['University'] = selected_text
+                yaml_file['Status'] = 1
             with open('source/config/config.yaml', 'w') as config_file:
                 yaml.dump(yaml_file, config_file) 
             self.show_splash_screen()

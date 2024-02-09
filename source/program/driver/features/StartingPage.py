@@ -3,7 +3,13 @@ from Themes import Theme, getTheme
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
 from SetInstitutionPage import SetInstitution
-
+import yaml
+from helpers.crknScrapper import CrknExcelExtractor
+from helpers.download_excel import downloadExcel, parseExcel, downloadFiles
+from helpers.crknUpdater import UpdateChecker
+from HomePage import SetHomePage
+from FirstTimeUpdate import SetFirstTimeUpdate
+import os
 theme = Theme(getTheme())
 themeColour = theme.getColor()
 class WelcomePage(QWidget):
@@ -38,7 +44,11 @@ class WelcomePage(QWidget):
         self.window().setFixedSize(500, 280)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint) 
 
-
+    def getStatus(self):
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            status = yaml_file['Status']
+        return status
     def animate_text(self):
         dots = '.' * (self.animation_counter % 4)
         label = self.findChild(QLabel)
@@ -49,15 +59,43 @@ class WelcomePage(QWidget):
         self.page_timer.stop()
         self.window().close()
         self.openNewWindow()
-        
+  
     def setFixedSize(self, width, height):
         super().setFixedSize(width, height)
 
     def openNewWindow(self):
-        global m
-        new_window = SetInstitution()
-        m = new_window
-        new_window.run()
+        if self.getStatus() == 0:
+            print('Status 0')
+            downloadFiles()
+            global m
+            new_window = SetInstitution()
+            m = new_window
+            new_window.run()
+        else:
+            checker = UpdateChecker()
+            url = checker.config.get('link')
+            new_excel_files = checker.get_website_excel_files(url)
+            (added, removed) = checker.compare(new_excel_files)
+            if (len(added) + len(removed)) == 0:
+                print('Status 1, found no updates')
+                new_window = SetHomePage()
+                m = new_window
+                new_window.window().show()
+                self.window().close()
+            else:
+                print('Status 1, found update')
+                print(added, removed)
+                update = SetFirstTimeUpdate(checker)
+                m = update
+                m.window().show()
+                self.window().close()
+                # checker.update_config()
+                # downloadFiles()
+                # new_window = SetHomePage()
+                # m = new_window
+                # new_window.window().show()
+
+
 
 
       
