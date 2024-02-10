@@ -57,4 +57,3 @@ def access_csv(file):
   df['Platform_eISBN'] = (df['Platform_eISBN'].apply(int).astype(str))
   return df
 
-man_upload("exampleExcelFiles/UPEI_Ebooks_local_correct_sample2.xlsx")

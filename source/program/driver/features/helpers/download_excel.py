@@ -26,6 +26,9 @@ def downloadFiles():
     excel_files = [i for i in entries if ('xlsx' in i) and ('CRKN_EbookPARightsTracking' in i)]
     for i in excel_files:
         os.remove(f"source/storage/excel/{i}")
+    csv_files = [i for i in entries if ('csv' in i) and ('CRKN_EbookPARightsTracking' in i)]
+    for i in csv_files:
+        os.remove(f"source/storage/csv/{i}")
     print(excel_files)
     print('Removed Files!')
     for i in excel_links:

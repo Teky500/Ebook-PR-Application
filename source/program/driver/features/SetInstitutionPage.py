@@ -1,12 +1,22 @@
 import sys
 from PyQt6.uic import loadUi
-from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QVBoxLayout 
+from PyQt6.QtCore import QObject, QThread, pyqtSignal
 from helpers.add_to_database import setDatabaseUni
 import pandas as pd
 from Themes import Theme, getTheme
 from SplashScreenPage import SplashScreen
 import time
 import yaml
+
+class Worker(QObject):
+    finished = pyqtSignal()
+    progress = pyqtSignal(int)
+
+    def run(self, t):
+
+        setDatabaseUni(t)
+        self.finished.emit()
 
 class SetInstitution(QWidget):
     def __init__(self):
@@ -144,8 +154,19 @@ class SetInstitution(QWidget):
                 yaml_file['Status'] = 1
             with open('source/config/config.yaml', 'w') as config_file:
                 yaml.dump(yaml_file, config_file) 
-            self.show_splash_screen()
-            setDatabaseUni(selected_text)
+            global thread
+            global worker
+            thread = QThread()
+            worker = Worker()
+            worker.moveToThread(thread)
+            thread.started.connect(lambda: worker.run(selected_text))
+            worker.finished.connect(thread.quit)
+            worker.finished.connect(worker.deleteLater)
+            thread.finished.connect(thread.deleteLater)
+            splash = self.show_splash_screen()
+            thread.finished.connect(splash.show_home_page)
+            thread.start()
+            self.window().hide()
 
 
     
@@ -153,7 +174,7 @@ class SetInstitution(QWidget):
         self.splash_screen = SplashScreen()
         self.splash_screen.show()
         self.window().hide()
-
+        return self.splash_screen
     def run(self):
         self.window().show()
 

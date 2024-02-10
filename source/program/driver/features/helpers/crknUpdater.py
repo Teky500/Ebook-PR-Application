@@ -35,10 +35,6 @@ class UpdateChecker:
         # Convert the lists of Excel files to sets for easier comparison
         current_files_set = set(self.config['excel_links'])
         new_files_set = set(new_excel_files)
-        print('CURRENT')
-        print(current_files_set)
-        print('NEW')
-        print(new_files_set)
         # Check for additions or removals in the sets
         added_files = new_files_set - current_files_set
         removed_files = current_files_set - new_files_set
@@ -53,21 +49,3 @@ class UpdateChecker:
         with open(self.config_path, 'w') as config_file:
             yaml.dump(self.config, config_file)
 
-
-def main():
-    global checker  
-    checker = UpdateChecker()
-
-    while True:
-        url = checker.config.get('link')
-        if url:
-            new_excel_files = checker.get_website_excel_files(url)
-            checker.compare(new_excel_files)
-        else:
-            print("URL not specified in the config.yaml file.")
-
-        
-
-
-if __name__ == "__main__":
-    main()
