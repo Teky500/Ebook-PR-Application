@@ -1,5 +1,5 @@
 CREATE TABLE books 
-    (ISBN text PRIMARY KEY NOT NULL, 
+    (ISBN text NOT NULL, 
     title text NOT NULL, 
     publisher text NOT NULL, 
     platform_yop int, 
