@@ -1,9 +1,9 @@
 import openpyxl 
 from openpyxl.worksheet.datavalidation import DataValidation
 import pandas as pd
-from add_to_database import singleAddition
+from .add_to_database import singleAddition
 import sqlite3 as sq
-from fileValidate import FileTemplate, FileValidator
+from .fileValidate import FileTemplate, FileValidator
 import yaml
 import shutil
 import os
