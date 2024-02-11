@@ -8,4 +8,6 @@ CREATE TABLE books
     spreadsheet text NOT NULL);
 CREATE TABLE platforms 
     (spreadsheet text PRIMARY KEY,
-    platform text NOT NULL);
+    platform text NOT NULL,
+    CRKN text NOT NULL);
+
