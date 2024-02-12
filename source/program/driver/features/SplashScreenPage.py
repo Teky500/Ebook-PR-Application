@@ -15,9 +15,6 @@ class SplashScreen(QWidget):
         self.n = 300  # total instance
 
         self.initUI()
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.loading)
-        self.timer.start(30)
         self.setStyleSheet('''
 
         #LabelTitle {
@@ -92,4 +89,4 @@ class SplashScreen(QWidget):
         new_window = SetHomePage()
         m = new_window
         new_window.run()
-
+        self.window().close()

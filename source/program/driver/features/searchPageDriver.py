@@ -24,6 +24,12 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
         #eISBN button
         self.radioButton_4.clicked.connect(self.by_eISBN)
 
+        #Cancel button
+        self.pushButton_2.clicked.connect(self.close)
+
+        def close(self):
+            self.window().close()
+
     # 0 = no button selected
         self.radio = 0
     def byTitle(self):

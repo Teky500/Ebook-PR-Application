@@ -17,6 +17,7 @@ class SetHomePage(QWidget):
         global m
         m = searchPageDriver()
         m.show()
+
     def run(self):
 
         self.setStyleSheet ("""

@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'SearchPage.ui'
+# Form implementation generated from reading ui file 'ui/SearchPage.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -97,6 +97,7 @@ class Ui_Search_page(object):
         self.formLayout = QtWidgets.QFormLayout(Search_page)
         self.formLayout.setObjectName("formLayout")
         self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setContentsMargins(-1, -1, -1, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setContentsMargins(-1, 100, -1, -1)
@@ -170,6 +171,17 @@ class Ui_Search_page(object):
         self.radioButton_4.setObjectName("radioButton_4")
         self.horizontalLayout_3.addWidget(self.radioButton_4, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
+        self.horizontalLayout_12 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_12.setContentsMargins(-1, 200, -1, -1)
+        self.horizontalLayout_12.setObjectName("horizontalLayout_12")
+        self.pushButton_2 = QtWidgets.QPushButton(parent=Search_page)
+        self.pushButton_2.setMaximumSize(QtCore.QSize(200, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.pushButton_2.setFont(font)
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.horizontalLayout_12.addWidget(self.pushButton_2)
+        self.verticalLayout.addLayout(self.horizontalLayout_12)
         self.formLayout.setLayout(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.verticalLayout)
 
         self.retranslateUi(Search_page)
@@ -184,6 +196,7 @@ class Ui_Search_page(object):
         self.radioButton_3.setText(_translate("Search_page", "OCN"))
         self.radioButton.setText(_translate("Search_page", "Title"))
         self.radioButton_4.setText(_translate("Search_page", "eISBN"))
+        self.pushButton_2.setText(_translate("Search_page", "Cancel Search"))
 
 
 if __name__ == "__main__":

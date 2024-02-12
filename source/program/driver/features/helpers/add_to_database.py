@@ -13,7 +13,15 @@ def access_csv(file):
   df = df[df['Platform_eISBN'].notna()]
   df['Platform_eISBN'] = (df['Platform_eISBN'].apply(int).astype(str))
   return df
-def singleAddition(df, cursor, platform, University, filename):
+def singleAddition(df, cursor, platform, University, filename, man_stat):
+  try:
+    cursor.execute('INSERT INTO platforms (spreadsheet, platform, CRKN) VALUES(?, ?, ?)', (filename, platform, man_stat))
+    print(f'SUCCESSFULL ADD OF PLATFORM {filename}')
+  except sq.IntegrityError as e:
+
+    print('Already added file previously!')
+    print(str(e))
+    return 0
   for row in df.iterrows():
     title = row[1]['Title']
     publisher = row[1]['Publisher']
@@ -30,7 +38,15 @@ def singleAddition(df, cursor, platform, University, filename):
       print('FAILED ADDITION', (title, publisher, platform_yob, ISBN, OCN, result, filename))
       print(str(e))
 
-  cursor.execute('INSERT INTO platforms (spreadsheet, platform) VALUES(?, ?)', (filename, platform))  
+def removeFromDatabase():
+  db_path = 'source/storage/database/proj.db'
+  db = sq.connect(db_path)
+  cursor = db.cursor()
+  cursor.execute("DELETE FROM books WHERE spreadsheet in (SELECT spreadsheet FROM platforms WHERE CRKN = 'Y')")
+  cursor.execute("DELETE FROM platforms WHERE spreadsheet in (SELECT spreadsheet FROM platforms WHERE CRKN = 'Y')")
+  db.commit()
+  db.close()
+   
 def setDatabaseUni(university):
   University = university
   with open('source/sqlscripts/db_setup.sql', 'r') as sql_file:
@@ -58,7 +74,7 @@ def setDatabaseUni(university):
         continue      
       db.commit()
       platform = openExcel(f'source/storage/excel/{filename}')
-      singleAddition(df, cursor, platform, University, filename)
+      singleAddition(df, cursor, platform, University, filename, 'Y')
   db.commit()
   db.close()
 

@@ -1,11 +1,22 @@
 import sys
 from PyQt6.uic import loadUi
-from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QVBoxLayout 
+from PyQt6.QtCore import QObject, QThread, pyqtSignal
 from helpers.add_to_database import setDatabaseUni
 import pandas as pd
 from Themes import Theme, getTheme
 from SplashScreenPage import SplashScreen
 import time
+import yaml
+
+class Worker(QObject):
+    finished = pyqtSignal()
+    progress = pyqtSignal(int)
+
+    def run(self, t):
+
+        setDatabaseUni(t)
+        self.finished.emit()
 
 class SetInstitution(QWidget):
     def __init__(self):
@@ -122,12 +133,13 @@ class SetInstitution(QWidget):
             bg_col = themeColour['background_color']
             txt_col = themeColour['text_color']
             self.setStyleSheet(f'background-color: {bg_col}; color: {txt_col};')
-        spreadsheet_csv = pd.read_csv('source/storage/spreadsheets/CRKN_EbookPARightsTracking_TaylorFrancis_2024_01_19_01.csv', skiprows=[0,1])
-        df = pd.DataFrame(spreadsheet_csv)
-        Universities = df.columns[9:]
-        for i in Universities:
-            # should be changed to show a pop up on the front-end telling them to select an institution.
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            uniList = yaml_file['Universities'] 
+        for i in uniList:
             self.institutions.addItem(i)
+
+
         self.submit_button_1.clicked.connect(self.clicked_function)
         self.splash_screen = None
 
@@ -136,8 +148,25 @@ class SetInstitution(QWidget):
         if selected_text == '':
             print('You need to select an institution')
         else:
-            self.show_splash_screen()
-            setDatabaseUni(selected_text)
+            with open('source/config/config.yaml', 'r') as config_file:
+                yaml_file = yaml.safe_load(config_file)
+                yaml_file['University'] = selected_text
+                yaml_file['Status'] = 1
+            with open('source/config/config.yaml', 'w') as config_file:
+                yaml.dump(yaml_file, config_file) 
+            global thread
+            global worker
+            thread = QThread()
+            worker = Worker()
+            worker.moveToThread(thread)
+            thread.started.connect(lambda: worker.run(selected_text))
+            worker.finished.connect(thread.quit)
+            worker.finished.connect(worker.deleteLater)
+            thread.finished.connect(thread.deleteLater)
+            splash = self.show_splash_screen()
+            thread.finished.connect(splash.show_home_page)
+            thread.start()
+            self.window().hide()
 
 
     
@@ -145,7 +174,7 @@ class SetInstitution(QWidget):
         self.splash_screen = SplashScreen()
         self.splash_screen.show()
         self.window().hide()
-
+        return self.splash_screen
     def run(self):
         self.window().show()
 
