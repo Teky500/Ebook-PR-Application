@@ -12,8 +12,8 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(1141, 685)
-        Form.setMinimumSize(QtCore.QSize(700, 500))
+        Form.resize(963, 571)
+        Form.setMinimumSize(QtCore.QSize(963, 571))
         Form.setStyleSheet("  QWidget {\n"
 "        background-color: #333333;\n"
 "        color: #ffffff;\n"
@@ -102,7 +102,7 @@ class Ui_Form(object):
         self.horizontalLayout_2.setContentsMargins(-1, 50, 0, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.institution = QtWidgets.QLabel(parent=Form)
-        self.institution.setStyleSheet("font: 700 65pt \"Segoe UI\";")
+        self.institution.setStyleSheet("font: 700 50pt \"Segoe UI\";")
         self.institution.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.institution.setObjectName("institution")
         self.horizontalLayout_2.addWidget(self.institution)
@@ -112,7 +112,7 @@ class Ui_Form(object):
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.institutions = QtWidgets.QComboBox(parent=Form)
         self.institutions.setMinimumSize(QtCore.QSize(500, 50))
-        self.institutions.setMaximumSize(QtCore.QSize(850, 60))
+        self.institutions.setMaximumSize(QtCore.QSize(600, 60))
         self.institutions.setStyleSheet("QComboBox {\n"
 "    /* Main styling for the combo box */\n"
 "    background-color: #f0f0f0; /* Background color */\n"
@@ -147,8 +147,8 @@ class Ui_Form(object):
         self.institutions.setItemText(0, "")
         self.horizontalLayout_4.addWidget(self.institutions)
         self.submit_button_1 = QtWidgets.QPushButton(parent=Form)
-        self.submit_button_1.setMinimumSize(QtCore.QSize(100, 60))
-        self.submit_button_1.setMaximumSize(QtCore.QSize(150, 80))
+        self.submit_button_1.setMinimumSize(QtCore.QSize(120, 50))
+        self.submit_button_1.setMaximumSize(QtCore.QSize(120, 60))
         self.submit_button_1.setStyleSheet("font: 700 15pt \"Segoe UI\";")
         self.submit_button_1.setObjectName("submit_button_1")
         self.horizontalLayout_4.addWidget(self.submit_button_1)

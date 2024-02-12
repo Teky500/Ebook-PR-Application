@@ -6,7 +6,6 @@ from helpers.search import search_title_substring, search_ISBN, search_OCN
 class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
     def __init__(self, parent = None):
         super().__init__(parent)
-        print('test')
         self.setupUi(self)
        
         #search button
