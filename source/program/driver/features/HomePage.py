@@ -2,7 +2,7 @@ import sys
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget
 from searchPageDriver import searchPageDriver
-from upload_page import FileUploader
+from UploadPage import UploadSpreadsheet
 
 class SetHomePage(QWidget):
     def __init__(self):
@@ -17,7 +17,7 @@ class SetHomePage(QWidget):
         self.upload.clicked.connect(self.upload_page_show)
     def upload_page_show(self):
         global m
-        m = FileUploader()
+        m = UploadSpreadsheet()
         m.show()
     def search_page_show(self):
         global m
