@@ -5,29 +5,30 @@ import yaml
 
 
 class FileTemplate:
-    file_path = ""
-    file_sheet = "PA-Rights"
-    with open('source/config/config.yaml', 'r') as config_file:
-        yaml_file = yaml.safe_load(config_file)
-        uni = yaml_file['University'] 
-    fixed_fields = {
-                        "A3": "Title",
-                        "B3": "Publisher",
-                        "C3": "Platform_YOP", #int
-                        "D3": "Platform_eISBN", #int
-                        "E3": "OCN",            #int
-                        "F3": "agreement_code",
-                        "G3": "collection_name",
-                        "H3": "title_metadata_last_modified", #date
-                        "I3": uni
-                    }
-    not_empty_fields = {
-                    "A1": "Platform"
-                    }
-
     
     def __init__(self, f_path):
         self.file_path = f_path
+
+        self.file_sheet = "PA-Rights"
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            uni = yaml_file['University'] 
+            print(uni)
+        self.fixed_fields = {
+                            "A3": "Title",
+                            "B3": "Publisher",
+                            "C3": "Platform_YOP", #int
+                            "D3": "Platform_eISBN", #int
+                            "E3": "OCN",            #int
+                            "F3": "agreement_code",
+                            "G3": "collection_name",
+                            "H3": "title_metadata_last_modified", #date
+                            "I3": uni
+                        }
+        
+        self.not_empty_fields = {
+                        "A1": "Platform"
+                        }
 
     def get_file_path(self):
         return self.file_path
