@@ -12,8 +12,8 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(1089, 681)
-        Form.setMinimumSize(QtCore.QSize(1089, 650))
+        Form.resize(1092, 683)
+        Form.setMinimumSize(QtCore.QSize(1092, 682))
         Form.setStyleSheet("  QWidget {\n"
 "        background-color: #333333;\n"
 "        color: #ffffff;\n"
@@ -89,7 +89,7 @@ class Ui_Form(object):
 "        border-top-right-radius: 5px;\n"
 "        border: none;\n"
 "    }\n"
-" \n"
+"\n"
 "    QTabBar::tab:selected, QTabBar::tab:hover {\n"
 "        background-color: #3a3a3a;\n"
 "        color: white;\n"
@@ -102,32 +102,32 @@ class Ui_Form(object):
         self.label = QtWidgets.QLabel(parent=Form)
         self.label.setMinimumSize(QtCore.QSize(0, 0))
         self.label.setMaximumSize(QtCore.QSize(1200, 200))
-        self.label.setStyleSheet("font: 700 60pt \"Segoe UI\";")
+        self.label.setStyleSheet("font: 700 65pt \"Segoe UI\";")
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_2.setContentsMargins(120, -1, 20, 120)
-        self.horizontalLayout_2.setSpacing(0)
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_4.setContentsMargins(-1, 50, -1, -1)
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.upload_button_1 = QtWidgets.QPushButton(parent=Form)
         self.upload_button_1.setMinimumSize(QtCore.QSize(100, 60))
         self.upload_button_1.setMaximumSize(QtCore.QSize(200, 80))
         self.upload_button_1.setStyleSheet("font: 700 18pt \"Segoe UI\";")
         self.upload_button_1.setObjectName("upload_button_1")
-        self.horizontalLayout_2.addWidget(self.upload_button_1)
+        self.horizontalLayout_4.addWidget(self.upload_button_1)
+        self.verticalLayout.addLayout(self.horizontalLayout_4)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setContentsMargins(-1, -1, -1, 60)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.file_label_1 = QtWidgets.QLabel(parent=Form)
-        self.file_label_1.setMinimumSize(QtCore.QSize(600, 60))
-        self.file_label_1.setMaximumSize(QtCore.QSize(700, 80))
-        self.file_label_1.setStyleSheet("font: italic 12pt \"Segoe UI\";\n"
-"")
-        self.file_label_1.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.file_label_1.setStyleSheet("font: italic 12pt \"Segoe UI\";")
+        self.file_label_1.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter|QtCore.Qt.AlignmentFlag.AlignTop)
         self.file_label_1.setObjectName("file_label_1")
         self.horizontalLayout_2.addWidget(self.file_label_1)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_3.setContentsMargins(19, -1, 20, 100)
+        self.horizontalLayout_3.setContentsMargins(19, -1, 20, 70)
         self.horizontalLayout_3.setSpacing(300)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.upload_local_file = QtWidgets.QPushButton(parent=Form)
@@ -152,6 +152,6 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.label.setText(_translate("Form", "Upload Local Spreadsheet"))
         self.upload_button_1.setText(_translate("Form", "Upload"))
-        self.file_label_1.setText(_translate("Form", "No file selected "))
+        self.file_label_1.setText(_translate("Form", "No file selected"))
         self.upload_local_file.setText(_translate("Form", "Submit"))
         self.cancel_process.setText(_translate("Form", "Cancel"))

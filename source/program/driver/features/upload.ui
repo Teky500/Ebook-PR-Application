@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1089</width>
-    <height>681</height>
+    <width>1092</width>
+    <height>683</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1089</width>
-    <height>650</height>
+    <width>1092</width>
+    <height>682</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -128,7 +128,7 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 700 60pt &quot;Segoe UI&quot;;</string>
+        <string notr="true">font: 700 65pt &quot;Segoe UI&quot;;</string>
        </property>
        <property name="text">
         <string>Upload Local Spreadsheet</string>
@@ -141,18 +141,9 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-     <property name="leftMargin">
-      <number>120</number>
-     </property>
-     <property name="rightMargin">
-      <number>20</number>
-     </property>
-     <property name="bottomMargin">
-      <number>120</number>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <property name="topMargin">
+      <number>50</number>
      </property>
      <item>
       <widget class="QPushButton" name="upload_button_1">
@@ -176,29 +167,23 @@
        </property>
       </widget>
      </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="bottomMargin">
+      <number>60</number>
+     </property>
      <item>
       <widget class="QLabel" name="file_label_1">
-       <property name="minimumSize">
-        <size>
-         <width>600</width>
-         <height>60</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>700</width>
-         <height>80</height>
-        </size>
-       </property>
        <property name="styleSheet">
-        <string notr="true">font: italic 12pt &quot;Segoe UI&quot;;
-</string>
+        <string notr="true">font: italic 12pt &quot;Segoe UI&quot;;</string>
        </property>
        <property name="text">
-        <string>No file selected </string>
+        <string>No file selected</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <set>Qt::AlignHCenter|Qt::AlignTop</set>
        </property>
       </widget>
      </item>
@@ -216,7 +201,7 @@
       <number>20</number>
      </property>
      <property name="bottomMargin">
-      <number>100</number>
+      <number>70</number>
      </property>
      <item>
       <widget class="QPushButton" name="upload_local_file">

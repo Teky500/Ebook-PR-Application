@@ -66,8 +66,8 @@ class FileValidator:
     ws = None
 
     def __init__(self, file_to_be_validated):
-        self.f = file_to_be_validated        
-
+        self.f = file_to_be_validated
+        self.error_message = []
 
     def fileAccessible(self):
         
