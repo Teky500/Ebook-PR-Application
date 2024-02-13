@@ -128,7 +128,7 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 700 65pt &quot;Segoe UI&quot;;</string>
+        <string notr="true">font: 700 60pt &quot;Segoe UI&quot;;</string>
        </property>
        <property name="text">
         <string>Upload Local Spreadsheet</string>
