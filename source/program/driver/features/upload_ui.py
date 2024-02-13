@@ -102,7 +102,7 @@ class Ui_Form(object):
         self.label = QtWidgets.QLabel(parent=Form)
         self.label.setMinimumSize(QtCore.QSize(0, 0))
         self.label.setMaximumSize(QtCore.QSize(1200, 200))
-        self.label.setStyleSheet("font: 700 65pt \"Segoe UI\";")
+        self.label.setStyleSheet("font: 700 60pt \"Segoe UI\";")
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
