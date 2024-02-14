@@ -2,6 +2,5 @@ pandas
 openpyxl
 PyQt6
 bs4
-Pyyaml
+pyyaml
 requests
-pyarrow

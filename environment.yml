@@ -4,7 +4,7 @@ channels:
 dependencies:
   - pip=23.1.2
   - python=3.10.11
-  - numpy-base
+  - numpy-base 
   - pip:
     - -r requirements.txt
 
