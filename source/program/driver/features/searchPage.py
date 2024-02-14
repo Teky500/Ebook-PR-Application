@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'ui/SearchPage.ui'
+# Form implementation generated from reading ui file 'source/program/driver/features/ui/SearchPage.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -175,6 +175,7 @@ class Ui_Search_page(object):
         self.horizontalLayout_12.setContentsMargins(-1, 200, -1, -1)
         self.horizontalLayout_12.setObjectName("horizontalLayout_12")
         self.pushButton_2 = QtWidgets.QPushButton(parent=Search_page)
+        self.pushButton_2.setMinimumSize(QtCore.QSize(250, 0))
         self.pushButton_2.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
         font.setPointSize(18)

@@ -21,8 +21,10 @@ class WelcomePage(QWidget):
 
     def setup_ui(self):
         layout = QVBoxLayout(self)
-        label = QLabel(f"Starting", self)
-
+        if self.getLanguage() == 1:
+            label = QLabel(f"Démarrage", self)
+        else:
+            label = QLabel(f"Starting", self)
         font = label.font()
         font.setPointSize(35) 
         font.setBold(True)
@@ -42,17 +44,27 @@ class WelcomePage(QWidget):
         self.page_timer.start(5000)
 
         self.window().setFixedSize(500, 280)
-        self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint) 
+        self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
+
+    def getLanguage(self):
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            language = yaml_file['Language']
+        return language
 
     def getStatus(self):
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             status = yaml_file['Status']
         return status
+    
     def animate_text(self):
         dots = '.' * (self.animation_counter % 4)
         label = self.findChild(QLabel)
-        label.setText(f"Starting{dots}")
+        if self.getLanguage() == 1:
+            label.setText(f"Démarrage{dots}")
+        else:
+            label.setText(f"Starting{dots}")
         self.animation_counter += 1
 
     def show_next_page(self):

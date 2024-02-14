@@ -2,6 +2,7 @@ from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import QMainWindow
 from searchPage import Ui_Search_page
 from helpers.search import search_title_substring, search_ISBN, search_OCN
+import yaml
 
 class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
     def __init__(self, parent = None):
@@ -26,8 +27,21 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
         #Cancel button
         self.pushButton_2.clicked.connect(self.close)
 
-        def close(self):
-            self.window().close()
+        if self.getLanguage() == 1:
+            self.label.setText("Recherche de Livre Électronique")
+            self.pushButton.setText("Recherche")
+            self.pushButton_2.setText("Annule la Recherche")
+            self.radioButton.setText("Titre")
+            self.radioButton_2.setText("Mot Clé")
+
+    def getLanguage(self):
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            language = yaml_file['Language']
+        return language
+    
+    def close(self):
+        self.window().close()
 
     # 0 = no button selected
         self.radio = 0
@@ -61,6 +75,8 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
                 search_OCN(text, 'source/storage/database/proj.db')
             case 4:
                 search_ISBN(text, 'source/storage/database/proj.db')
+            
+    #
 
 if __name__ == "__main__":
     import sys
