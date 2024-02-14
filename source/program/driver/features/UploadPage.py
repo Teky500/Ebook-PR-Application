@@ -9,7 +9,7 @@ class UploadSpreadsheet(QWidget):
         super(UploadSpreadsheet, self).__init__()
         self.filePicked = ''
 
-        loadUi("source/program/driver/features/upload.ui", self)
+        loadUi("source/program/driver/features/ui/upload.ui", self)
 
         theme = Theme(getTheme())
         themeColour = theme.getColor()

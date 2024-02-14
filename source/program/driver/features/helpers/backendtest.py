@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from crknscrapper import CrknExcelExtractor
+from crknScrapper import CrknExcelExtractor
 
 
 class TestUpdateChecker(unittest.TestCase):
