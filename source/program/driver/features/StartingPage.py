@@ -1,14 +1,14 @@
 import sys
-from Themes import Theme, getTheme
+from .Themes import Theme, getTheme
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
-from SetInstitutionPage import SetInstitution
+from .SetInstitutionPage import SetInstitution
 import yaml
-from helpers.crknScrapper import CrknExcelExtractor
-from helpers.download_excel import downloadExcel, parseExcel, downloadFiles
-from helpers.crknUpdater import UpdateChecker
-from HomePage import SetHomePage
-from FirstTimeUpdate import SetFirstTimeUpdate
+from .helpers.crknScrapper import CrknExcelExtractor
+from .helpers.download_excel import downloadExcel, parseExcel, downloadFiles
+from .helpers.crknUpdater import UpdateChecker
+from .HomePage import SetHomePage
+from .FirstTimeUpdate import SetFirstTimeUpdate
 import os
 theme = Theme(getTheme())
 themeColour = theme.getColor()

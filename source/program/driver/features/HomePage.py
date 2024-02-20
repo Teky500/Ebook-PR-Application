@@ -1,9 +1,9 @@
 import sys
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget
-from searchPageDriver import searchPageDriver
-from UploadPage import UploadSpreadsheet
-from UnloadPage import UnloadSpreadsheet
+from .searchPageDriver import searchPageDriver
+from .UploadPage import UploadSpreadsheet
+from .UnloadPage import UnloadSpreadsheet
 
 class SetHomePage(QWidget):
     def __init__(self):

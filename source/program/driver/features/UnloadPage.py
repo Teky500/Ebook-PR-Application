@@ -1,8 +1,8 @@
 import sys
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QPushButton, QFileDialog, QLabel
-from Themes import Theme, getTheme
-from helpers.unload_file import removeFile, getFiles
+from .Themes import Theme, getTheme
+from .helpers.unload_file import removeFile, getFiles
 import sqlite3 as sq
 
 class UnloadSpreadsheet(QWidget):

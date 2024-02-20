@@ -1,7 +1,7 @@
 import sys 
 from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QProgressBar, QHBoxLayout, QVBoxLayout, QFrame, QLabel
 from PyQt6.QtCore import Qt, QTimer
-from HomePage import SetHomePage
+from .HomePage import SetHomePage
 
 class SplashScreen(QWidget):
     def __init__(self):

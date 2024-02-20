@@ -2,7 +2,7 @@ import sys
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
-from HomePage import SetHomePage
+from .HomePage import SetHomePage
 
 
 class SetFirstTimeUpdateConfirm(QWidget):
