@@ -89,11 +89,7 @@ class WelcomePage(QWidget):
                 m = update
                 m.window().show()
                 self.window().close()
-                # checker.update_config()
-                # downloadFiles()
-                # new_window = SetHomePage()
-                # m = new_window
-                # new_window.window().show()
+
 
 
 

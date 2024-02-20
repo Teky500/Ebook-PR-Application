@@ -4,7 +4,8 @@ from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget
 from .searchPageDriver import searchPageDriver
 from .UploadPage import UploadSpreadsheet
 from .UnloadPage import UnloadSpreadsheet
-
+from .helpers.crknUpdater import UpdateChecker
+from .FirstTimeUpdate import SetFirstTimeUpdate
 class SetHomePage(QWidget):
     def __init__(self):
         super(SetHomePage, self).__init__()
@@ -17,6 +18,7 @@ class SetHomePage(QWidget):
         self.search.clicked.connect(self.search_page_show)
         self.upload.clicked.connect(self.upload_page_show)
         self.unload.clicked.connect(self.unload_page_show)
+        self.update.clicked.connect(self.update_page_show)
 
     def upload_page_show(self):
         global m
@@ -30,8 +32,19 @@ class SetHomePage(QWidget):
         global m
         m = UnloadSpreadsheet()
         m.show()
-
-
+    def update_page_show(self):
+        checker = UpdateChecker()
+        url = checker.config.get('link')
+        new_excel_files = checker.get_website_excel_files(url)
+        (added, removed) = checker.compare(new_excel_files)
+        if (len(added) + len(removed)) == 0:
+            print('Found no updates')
+        else:
+            global m
+            update = SetFirstTimeUpdate(checker)
+            m = update
+            m.window().show()
+            self.window().close()            
     def run(self):
 
         self.setStyleSheet ("""
