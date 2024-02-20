@@ -12,8 +12,13 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Search_page(object):
     def setupUi(self, Search_page):
         Search_page.setObjectName("Search_page")
-        Search_page.resize(1092, 683)
-        Search_page.setMinimumSize(QtCore.QSize(1092, 683))
+        Search_page.resize(1141, 685)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(Search_page.sizePolicy().hasHeightForWidth())
+        Search_page.setSizePolicy(sizePolicy)
+        Search_page.setMinimumSize(QtCore.QSize(1141, 685))
         Search_page.setAutoFillBackground(False)
         Search_page.setStyleSheet("    QWidget {\n"
 "        background-color: #333333;\n"
@@ -34,10 +39,10 @@ class Ui_Search_page(object):
 "    QCheckBox {\n"
 "        color: #ffffff;\n"
 "    }\n"
-"QLineEdit {\n"
-"        background-color: rgb(255, 255, 255);\n"
+"    QLineEdit {\n"
+"        background-color: #4d4d4d;\n"
 "        border: 1px solid #4d4d4d;\n"
-"        color: #4d4d4d;\n"
+"        color: #ffffff;\n"
 "        padding: 5px;\n"
 "        font-weight: bold;\n"
 "    }\n"
@@ -99,6 +104,7 @@ class Ui_Search_page(object):
         self.formLayout = QtWidgets.QFormLayout(Search_page)
         self.formLayout.setObjectName("formLayout")
         self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setContentsMargins(-1, -1, -1, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setContentsMargins(-1, 100, -1, -1)
@@ -178,6 +184,17 @@ class Ui_Search_page(object):
         self.radioButton_4.setObjectName("radioButton_4")
         self.horizontalLayout_3.addWidget(self.radioButton_4, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
+        self.horizontalLayout_12 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_12.setContentsMargins(-1, 200, -1, -1)
+        self.horizontalLayout_12.setObjectName("horizontalLayout_12")
+        self.pushButton_2 = QtWidgets.QPushButton(parent=Search_page)
+        self.pushButton_2.setMaximumSize(QtCore.QSize(200, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.pushButton_2.setFont(font)
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.horizontalLayout_12.addWidget(self.pushButton_2)
+        self.verticalLayout.addLayout(self.horizontalLayout_12)
         self.formLayout.setLayout(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.verticalLayout)
 
         self.retranslateUi(Search_page)
@@ -192,3 +209,4 @@ class Ui_Search_page(object):
         self.radioButton_3.setText(_translate("Search_page", "OCN"))
         self.radioButton.setText(_translate("Search_page", "Title"))
         self.radioButton_4.setText(_translate("Search_page", "eISBN"))
+        self.pushButton_2.setText(_translate("Search_page", "Cancel Search"))
