@@ -6,6 +6,7 @@ from .UploadPage import UploadSpreadsheet
 from .UnloadPage import UnloadSpreadsheet
 from .helpers.crknUpdater import UpdateChecker
 from .FirstTimeUpdate import SetFirstTimeUpdate
+from .ChangeInstitution import ChangeInstitution
 class SetHomePage(QWidget):
     def __init__(self):
         super(SetHomePage, self).__init__()
@@ -19,6 +20,7 @@ class SetHomePage(QWidget):
         self.upload.clicked.connect(self.upload_page_show)
         self.unload.clicked.connect(self.unload_page_show)
         self.update.clicked.connect(self.update_page_show)
+        self.change.clicked.connect(self.change_page_show)
 
     def upload_page_show(self):
         global m
@@ -32,6 +34,11 @@ class SetHomePage(QWidget):
         global m
         m = UnloadSpreadsheet()
         m.show()
+    def change_page_show(self): # change this
+        global m
+        m = ChangeInstitution()
+        m.show()
+        self.window().hide()
     def update_page_show(self):
         checker = UpdateChecker()
         url = checker.config.get('link')
