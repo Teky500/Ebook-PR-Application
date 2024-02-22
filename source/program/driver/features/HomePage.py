@@ -40,14 +40,19 @@ class SetHomePage(QWidget):
         m.show()
         self.window().hide()
     def update_page_show(self):
+        global m
         checker = UpdateChecker()
         url = checker.config.get('link')
         new_excel_files = checker.get_website_excel_files(url)
         (added, removed) = checker.compare(new_excel_files)
         if (len(added) + len(removed)) == 0:
             print('Found no updates')
+            from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
+            m = SetFirstTimeUpdateConfirm()
+            m.show()
+            self.window().close()
         else:
-            global m
+
             update = SetFirstTimeUpdate(checker)
             m = update
             m.window().show()
