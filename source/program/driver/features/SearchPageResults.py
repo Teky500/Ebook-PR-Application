@@ -54,30 +54,49 @@ class MainWindow(QtWidgets.QMainWindow):
             for i in itemData:
                 data2.append(i[-2:])
             print(data2)
-        main_widget = QWidget()
-        self.setCentralWidget(main_widget)
-        layout = QVBoxLayout()
-        main_widget.setLayout(layout)
-        self.table = QtWidgets.QTableView()
-        self.table2 = QtWidgets.QTableView()
+            main_widget = QWidget()
+            self.setCentralWidget(main_widget)
+            layout = QVBoxLayout()
+            main_widget.setLayout(layout)
+            self.table = QtWidgets.QTableView()
+            self.table2 = QtWidgets.QTableView()
 
 
-        self.model = TableModel(data)
-        self.model2 = TableModel(data2)
-        self.table.setModel(self.model)
-        self.table2.setModel(self.model2)
+            self.model = TableModel(data)
+            self.model2 = TableModel(data2)
+            self.table.setModel(self.model)
+            self.table2.setModel(self.model2)
 
-        header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN']
-        self.model.setHeaderLabels(header_labels)
+            header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN']
+            self.model.setHeaderLabels(header_labels)
 
-        header_labels2 = ['PA Rights', 'File Path']
-        self.model2.setHeaderLabels(header_labels2)
+            header_labels2 = ['PA Rights', 'File Path']
+            self.model2.setHeaderLabels(header_labels2)
 
-        self.table.resizeColumnsToContents()
-        self.table2.resizeColumnsToContents()
+            self.table.resizeColumnsToContents()
+            self.table2.resizeColumnsToContents()
 
-        layout.addWidget(self.table)
-        layout.addWidget(self.table2)
+            layout.addWidget(self.table)
+            layout.addWidget(self.table2)
+        if sType == 1 or sType == 2:
+            data = itemData
+            main_widget = QWidget()
+            self.setCentralWidget(main_widget)
+            layout = QVBoxLayout()
+            main_widget.setLayout(layout)
+            self.table = QtWidgets.QTableView()
+
+
+            self.model = TableModel(data)
+            self.table.setModel(self.model)
+
+            header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'File Path', 'PA Rights']
+            self.model.setHeaderLabels(header_labels)
+
+
+            self.table.resizeColumnsToContents()
+
+            layout.addWidget(self.table)
 
 
 
