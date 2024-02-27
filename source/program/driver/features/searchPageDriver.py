@@ -41,10 +41,11 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
         return language
     
     def close(self):
-        self.window().close()
-
-    # 0 = no button selected
+        super().close()
+        #self.window().close()
+        # 0 = no button selected
         self.radio = 0
+
     def byTitle(self):
         self.radio = 1
     def byKeyword(self):

@@ -149,7 +149,10 @@ class SetInstitution(QWidget):
     def clicked_function(self):
         selected_text = self.institutions.currentText()
         if selected_text == '':
-            print('You need to select an institution')
+            if self.getLanguage == 1:
+                print('Tu as besoin de selectionez une institution')
+            else:
+                print('You need to select an institution')
         else:
             with open('source/config/config.yaml', 'r') as config_file:
                 yaml_file = yaml.safe_load(config_file)

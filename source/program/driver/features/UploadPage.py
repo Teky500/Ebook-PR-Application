@@ -3,6 +3,7 @@ from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QPushButton, QFileDialog, QLabel
 from Themes import Theme, getTheme
 from helpers.manual_upload import man_upload
+import yaml
 
 class UploadSpreadsheet(QWidget):
     def __init__(self):
@@ -10,6 +11,23 @@ class UploadSpreadsheet(QWidget):
         self.filePicked = ''
 
         loadUi("source/program/driver/features/upload.ui", self)
+
+        if self.getLanguage() == 1:
+            self.label.setText("Mettre en ligne la feuille de calcul locale")
+                        #Change style sheet to reduce font size and fit text
+            self.label.setStyleSheet("""
+    QLabel {
+        font: 700 38pt "Segoe UI";
+        color: #ffffff;
+        background-color: #333333; /* Change color */
+        border: 1px solid #333333;
+        padding: 5px;
+    }
+""")
+            self.upload_button_1.setText("Mettre en ligne")
+            self.upload_local_file.setText("Soumettre")
+            self.cancel_process.setText("Annuler")
+            self.file_label_1.setText("aucun fichier sélectionné")
 
         theme = Theme(getTheme())
         themeColour = theme.getColor()
@@ -43,3 +61,8 @@ class UploadSpreadsheet(QWidget):
     def close_window(self):
         self.window().close()
 
+    def getLanguage(self):
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            language = yaml_file['Language']
+        return language
