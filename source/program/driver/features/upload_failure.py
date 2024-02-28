@@ -21,8 +21,3 @@ class UploadSpreadsheet(QWidget):
 
     def close_window(self):
         self.window().close()
-
-app = QApplication(sys.argv)
-window = UploadSpreadsheet()
-window.show()
-sys.exit(app.exec())
