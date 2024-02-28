@@ -1,16 +1,16 @@
 import sys
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QPushButton, QFileDialog, QLabel
-from Themes import Theme, getTheme
-from helpers.manual_upload import man_upload
 import yaml
+from .Themes import Theme, getTheme
+from .helpers.manual_upload import man_upload
 
 class UploadSpreadsheet(QWidget):
     def __init__(self):
         super(UploadSpreadsheet, self).__init__()
         self.filePicked = ''
 
-        loadUi("source/program/driver/features/upload.ui", self)
+        loadUi("source/program/driver/features/ui/upload.ui", self)
 
         if self.getLanguage() == 1:
             self.label.setText("Mettre en ligne la feuille de calcul locale")

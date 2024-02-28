@@ -2,10 +2,10 @@ import sys
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QVBoxLayout 
 from PyQt6.QtCore import QObject, QThread, pyqtSignal
-from helpers.add_to_database import setDatabaseUni
+from .helpers.add_to_database import setDatabaseUni
 import pandas as pd
-from Themes import Theme, getTheme
-from SplashScreenPage import SplashScreen
+from .Themes import Theme, getTheme
+from .SplashScreenPage import SplashScreen
 import time
 import yaml
 

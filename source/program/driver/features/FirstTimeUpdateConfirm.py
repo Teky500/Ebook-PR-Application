@@ -2,7 +2,7 @@ import sys
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
-from HomePage import SetHomePage
+
 
 
 class SetFirstTimeUpdateConfirm(QWidget):
@@ -17,6 +17,7 @@ class SetFirstTimeUpdateConfirm(QWidget):
         self.window().show()
 
     def show_home_page(self):
+        from .HomePage import SetHomePage
         global m
         new_window = SetHomePage()
         m = new_window

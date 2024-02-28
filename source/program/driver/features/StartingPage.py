@@ -1,14 +1,14 @@
 import sys
-from Themes import Theme, getTheme
+from .Themes import Theme, getTheme
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
-from SetInstitutionPage import SetInstitution
+from .SetInstitutionPage import SetInstitution
 import yaml
-from helpers.crknScrapper import CrknExcelExtractor
-from helpers.download_excel import downloadExcel, parseExcel, downloadFiles
-from helpers.crknUpdater import UpdateChecker
-from HomePage import SetHomePage
-from FirstTimeUpdate import SetFirstTimeUpdate
+from .helpers.crknScrapper import CrknExcelExtractor
+from .helpers.download_excel import downloadExcel, parseExcel, downloadFiles
+from .helpers.crknUpdater import UpdateChecker
+
+
 import os
 theme = Theme(getTheme())
 themeColour = theme.getColor()
@@ -90,30 +90,27 @@ class WelcomePage(QWidget):
             new_excel_files = checker.get_website_excel_files(url)
             (added, removed) = checker.compare(new_excel_files)
             if (len(added) + len(removed)) == 0:
+                from .HomePage import SetHomePage
                 print('Status 1, found no updates')
                 new_window = SetHomePage()
                 m = new_window
                 new_window.window().show()
                 self.window().close()
             else:
+                from .FirstTimeUpdate import SetFirstTimeUpdate
                 print('Status 1, found update')
                 print(added, removed)
                 update = SetFirstTimeUpdate(checker)
                 m = update
                 m.window().show()
                 self.window().close()
-                # checker.update_config()
-                # downloadFiles()
-                # new_window = SetHomePage()
-                # m = new_window
-                # new_window.window().show()
 
 
 
 
-      
 
-if __name__ == "__main__":
+
+def extra_run():
 
     app = QApplication(sys.argv)
     app.setStyleSheet("""

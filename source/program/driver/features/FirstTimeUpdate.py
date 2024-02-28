@@ -2,10 +2,10 @@ import sys
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget
 from PyQt6.QtCore import Qt
-from FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
-from HomePage import SetHomePage
-from helpers.download_excel import downloadFiles
-from helpers.add_to_database import access_csv, singleAddition, openExcel, removeFromDatabase
+from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
+
+from .helpers.download_excel import downloadFiles
+from .helpers.add_to_database import access_csv, singleAddition, openExcel, removeFromDatabase
 import os
 import sqlite3 as sq
 import yaml
@@ -53,6 +53,7 @@ class SetFirstTimeUpdate(QWidget):
         new_window.run()
 
     def load_home_page(self):
+        from .HomePage import SetHomePage
         global m
         new_window = SetHomePage()
         m = new_window

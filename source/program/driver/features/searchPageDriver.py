@@ -1,8 +1,9 @@
 from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import QMainWindow
-from searchPage import Ui_Search_page
-from helpers.search import search_title_substring, search_ISBN, search_OCN
 import yaml
+from .searchPage import Ui_Search_page
+from .helpers.search import search_title_substring, search_ISBN, search_OCN
+from .SearchPageResults import MainWindow
 
 class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
     def __init__(self, parent = None):
@@ -64,21 +65,29 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
             msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok | QtWidgets.QMessageBox.StandardButton.Cancel)
             msg.exec()
             return
-
+        global m
         match self.radio:
+
             case 0:
                 print("Please select a search criteria")
             case 1:
-                search_title_substring(text, 'source/storage/database/proj.db')
-            case 2:
-                print("Searching the data base for %s by Keyword" % (text))
-            case 3: 
-                search_OCN(text, 'source/storage/database/proj.db')
-            case 4:
-                search_ISBN(text, 'source/storage/database/proj.db')
-            
-    #
+                s_result = search_title_substring(text, 'source/storage/database/proj.db')
+                m = MainWindow(s_result, 1)
+                print(m)
+                m.window().show()
 
+            case 2:
+                pass
+            case 3: 
+                s_result = search_OCN(text, 'source/storage/database/proj.db')
+                m = MainWindow(s_result, 3)
+                print(m)
+                m.window().show()
+            case 4:
+                s_result = search_ISBN(text, 'source/storage/database/proj.db')
+                m = MainWindow(s_result, 0)
+                print(m)
+                m.window().show()
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
