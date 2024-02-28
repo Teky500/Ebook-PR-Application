@@ -49,11 +49,10 @@
         color: #ffffff;
     }
     QLineEdit {
-        background-color: #4d4d4d;
+        background-color: #ffffff;
         border: 1px solid #4d4d4d;
-        color: #ffffff;
+        color: #000000;
         padding: 5px;
-		font-weight: bold;
     }
     QTextEdit {
         background-color: #4d4d4d;
@@ -168,13 +167,7 @@
           </sizepolicy>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLineEdit {
-        background-color: rgb(255, 255, 255);
-        border: 1px solid #4d4d4d;
-        color: #4d4d4d;
-        padding: 5px;
-		font-weight: bold;
-    }</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string/>
@@ -274,6 +267,12 @@
        </property>
        <item>
         <widget class="QPushButton" name="pushButton_2">
+         <property name="minimumSize">
+          <size>
+           <width>250</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>200</width>

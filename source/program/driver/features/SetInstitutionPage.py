@@ -23,6 +23,9 @@ class SetInstitution(QWidget):
         super(SetInstitution, self).__init__()
 
         loadUi("source/program/driver/features/ui/dropdown.ui", self)
+        if self.getLanguage() == 1:
+            self.institution.setText("Sélectionnez l\'Institution ci-dessous")
+            self.submit_button_1.setText("Soumettre")
 
         self.setStyleSheet('''
 
@@ -146,7 +149,10 @@ class SetInstitution(QWidget):
     def clicked_function(self):
         selected_text = self.institutions.currentText()
         if selected_text == '':
-            print('You need to select an institution')
+            if self.getLanguage == 1:
+                print('Tu as besoin de selectionez une institution')
+            else:
+                print('You need to select an institution')
         else:
             with open('source/config/config.yaml', 'r') as config_file:
                 yaml_file = yaml.safe_load(config_file)
@@ -178,6 +184,10 @@ class SetInstitution(QWidget):
     def run(self):
         self.window().show()
 
-
+    def getLanguage(self):
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            language = yaml_file['Language']
+        return language
 
 
