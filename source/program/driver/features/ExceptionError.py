@@ -5,12 +5,12 @@ from .Themes import Theme, getTheme
 from .helpers.manual_upload import man_upload
 
 class ExceptionErrorPage(QWidget):
-    def __init__(self):
+    def __init__(self, message):
         super(ExceptionErrorPage, self).__init__()
         self.filePicked = ''
 
         loadUi("source/program/driver/features/ui/exception_error.ui", self)
-
+        self.label.setText(message)
         theme = Theme(getTheme())
         themeColour = theme.getColor()
         if themeColour == "default":
