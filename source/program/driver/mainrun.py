@@ -25,47 +25,47 @@ if __name__ == "__main__":
                 border: 1px solid #5a5a5a;
             }
             
-            QScrollBar:vertical {
-                border: 1px solid #444444;
-                background-color: #3a3a3a;
-                width: 15px;
-                height: 25px;
-                margin: 16px 0 16px 0;
+            # QScrollBar:vertical {
+            #     border: 1px solid #444444;
+            #     background-color: #3a3a3a;
+            #     width: 15px;
+            #     height: 25px;
+            #     margin: 16px 0 16px 0;
 
-            }
-            QScrollBar::handle:vertical {
-                background-color: #444444;
-                border-radius: 5px;
-            }
+            # }
+            # QScrollBar::handle:vertical {
+            #     background-color: #444444;
+            #     border-radius: 5px;
+            # }
                       
-            QScrollBar:horizontal {
-                border: 1px solid #444444;
-                background-color: #3a3a3a;
-                height: 15px;
-                margin: 0px 16px 0 16px;
-            }
+            # QScrollBar:horizontal {
+            #     border: 1px solid #444444;
+            #     background-color: #3a3a3a;
+            #     height: 15px;
+            #     margin: 0px 16px 0 16px;
+            # }
                       
-            QScrollBar::handle:horizontal {
-                background-color: #444444;
-                border-radius: 5px;
-            }
+            # QScrollBar::handle:horizontal {
+            #     background-color: #444444;
+            #     border-radius: 5px;
+            # }
                                                    
-            QTabBar::tab:selected, QTabBar::tab:hover {
-                background-color: #3a3a3a;
-                color: white;
-            }
+            # QTabBar::tab:selected, QTabBar::tab:hover {
+            #     background-color: #3a3a3a;
+            #     color: white;
+            # }
                       
-            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
-                background: none;
-            }
+            # QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+            #     background: none;
+            # }
      
-            QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
-	            background: none;
-            }   
+            # QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+	        #     background: none;
+            # }   
 
-            QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-	            background: none;
-            }  
+            # QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	        #     background: none;
+            # }  
 
             """)
 
