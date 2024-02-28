@@ -11,6 +11,7 @@ class UnloadSuccess(QWidget):
 
         loadUi("source/program/driver/features/ui/unloadpage_success.ui", self)
         self.label.setText(f'Successfully removed file {fileN}')
+        self.cancel_button.clicked.connect(self.close_window)
         theme = Theme(getTheme())
         themeColour = theme.getColor()
         if themeColour == "default":

@@ -10,7 +10,7 @@ class UploadSuccess(QWidget):
         self.filePicked = ''
 
         loadUi("source/program/driver/features/ui/uploadpage_success.ui", self)
-
+        self.cancel_button.clicked.connect(self.close_window)
         theme = Theme(getTheme())
         themeColour = theme.getColor()
         if themeColour == "default":

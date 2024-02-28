@@ -42,6 +42,7 @@ class UnloadSpreadsheet(QWidget):
             m.window().show()
         except Exception as e:
             print('FAILURE')
+            print(e)
         self.unload_sheets.removeItem(self.cIndex)
         self.filePicked = ''
 

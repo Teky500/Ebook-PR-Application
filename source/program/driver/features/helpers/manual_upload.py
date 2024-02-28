@@ -41,7 +41,8 @@ def man_upload(file):
             with open('source/config/config.yaml', 'r') as config_file:
                 yaml_file = yaml.safe_load(config_file)
                 University = yaml_file['University'] 
-            singleAddition(df, cursor, platform, University, filename, 'N')
+            if singleAddition(df, cursor, platform, University, filename, 'N') == 0:
+                return ['Already Added File!']
             db.commit()
             db.close()
             return []
