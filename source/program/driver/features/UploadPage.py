@@ -4,6 +4,8 @@ from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QPushButton, 
 import yaml
 from .Themes import Theme, getTheme
 from .helpers.manual_upload import man_upload
+from .upload_success import UploadSuccess
+from .upload_failure import UploadFailure
 
 class UploadSpreadsheet(QWidget):
     def __init__(self):
@@ -53,10 +55,18 @@ class UploadSpreadsheet(QWidget):
             self.filePicked = fileName
             self.file_label_1.setText(f"Selected File: {fileName}")
     def submitFile(self):
+        global m
         if self.filePicked == "":
             print('NO FILE SELECTED')
         else:
-            man_upload(self.filePicked)
+            result = man_upload(self.filePicked)
+            if result == []:
+                m = UploadSuccess()
+                m.window().show()
+            else:
+                r = str(result)
+                m = UploadFailure(r)
+                m.window().show()
 
     def close_window(self):
         self.window().close()

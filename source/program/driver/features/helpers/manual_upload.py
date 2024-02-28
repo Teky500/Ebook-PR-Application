@@ -44,12 +44,14 @@ def man_upload(file):
             singleAddition(df, cursor, platform, University, filename, 'N')
             db.commit()
             db.close()
+            return []
         else:
             print("Something went wrong while parsing the excel file.")
+            return ['Something went wrong!']
     else:
         print('Invalid File!')
         print(V.getErrorMessage())
-
+        return V.getErrorMessage()
 def access_csv(file):
   spreadsheet_csv = pd.read_csv(f'source/storage/spreadsheets/{file}.csv', skiprows=[0,1])
   df = pd.DataFrame(spreadsheet_csv)
