@@ -1,8 +1,3 @@
-
-# for tpl in list:
-#     last_two_items = tpl[-2:]  
-#     print(last_two_items)
-
 import sys
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import Qt
@@ -19,6 +14,9 @@ class TableModel(QtCore.QAbstractTableModel):
             # See below for the nested-list data structure.
             # .row() indexes into the outer list,
             # .column() indexes into the sub-list
+            return self._data[index.row()][index.column()]
+        
+        if role == Qt.ItemDataRole.ToolTipRole:
             return self._data[index.row()][index.column()]
 
 
@@ -47,6 +45,33 @@ class TableModel(QtCore.QAbstractTableModel):
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, itemData, sType):
         super().__init__()
+        self.setStyleSheet("""
+             
+            QTableView {    
+                background-color: #333333;
+                alternate-background-color: white;
+                selection-background-color: white;
+            }
+
+            QHeaderView::section {
+                background-color: white; 
+                color: #333333; 
+                padding: 4px;
+                font-weight: bold;
+            }
+                                       
+            QTableView::corner {
+            background-color: #333333; 
+            }
+                           
+            QTableView::item {
+            background-color: white;
+            color: #333333; 
+            font-weight: bold;
+            }
+                           
+            """)
+
         if sType == 0 or sType == 3:
             data = [itemData[0][:-2]]
             print(data)
@@ -90,7 +115,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.model = TableModel(data)
             self.table.setModel(self.model)
 
-            header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'File Path', 'PA Rights']
+            header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Path']
             self.model.setHeaderLabels(header_labels)
 
 
