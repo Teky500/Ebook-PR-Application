@@ -1,7 +1,8 @@
+import csv
 import sys
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QPushButton, QFileDialog
 
 class TableModel(QtCore.QAbstractTableModel):
     def __init__(self, data):
@@ -103,6 +104,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
             layout.addWidget(self.table)
             layout.addWidget(self.table2)
+
+            # Add a button for downloading
+            self.download_button = QPushButton("Download")
+            layout.addWidget(self.download_button)
+            self.download_button.clicked.connect(self.downloadTable) # backend function here
+
         if sType == 1 or sType == 2:
             data = itemData
             main_widget = QWidget()
@@ -123,6 +130,45 @@ class MainWindow(QtWidgets.QMainWindow):
 
             layout.addWidget(self.table)
 
+            # Add a button for downloading
+            self.download_button = QPushButton("Download")
+            layout.addWidget(self.download_button)
+            self.download_button.clicked.connect(self.downloadTable) # backend function here 
 
 
+    def generateTableData(self, model):
+        data = []
 
+        # Get header data
+        header_data = [model.headerData(i, Qt.Orientation.Horizontal, Qt.ItemDataRole.DisplayRole) for i in range(model.columnCount(None))]
+        data.append(header_data)
+
+        # Get row data
+        for row in range(model.rowCount(None)):
+            row_data = [model.data(model.index(row, col), Qt.ItemDataRole.DisplayRole) for col in range(model.columnCount(None))]
+            data.append(row_data)
+
+        return data
+
+    def downloadTable(self):
+        # Get the file path using a file dialog
+        file_path, _ = QFileDialog.getSaveFileName(self, 'Save File', '', 'CSV Files (*.csv);;TSV Files (*.tsv)')
+
+        if file_path:
+            # Determine delimiter based on file extension
+            delimiter = ',' if file_path.endswith('.csv') else '\t'
+
+            # Get data for the first table
+            data = self.generateTableData(self.model)
+
+            # For the second table (if applicable)
+            if hasattr(self, 'model2'):
+                data2 = self.generateTableData(self.model2)
+                data.extend(data2)
+
+            # Open the file and write the data
+            with open(file_path, 'w', newline='', encoding='utf-8') as file:
+                writer = csv.writer(file, delimiter=delimiter)
+
+                for row_data in data:
+                    writer.writerow(row_data)
