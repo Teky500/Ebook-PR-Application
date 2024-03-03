@@ -129,7 +129,7 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="styleSheet">
-          <string notr="true">font: 700 40pt &quot;Segoe UI&quot;;</string>
+          <string notr="true">font: italic 15pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Sorry :( Something went wrong.

@@ -129,10 +129,10 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="styleSheet">
-          <string notr="true">font: 700 40pt &quot;Segoe UI&quot;;</string>
+          <string notr="true">font: italic 15pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
-          <string>Tell them exactly what validation fails so they can fix it</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -156,34 +156,6 @@
         <number>350</number>
        </property>
        <item>
-        <widget class="QPushButton" name="submit_button">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>170</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 700 15pt &quot;Segoe UI&quot;;</string>
-         </property>
-         <property name="text">
-          <string>Try Again</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="cancel_button">
          <property name="enabled">
           <bool>true</bool>
@@ -201,7 +173,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">font: 700 15pt &quot;Segoe UI&quot;;</string>
+          <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Cancel</string>
