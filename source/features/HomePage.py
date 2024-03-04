@@ -22,7 +22,7 @@ class SetHomePage(QWidget):
         # self.window_width, self.window_height = 960, 750
         # self.setMinimumSize(self.window_width, self.window_height)
 
-        loadUi("source/program/driver/features/ui/homepage.ui", self)
+        loadUi("source/features/ui/homepage.ui", self)
         
         #If set to french
         if self.getLanguage() == 1:

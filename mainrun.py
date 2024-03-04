@@ -1,6 +1,6 @@
 import sys
-from features.StartingPage import WelcomePage
-from features.Themes import Theme, getTheme
+from source.features.StartingPage import WelcomePage
+from source.features.Themes import Theme, getTheme
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
 
 if __name__ == "__main__":

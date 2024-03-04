@@ -4,13 +4,14 @@ from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QPushButton, 
 from .Themes import Theme, getTheme
 from .helpers.manual_upload import man_upload
 
-class ExceptionErrorPage(QWidget):
-    def __init__(self, message):
-        super(ExceptionErrorPage, self).__init__()
+class UploadFailure(QWidget):
+    def __init__(self, errorM):
+        super(UploadFailure, self).__init__()
         self.filePicked = ''
 
-        loadUi("source/program/driver/features/ui/exception_error.ui", self)
-        self.label.setText(message)
+        loadUi("source/features/ui/uploadpage_failure.ui", self)
+        self.label.setText(errorM)
+        self.cancel_button.clicked.connect(self.close_window)
         theme = Theme(getTheme())
         themeColour = theme.getColor()
         if themeColour == "default":

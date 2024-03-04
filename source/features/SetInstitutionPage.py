@@ -22,7 +22,7 @@ class SetInstitution(QWidget):
     def __init__(self):
         super(SetInstitution, self).__init__()
 
-        loadUi("source/program/driver/features/ui/dropdown.ui", self)
+        loadUi("source/features/ui/dropdown.ui", self)
         if self.getLanguage() == 1:
             self.institution.setText("Sélectionnez l\'Institution ci-dessous")
             self.submit_button_1.setText("Soumettre")

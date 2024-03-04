@@ -11,7 +11,7 @@ class ChangeInstitution(QWidget):
     def __init__(self):
         super(ChangeInstitution, self).__init__()
 
-        loadUi("source/program/driver/features/ui/changeOfInstitution.ui", self)
+        loadUi("source/features/ui/changeOfInstitution.ui", self)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
         # self.confirm_change.clicked.connect(self.reset)
         self.cancel_change.clicked.connect(self.load_home_page)

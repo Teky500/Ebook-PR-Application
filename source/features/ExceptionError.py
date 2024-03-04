@@ -4,13 +4,13 @@ from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QPushButton, 
 from .Themes import Theme, getTheme
 from .helpers.manual_upload import man_upload
 
-class UploadSuccess(QWidget):
-    def __init__(self):
-        super(UploadSuccess, self).__init__()
+class ExceptionErrorPage(QWidget):
+    def __init__(self, message):
+        super(ExceptionErrorPage, self).__init__()
         self.filePicked = ''
 
-        loadUi("source/program/driver/features/ui/uploadpage_success.ui", self)
-        self.cancel_button.clicked.connect(self.close_window)
+        loadUi("source/features/ui/exception_error.ui", self)
+        self.label.setText(message)
         theme = Theme(getTheme())
         themeColour = theme.getColor()
         if themeColour == "default":
@@ -21,4 +21,3 @@ class UploadSuccess(QWidget):
 
     def close_window(self):
         self.window().close()
-

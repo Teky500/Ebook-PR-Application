@@ -15,7 +15,7 @@ class SetFirstTimeUpdate(QWidget):
     def __init__(self, check):
         super(SetFirstTimeUpdate, self).__init__()
 
-        loadUi("source/program/driver/features/ui/updatefirst-timepage.ui", self)
+        loadUi("source/features/ui/updatefirst-timepage.ui", self)
         self.checker = check
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.confirm_update_1.clicked.connect(self.load_confirm_page)

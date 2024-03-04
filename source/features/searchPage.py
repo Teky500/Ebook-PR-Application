@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'source/program/driver/features/ui/SearchPage.ui'
+# Form implementation generated from reading ui file 'source/features/ui/SearchPage.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #

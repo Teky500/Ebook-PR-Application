@@ -12,7 +12,7 @@ class UploadSpreadsheet(QWidget):
         super(UploadSpreadsheet, self).__init__()
         self.filePicked = ''
 
-        loadUi("source/program/driver/features/ui/upload.ui", self)
+        loadUi("source/features/ui/upload.ui", self)
 
         if self.getLanguage() == 1:
             self.label.setText("Mettre en ligne la feuille de calcul locale")

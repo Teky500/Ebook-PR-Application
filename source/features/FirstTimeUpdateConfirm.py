@@ -9,7 +9,7 @@ class SetFirstTimeUpdateConfirm(QWidget):
     def __init__(self):
         super(SetFirstTimeUpdateConfirm, self).__init__()
 
-        loadUi("source/program/driver/features/ui/confirmfirst-timepage.ui", self)
+        loadUi("source/features/ui/confirmfirst-timepage.ui", self)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.confirm_update_first_time.clicked.connect(self.show_home_page)
 
