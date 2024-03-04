@@ -3,7 +3,7 @@ from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget
 from PyQt6.QtCore import Qt
 from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
-
+from .helpers.getLanguage import getLanguage
 from .helpers.download_excel import downloadFiles
 from .helpers.add_to_database import access_csv, singleAddition, openExcel, removeFromDatabase
 import os
@@ -16,6 +16,13 @@ class SetFirstTimeUpdate(QWidget):
         super(SetFirstTimeUpdate, self).__init__()
 
         loadUi("source/program/driver/features/ui/updatefirst-timepage.ui", self)
+
+        if getLanguage(self) == 1:
+            self.confirm_update_1.setText("Oui")
+            self.cancel_update_1.setText("Non")
+            self.label.setText("Vos données CRKN ne sont pas à jour,")
+            self.label_2.setText("Souhaitez-vous mettre à jour?")
+
         self.checker = check
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.confirm_update_1.clicked.connect(self.load_confirm_page)

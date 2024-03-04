@@ -7,6 +7,7 @@ import yaml
 from .helpers.crknScrapper import CrknExcelExtractor
 from .helpers.download_excel import downloadExcel, parseExcel, downloadFiles
 from .helpers.crknUpdater import UpdateChecker
+from .helpers.getLanguage import getLanguage
 
 
 import os
@@ -21,7 +22,7 @@ class WelcomePage(QWidget):
 
     def setup_ui(self):
         layout = QVBoxLayout(self)
-        if self.getLanguage() == 1:
+        if getLanguage(self) == 1:
             label = QLabel(f"Démarrage", self)
         else:
             label = QLabel(f"Starting", self)
@@ -46,13 +47,6 @@ class WelcomePage(QWidget):
         self.window().setFixedSize(500, 280)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
-    #Method for fetching language configuration
-    def getLanguage(self):
-        with open('source/config/config.yaml', 'r') as config_file:
-            yaml_file = yaml.safe_load(config_file)
-            language = yaml_file['Language']
-        return language
-
     def getStatus(self):
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
@@ -62,7 +56,7 @@ class WelcomePage(QWidget):
     def animate_text(self):
         dots = '.' * (self.animation_counter % 4)
         label = self.findChild(QLabel)
-        if self.getLanguage() == 1:
+        if getLanguage(self) == 1:
             label.setText(f"Démarrage{dots}")
         else:
             label.setText(f"Starting{dots}")

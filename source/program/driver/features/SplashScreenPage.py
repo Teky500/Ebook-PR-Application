@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QProgressBar, QH
 from PyQt6.QtCore import Qt, QTimer
 import yaml
 from .HomePage import SetHomePage
+from .helpers.getLanguage import getLanguage
 
 class SplashScreen(QWidget):
     def __init__(self):
@@ -56,7 +57,7 @@ class SplashScreen(QWidget):
         #center labels
         self.labelTitle.resize(self.width() - 20, 150)
         self.labelTitle.move(0, 10) # x,y
-        if self.getLanguage() == 1:
+        if getLanguage(self) == 1:
             self.labelTitle.setText('<strong>Charger L\'information D\'institution</strong>')
         else:
             self.labelTitle.setText('<strong>Loading Institution Information</strong>')
@@ -74,13 +75,6 @@ class SplashScreen(QWidget):
         self.progressBar.setTextVisible(True)
         self.progressBar.setRange(0, self.n)
         self.progressBar.setValue(20)
-
-
-    def getLanguage(self):
-        with open('source/config/config.yaml', 'r') as config_file:
-            yaml_file = yaml.safe_load(config_file)
-            language = yaml_file['Language']
-        return language
     
     def loading(self):
         self.progressBar.setValue(self.counter)

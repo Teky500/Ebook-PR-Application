@@ -5,6 +5,7 @@ from .Themes import Theme, getTheme
 from .helpers.unload_file import removeFile, getFiles
 import sqlite3 as sq
 from .unload_success import UnloadSuccess
+from .helpers.getLanguage import getLanguage
 
 class UnloadSpreadsheet(QWidget):
     def __init__(self):
@@ -12,6 +13,22 @@ class UnloadSpreadsheet(QWidget):
         self.filePicked = ''
 
         loadUi("source/program/driver/features/ui/unloadpage.ui", self)
+
+        if getLanguage(self) == 1:
+            self.unload.setText("Sélectionnez la feuille de calcul à décharger")
+            #Make text smaller
+            self.unload.setStyleSheet("""
+    QLabel {
+        font: 700 32pt "Segoe UI";
+        color: #ffffff;
+        background-color: #333333; /* Change color */
+        border: 1px solid #333333;
+        padding: 5px;
+    }
+""")
+            self.submit_button.setText("Soumettre")
+            self.cancel_button.setText("Annuler")
+
         fileList = getFiles()
         for aF in fileList:
             print(aF)

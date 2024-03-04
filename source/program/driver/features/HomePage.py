@@ -1,5 +1,6 @@
 import sys
 from PyQt6.uic import loadUi
+from PyQt6.QtCore import QCoreApplication
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget
 import yaml
@@ -9,13 +10,9 @@ from .UnloadPage import UnloadSpreadsheet
 from .helpers.crknUpdater import UpdateChecker
 from .FirstTimeUpdate import SetFirstTimeUpdate
 from .ChangeInstitution import ChangeInstitution
-class SetHomePage(QWidget):
+from .helpers.getLanguage import getLanguage
 
-    def getLanguage(self):
-        with open('source/config/config.yaml', 'r') as config_file:
-            yaml_file = yaml.safe_load(config_file)
-            language = yaml_file['Language']
-        return language
+class SetHomePage(QWidget):
 
     def __init__(self):
         super(SetHomePage, self).__init__()
@@ -25,7 +22,7 @@ class SetHomePage(QWidget):
         loadUi("source/program/driver/features/ui/homepage.ui", self)
         
         #If set to french
-        if self.getLanguage() == 1:
+        if getLanguage(self) == 1:
             self.search.setText("Chercher")
             self.change.setText("Changer")
             self.update.setText("Mettre à jour")
@@ -58,6 +55,11 @@ class SetHomePage(QWidget):
         global m
         m = searchPageDriver()
         m.show()
+        #Rest of method centers window
+        screen = QCoreApplication.instance().primaryScreen().geometry()
+        x = (screen.width() - m.width()) // 2
+        y = (screen.height() - m.height()) // 2
+        m.move(x, y)
     def unload_page_show(self):
         global m
         m = UnloadSpreadsheet()
