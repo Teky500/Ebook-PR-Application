@@ -3,7 +3,7 @@ import sys
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QPushButton, QFileDialog
-
+import pandas as pd
 class TableModel(QtCore.QAbstractTableModel):
     def __init__(self, data):
         super(TableModel, self).__init__()
@@ -45,7 +45,12 @@ class TableModel(QtCore.QAbstractTableModel):
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, itemData, sType):
+
         super().__init__()
+        if itemData == []:
+            print('Nothing Found')
+            self.window().close()
+            return None
         self.setStyleSheet("""
              
             QTableView {    
@@ -74,12 +79,10 @@ class MainWindow(QtWidgets.QMainWindow):
             """)
 
         if sType == 0 or sType == 3:
-            data = [itemData[0][:-2]]
-            print(data)
-            data2 = []
+            self.data = [itemData[0][:-2]]
+            self.data2 = []
             for i in itemData:
-                data2.append(i[-2:])
-            print(data2)
+                self.data2.append(i[-2:])
             main_widget = QWidget()
             self.setCentralWidget(main_widget)
             layout = QVBoxLayout()
@@ -88,8 +91,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.table2 = QtWidgets.QTableView()
 
 
-            self.model = TableModel(data)
-            self.model2 = TableModel(data2)
+            self.model = TableModel(self.data)
+            self.model2 = TableModel(self.data2)
             self.table.setModel(self.model)
             self.table2.setModel(self.model2)
 
@@ -108,10 +111,11 @@ class MainWindow(QtWidgets.QMainWindow):
             # Add a button for downloading
             self.download_button = QPushButton("Download")
             layout.addWidget(self.download_button)
+            self.downloadType = 0
             self.download_button.clicked.connect(self.downloadTable) # backend function here
 
         if sType == 1 or sType == 2:
-            data = itemData
+            self.data = itemData
             main_widget = QWidget()
             self.setCentralWidget(main_widget)
             layout = QVBoxLayout()
@@ -119,7 +123,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.table = QtWidgets.QTableView()
 
 
-            self.model = TableModel(data)
+            self.model = TableModel(self.data)
             self.table.setModel(self.model)
 
             header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Path']
@@ -133,22 +137,9 @@ class MainWindow(QtWidgets.QMainWindow):
             # Add a button for downloading
             self.download_button = QPushButton("Download")
             layout.addWidget(self.download_button)
+            self.downloadType = 1
             self.download_button.clicked.connect(self.downloadTable) # backend function here 
 
-
-    def generateTableData(self, model):
-        data = []
-
-        # Get header data
-        header_data = [model.headerData(i, Qt.Orientation.Horizontal, Qt.ItemDataRole.DisplayRole) for i in range(model.columnCount(None))]
-        data.append(header_data)
-
-        # Get row data
-        for row in range(model.rowCount(None)):
-            row_data = [model.data(model.index(row, col), Qt.ItemDataRole.DisplayRole) for col in range(model.columnCount(None))]
-            data.append(row_data)
-
-        return data
 
     def downloadTable(self):
         # Get the file path using a file dialog
@@ -156,19 +147,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         if file_path:
             # Determine delimiter based on file extension
-            delimiter = ',' if file_path.endswith('.csv') else '\t'
-
-            # Get data for the first table
-            data = self.generateTableData(self.model)
-
-            # For the second table (if applicable)
-            if hasattr(self, 'model2'):
-                data2 = self.generateTableData(self.model2)
-                data.extend(data2)
-
-            # Open the file and write the data
-            with open(file_path, 'w', newline='', encoding='utf-8') as file:
-                writer = csv.writer(file, delimiter=delimiter)
-
-                for row_data in data:
-                    writer.writerow(row_data)
+            if self.downloadType == 0:
+                df = pd.DataFrame(self.data2)
+                df.to_csv(file_path, header=['PA Rights', 'File Path'], index=False)
+            if self.downloadType == 1:
+                df = pd.DataFrame(self.data)
+                df[0] = df[0].astype(float).map(lambda x: '{:.0f}'.format(x))
+                df[0] = df[0].astype(str)
+                df.to_csv(file_path, header= ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Path'], index=False)
