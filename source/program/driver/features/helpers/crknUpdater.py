@@ -1,3 +1,4 @@
+import time
 import sys
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QPlainTextEdit
 import requests
@@ -48,4 +49,16 @@ class UpdateChecker:
         print(self.config['excel_links'])
         with open(self.config_path, 'w') as config_file:
             yaml.dump(self.config, config_file)
+
+if __name__ == "__main__":
+    start = time.perf_counter()
+    checker = UpdateChecker()
+    url = checker.config.get('link')
+    new_excel_files = checker.get_website_excel_files(url)
+    (added, removed) = checker.compare(new_excel_files)
+    end = time.perf_counter()
+ 
+# find elapsed time in seconds
+    ms = (end-start) 
+    print(f"Elapsed {ms:.03f} secs.")
 

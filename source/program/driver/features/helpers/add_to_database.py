@@ -7,6 +7,7 @@ def openExcel(file):
     workbook = pd.DataFrame(workbook)
     value = workbook.columns
     return value[0]
+
 def access_csv(file):
   spreadsheet_csv = pd.read_csv(f'source/storage/spreadsheets/{file}', skiprows=[0,1])
   df = pd.DataFrame(spreadsheet_csv)
