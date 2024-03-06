@@ -58,7 +58,8 @@ class SetHomePage(QWidget):
         self.unload.setEnabled(enabled)
         self.change.setEnabled(enabled)
         self.update.setEnabled(enabled)
-
+    
+    ######################## THREAD
     def upload_page_show(self):
         global m
         m = UploadSpreadsheet(self)
@@ -69,9 +70,10 @@ class SetHomePage(QWidget):
         m = searchPageDriver()
         m.show()
 
+    ######################## THREAD
     def unload_page_show(self):
         global m
-        m = UnloadSpreadsheet()
+        m = UnloadSpreadsheet(self)
         m.show()
 
     def change_page_show(self): # change this
@@ -112,7 +114,3 @@ class SetHomePage(QWidget):
 
         self.window().show()
 
-
-if __name__ == "__main__":
-    #checker = UpdateChecker()
-    print("Hello World, I'm here!!")

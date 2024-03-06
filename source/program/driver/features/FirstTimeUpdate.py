@@ -60,12 +60,14 @@ class SetFirstTimeUpdate(QWidget):
     
     ######## THREADING: MODIFIED THIS CLASS
     def load_confirm_page(self):
+        self.setButtonsEnabled(False)
         self.worker = Worker(self.checker)
         self.worker.finished.connect(self.handle_thread_finished)
         self.worker.start()
 
     ############ THREADING: CREATE NEW FUNCTION    
     def handle_thread_finished(self):
+        self.setButtonsEnabled(True)
         global m
         new_window = SetFirstTimeUpdateConfirm()
         m = new_window
@@ -79,6 +81,10 @@ class SetFirstTimeUpdate(QWidget):
         m = new_window
         self.window().hide()
         new_window.run()
+
+    def setButtonsEnabled(self, enabled):
+        self.confirm_update_1.setEnabled(enabled)
+        self.cancel_update_1.setEnabled(enabled)
 
 
 if __name__ == "__main__":
