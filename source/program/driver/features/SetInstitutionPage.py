@@ -24,7 +24,7 @@ class SetInstitution(QWidget):
         super(SetInstitution, self).__init__()
 
         loadUi("source/program/driver/features/ui/dropdown.ui", self)
-        if getLanguage(self) == 1:
+        if getLanguage() == 1:
             self.institution.setText("Sélectionnez l\'Institution ci-dessous")
             #Added style sheet to reduce font size
             self.institution.setStyleSheet("""
@@ -160,7 +160,7 @@ class SetInstitution(QWidget):
     def clicked_function(self):
         selected_text = self.institutions.currentText()
         if selected_text == '':
-            if getLanguage(self) == 1:
+            if getLanguage() == 1:
                 print('Tu as besoin de selectionez une institution')
             else:
                 print('You need to select an institution')

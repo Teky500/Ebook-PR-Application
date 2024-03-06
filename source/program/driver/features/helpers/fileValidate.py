@@ -2,6 +2,7 @@ import openpyxl
 from openpyxl.worksheet.datavalidation import DataValidation
 import os
 import yaml
+from .getLanguage import getLanguage
 
 
 class FileTemplate:
@@ -77,19 +78,31 @@ class FileValidator:
 
         file_name, file_extension = os.path.splitext(path)
         if (path == ""):
-            self.error_message.append("Error: No File Provided")
+            if getLanguage() == 1:
+                self.error_message.append("Erreur: Aucun Fichier Fourni")
+            else:
+                self.error_message.append("Error: No File Provided")
 
         elif file_extension not in [".xlsx", ".xls"]:
-            self.error_message.append("Error: Invalid File")
+            if getLanguage() == 1:
+                self.error_message.append("Erreur: Fichier Invalide")
+            else:
+                self.error_message.append("Error: Invalid File")
         elif (not os.path.isfile(path)):
-            self.error_message.append("Error: File Does Not Exist")
+            if getLanguage() == 1:
+                self.error_message.append("Erreur: Le Fichier n'Existe pas")
+            else:
+                self.error_message.append("Error: File Does Not Exist")
         else:
             try:
                 self.wb = openpyxl.load_workbook(path)
                 self.ws = self.wb[sheet]
 
             except (KeyError):
-                self.error_message.append("Invalid Sheet name: Set sheet name to PA-Rights")
+                if getLanguage() == 1:
+                    self.error_message.append("Nom de feuille invalide: Définissez le nom de la feuille sur PA-Rights")
+                else:
+                    self.error_message.append("Invalid sheet name: Set sheet name to PA-Rights")
             
         return (len(self.error_message) == 0)
         
@@ -112,7 +125,10 @@ class FileValidator:
             maybe_missing = cell_values[i]
 
             if (current_cell_value == None):
-                list2.append("Missing Field: Insert " + maybe_missing + " field into cell " + cell_keys[i])
+                if getLanguage() == 1:
+                    list2.append("Champ manquant: Insérez le champ " + maybe_missing + " dans la cellule " + cell_keys[i])
+                else:
+                    list2.append("Missing Field: Insert " + maybe_missing + " field into cell " + cell_keys[i])
 
         self.error_message = self.error_message + list2
 
@@ -134,7 +150,10 @@ class FileValidator:
             expected_cell_value = cell_values[i]
 
             if (current_cell_value != expected_cell_value):
-                list2.append("Invalid cell field: Set cell " + cell_keys[i] + " to " + cell_values[i])
+                if getLanguage() == 1:
+                    list2.append("Champ de cellule invalide: Définissez la cellule " + cell_keys[i] + " à " + cell_values[i])
+                else:
+                    list2.append("Invalid cell field: Set cell " + cell_keys[i] + " to " + cell_values[i])
 
         self.error_message = self.error_message + list2
 

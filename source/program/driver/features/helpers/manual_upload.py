@@ -7,6 +7,7 @@ from .fileValidate import FileTemplate, FileValidator
 import yaml
 import shutil
 import os
+from .getLanguage import getLanguage
 
 def openExcel(file):
     workbook = pd.read_excel(file, sheet_name='PA-Rights')
@@ -47,7 +48,10 @@ def man_upload(file):
             return []
         else:
             print("Something went wrong while parsing the excel file.")
-            return ['Something went wrong!']
+            if getLanguage() == 1:
+                return ['Quelque chose s\'est mal passé']
+            else:
+                return ['Something went wrong!']
     else:
         print('Invalid File!')
         print(V.getErrorMessage())

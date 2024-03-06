@@ -19,7 +19,7 @@ class ChangeInstitution(QWidget):
         self.confirm_change.clicked.connect(self.start_again)
 
         #If set to french, change text to french
-        if getLanguage(self) == 1:
+        if getLanguage() == 1:
             self.label.setText("Cette modification va réinitialiser votre")
             self.label_2.setText("application, étes-vous sûre?")
             #Make text smaller

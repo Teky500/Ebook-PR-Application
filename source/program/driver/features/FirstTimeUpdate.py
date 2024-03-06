@@ -17,7 +17,7 @@ class SetFirstTimeUpdate(QWidget):
 
         loadUi("source/program/driver/features/ui/updatefirst-timepage.ui", self)
 
-        if getLanguage(self) == 1:
+        if getLanguage() == 1:
             self.confirm_update_1.setText("Oui")
             self.cancel_update_1.setText("Non")
             self.label.setText("Vos données CRKN ne sont pas à jour,")

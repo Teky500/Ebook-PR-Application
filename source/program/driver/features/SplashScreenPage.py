@@ -57,7 +57,7 @@ class SplashScreen(QWidget):
         #center labels
         self.labelTitle.resize(self.width() - 20, 150)
         self.labelTitle.move(0, 10) # x,y
-        if getLanguage(self) == 1:
+        if getLanguage() == 1:
             self.labelTitle.setText('<strong>Charger L\'information D\'institution</strong>')
         else:
             self.labelTitle.setText('<strong>Loading Institution Information</strong>')

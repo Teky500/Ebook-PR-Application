@@ -14,7 +14,7 @@ class UnloadSpreadsheet(QWidget):
 
         loadUi("source/program/driver/features/ui/unloadpage.ui", self)
 
-        if getLanguage(self) == 1:
+        if getLanguage() == 1:
             self.unload.setText("Sélectionnez la feuille de calcul à décharger")
             #Make text smaller
             self.unload.setStyleSheet("""

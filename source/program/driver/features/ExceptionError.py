@@ -12,7 +12,7 @@ class ExceptionErrorPage(QWidget):
 
         loadUi("source/program/driver/features/ui/exception_error.ui", self)
 
-        if getLanguage(self) == 1:
+        if getLanguage() == 1:
             self.unload.setText("Échec!")
             self.label.setText("Quelque chose s'est mal passé, une réinitialisation de l'application est recommandée")
 

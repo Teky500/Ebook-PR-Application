@@ -29,7 +29,7 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
         #Cancel button
         self.pushButton_2.clicked.connect(self.close)
 
-        if getLanguage(self) == 1:
+        if getLanguage() == 1:
             self.label.setText("Recherche de Livre Électronique")
             self.pushButton.setText("Recherche")
             self.pushButton_2.setText("Annule la Recherche")
@@ -56,7 +56,7 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
         if (len(text) == 0):
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle("messageBox")
-            if getLanguage(self) == 1:
+            if getLanguage() == 1:
                 msg.setText("Le champ de recherche ne peut pas étre vide!")
             else:
                 msg.setText("Search field can not be empty!")

@@ -12,7 +12,7 @@ class UploadFailure(QWidget):
 
         loadUi("source/program/driver/features/ui/uploadpage_failure.ui", self)
 
-        if getLanguage(self) == 1:
+        if getLanguage() == 1:
             self.unload.setText("Échec!")
             self.label.setText("Tell them what went wrong, but in french, Oui! Oui!")
             self.submit_button.setText("Réessayez")
@@ -20,6 +20,16 @@ class UploadFailure(QWidget):
 
         self.cancel_button.clicked.connect(self.close_window)
         self.label.setText(errorM)
+        #Added style sheet to reduce font size
+        self.label.setStyleSheet("""
+    QLabel {
+        font: 700 10pt "Segoe UI";
+        color: #ffffff;
+        background-color: #333333; /* Change color */
+        border: 1px solid #333333;
+        padding: 5px;
+    }
+""")
         theme = Theme(getTheme())
         themeColour = theme.getColor()
         if themeColour == "default":

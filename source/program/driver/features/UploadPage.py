@@ -15,7 +15,7 @@ class UploadSpreadsheet(QWidget):
 
         loadUi("source/program/driver/features/ui/upload.ui", self)
 
-        if getLanguage(self) == 1:
+        if getLanguage() == 1:
             self.label.setText("Mettre en ligne la feuille de calcul locale")
                         #Change style sheet to reduce font size and fit text
             self.label.setStyleSheet("""
@@ -54,7 +54,7 @@ class UploadSpreadsheet(QWidget):
             print(f"File selected: {fileName}")
             # Update the label to show the selected file path
             self.filePicked = fileName
-            if getLanguage(self) == 1:
+            if getLanguage() == 1:
                 self.file_label_1.setText(f"Fichier sélectionné: {fileName}")
             else:
                 self.file_label_1.setText(f"Selected File: {fileName}")

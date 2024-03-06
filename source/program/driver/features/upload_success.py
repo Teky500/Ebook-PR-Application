@@ -12,7 +12,7 @@ class UploadSuccess(QWidget):
 
         loadUi("source/program/driver/features/ui/uploadpage_success.ui", self)
 
-        if getLanguage(self) == 1:
+        if getLanguage() == 1:
             self.unload.setText("Succès!")
             self.label.setText("Fichier téléchargé avec succès")
             self.cancel_button.setText("OK")

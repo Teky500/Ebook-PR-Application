@@ -22,7 +22,7 @@ class SetHomePage(QWidget):
         loadUi("source/program/driver/features/ui/homepage.ui", self)
         
         #If set to french
-        if getLanguage(self) == 1:
+        if getLanguage() == 1:
             self.search.setText("Chercher")
             self.change.setText("Changer")
             self.update.setText("Mettre à jour")

@@ -12,7 +12,7 @@ class SetFirstTimeUpdateConfirm(QWidget):
 
         loadUi("source/program/driver/features/ui/confirmfirst-timepage.ui", self)
 
-        if getLanguage(self) == 1:
+        if getLanguage() == 1:
             self.label.setText("Vos données CRKN sont désormais à jour!")
             #Make text smaller
             self.label.setStyleSheet("""
