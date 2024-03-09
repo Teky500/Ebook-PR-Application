@@ -15,7 +15,8 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
 
         #Title button
         self.radioButton.clicked.connect(self.byTitle)
-
+        self.radioButton.setChecked(True)
+        self.radio = 1 
         #Keyword button
         self.radioButton_2.clicked.connect(self.byKeyword)
 
