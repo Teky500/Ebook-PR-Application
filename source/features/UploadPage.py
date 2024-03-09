@@ -7,6 +7,7 @@ import yaml
 from .helpers.manual_upload import man_upload
 from .upload_success import UploadSuccess
 from .upload_failure import UploadFailure
+
 import os
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -66,6 +67,7 @@ class UploadSpreadsheet(QWidget):
         # Cancel process
         self.cancel_process.clicked.connect(self.close_window)
         self.upload_local_file.clicked.connect(self.submitFile)
+        self.upload_local_file.hide()
         
 
 
@@ -77,6 +79,8 @@ class UploadSpreadsheet(QWidget):
             # Update the label to show the selected file path
             self.filePicked = fileName
             self.file_label_1.setText(f"Selected File: {fileName}")
+            self.upload_button_1.setText('Change File')
+            self.upload_local_file.show()
 
     ################################### THREAD (MODIFIED FUNCTION)
     def submitFile(self):
@@ -88,7 +92,11 @@ class UploadSpreadsheet(QWidget):
             self.worker.file_path = self.filePicked
             self.worker.finished.connect(self.handle_upload_result)
             self.worker.start()
-
+            self.show_splash_screen('Loading Spreadsheet Data')
+    def show_splash_screen(self, text):
+        from .SplashScreenPage import SplashScreen
+        self.splash_screen = SplashScreen(text)
+        self.splash_screen.window().show()
     def close_window(self):
         self.window().close()
 
@@ -109,12 +117,20 @@ class UploadSpreadsheet(QWidget):
         global m
         self.setUploadPageButtonsEnabled(True)
         self.home_page.setHomePageButtonsEnabled(True)
+        self.splash_screen.window().close()
         if result == []:
             m = UploadSuccess()
             m.window().show()
+            self.filePicked = ''
+            self.upload_local_file.hide()
+            self.file_label_1.setText('No File Selected')
+            self.upload_button_1.setText('Upload')
         else:
             r = str(result)
             m = UploadFailure(r)
             m.window().show()
-
+            self.filePicked = ''
+            self.upload_local_file.hide()
+            self.file_label_1.setText('No File Selected')
+            self.upload_button_1.setText('Upload')
     

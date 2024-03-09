@@ -5,8 +5,9 @@ import yaml
 from .HomePage import SetHomePage
 
 class SplashScreen(QWidget):
-    def __init__(self):
+    def __init__(self, loading_text):
         super().__init__()
+        self.loading_text = loading_text
         self.setWindowTitle('Splash Screen')
         self.setFixedSize(500, 280)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint) 
@@ -44,7 +45,7 @@ class SplashScreen(QWidget):
         layout = QVBoxLayout(self)
         self.setLayout(layout)
 
-        label = QLabel(f"Loading CRKN Data...", self)
+        label = QLabel(f"{self.loading_text}..", self)
         font = label.font()
         font.setPointSize(30) 
         font.setBold(True)
@@ -64,7 +65,7 @@ class SplashScreen(QWidget):
     def animate_text(self):
         dots = '.' * (self.animation_counter % 4)
         label = self.findChild(QLabel)
-        label.setText(f"Loading CRKN Data{dots}")
+        label.setText(f"{self.loading_text}{dots}")
         self.animation_counter += 1
 
     def getLanguage(self):

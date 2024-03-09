@@ -175,13 +175,13 @@ class SetInstitution(QWidget):
         self.worker = Worker(self, selected_text)
         self.worker.finished.connect(self.post_thread_action)
         self.worker.start()
-        self.ss = self.show_splash_screen()
+        self.ss = self.show_splash_screen('Loading CRKN Data')
     def post_thread_action(self):
         global m
         m = self.ss.show_home_page()
     
-    def show_splash_screen(self):
-        self.splash_screen = SplashScreen()
+    def show_splash_screen(self, text):
+        self.splash_screen = SplashScreen(text)
         self.splash_screen.show()
         self.window().hide()
         return self.splash_screen
