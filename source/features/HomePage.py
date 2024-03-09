@@ -7,6 +7,7 @@ from .searchPageDriver import searchPageDriver
 from .UploadPage import UploadSpreadsheet
 from .UnloadPage import UnloadSpreadsheet
 from .helpers.crknUpdater import UpdateChecker
+from .helpers.getLanguage import getLanguage
 from .FirstTimeUpdate import SetFirstTimeUpdate
 from .ChangeInstitution import ChangeInstitution
 import os
@@ -31,12 +32,6 @@ def img_resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 class SetHomePage(QWidget):
 
-    def getLanguage(self):
-        with open('source/config/config.yaml', 'r') as config_file:
-            yaml_file = yaml.safe_load(config_file)
-            language = yaml_file['Language']
-        return language
-
     def __init__(self):
         super(SetHomePage, self).__init__()
         # self.window_width, self.window_height = 960, 750
@@ -44,7 +39,7 @@ class SetHomePage(QWidget):
         loadUi(img_resource_path("source/features/ui/homepage.ui"), self)
         
         #If set to french
-        if self.getLanguage() == 1:
+        if getLanguage() == 1:
             self.search.setText("Chercher")
             self.change.setText("Changer")
             self.update.setText("Mettre à jour")

@@ -3,6 +3,7 @@ from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QVBoxLayout 
 from PyQt6.QtCore import QObject, QThread, pyqtSignal
 from .helpers.add_to_database import setDatabaseUni
+from .helpers.getLanguage import getLanguage
 import pandas as pd
 from .SplashScreenPage import SplashScreen
 import time
@@ -30,7 +31,7 @@ class Worker(QThread):
     def run(self):
 
         if self.selected_text == '':
-            if self.getLanguage == 1:
+            if getLanguage() == 1:
                 print('Tu as besoin de selectionez une institution')
             else:
                 print('You need to select an institution')
@@ -52,7 +53,7 @@ class SetInstitution(QWidget):
     def __init__(self):
         super(SetInstitution, self).__init__()
         loadUi(img_resource_path("source/features/ui/dropdown.ui"), self)
-        if self.getLanguage() == 1:
+        if getLanguage() == 1:
             self.institution.setText("Sélectionnez l\'Institution ci-dessous")
             self.submit_button_1.setText("Soumettre")
             
@@ -188,10 +189,3 @@ class SetInstitution(QWidget):
     
     def run(self):
         self.window().show()
-
-    def getLanguage(self):
-        with open('source/config/config.yaml', 'r') as config_file:
-            yaml_file = yaml.safe_load(config_file)
-            language = yaml_file['Language']
-        return language
-
