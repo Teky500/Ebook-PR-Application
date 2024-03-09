@@ -150,13 +150,13 @@
        <property name="font">
         <font>
          <family>Segoe UI</family>
-         <pointsize>30</pointsize>
-         <italic>false</italic>
-         <bold>true</bold>
+         <pointsize>15</pointsize>
+         <italic>true</italic>
+         <bold>false</bold>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 700 30pt &quot;Segoe UI&quot;;</string>
+        <string notr="true">font: italic 15pt &quot;Segoe UI&quot;;</string>
        </property>
        <property name="text">
         <string>Incorrect format for excel sheet. 
@@ -164,6 +164,9 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
