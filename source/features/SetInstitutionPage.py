@@ -9,23 +9,45 @@ from .SplashScreenPage import SplashScreen
 import time
 import yaml
 
-class Worker(QObject):
+#################### WORKER THREAD CLASS #########################
+class Worker(QThread):
     finished = pyqtSignal()
-    progress = pyqtSignal(int)
+    def __init__(self, parent, text):
+        super(Worker, self).__init__()
+        self.parent = parent
+        self.selected_text = text
 
-    def run(self, t):
 
-        setDatabaseUni(t)
+    #Here is where the time consuming task is placed
+    def run(self):
+
+        if self.selected_text == '':
+            if self.getLanguage == 1:
+                print('Tu as besoin de selectionez une institution')
+            else:
+                print('You need to select an institution')
+        else:
+
+            
+            setDatabaseUni(self.selected_text)
+            with open('source/config/config.yaml', 'r') as config_file:
+                yaml_file = yaml.safe_load(config_file)
+                yaml_file['University'] = self.selected_text
+                yaml_file['Status'] = 1
+            with open('source/config/config.yaml', 'w') as config_file:
+                yaml.dump(yaml_file, config_file) 
+            #self.window().hide()
+
         self.finished.emit()
 
 class SetInstitution(QWidget):
     def __init__(self):
         super(SetInstitution, self).__init__()
-
         loadUi("source/features/ui/dropdown.ui", self)
         if self.getLanguage() == 1:
             self.institution.setText("Sélectionnez l\'Institution ci-dessous")
             self.submit_button_1.setText("Soumettre")
+            
 
         self.setStyleSheet('''
 
@@ -141,46 +163,29 @@ class SetInstitution(QWidget):
             uniList = yaml_file['Universities'] 
         for i in uniList:
             self.institutions.addItem(i)
-
-
         self.submit_button_1.clicked.connect(self.clicked_function)
-        self.splash_screen = None
 
+
+
+
+    
     def clicked_function(self):
         selected_text = self.institutions.currentText()
-        if selected_text == '':
-            if self.getLanguage == 1:
-                print('Tu as besoin de selectionez une institution')
-            else:
-                print('You need to select an institution')
-        else:
-            with open('source/config/config.yaml', 'r') as config_file:
-                yaml_file = yaml.safe_load(config_file)
-                yaml_file['University'] = selected_text
-                yaml_file['Status'] = 1
-            with open('source/config/config.yaml', 'w') as config_file:
-                yaml.dump(yaml_file, config_file) 
-            global thread
-            global worker
-            thread = QThread()
-            worker = Worker()
-            worker.moveToThread(thread)
-            thread.started.connect(lambda: worker.run(selected_text))
-            worker.finished.connect(thread.quit)
-            worker.finished.connect(worker.deleteLater)
-            thread.finished.connect(thread.deleteLater)
-            splash = self.show_splash_screen()
-            thread.finished.connect(splash.show_home_page)
-            thread.start()
-            self.window().hide()
-
-
+        self.window().hide()
+        self.worker = Worker(self, selected_text)
+        self.worker.finished.connect(self.post_thread_action)
+        self.worker.start()
+        self.ss = self.show_splash_screen()
+    def post_thread_action(self):
+        global m
+        m = self.ss.show_home_page()
     
     def show_splash_screen(self):
         self.splash_screen = SplashScreen()
         self.splash_screen.show()
         self.window().hide()
         return self.splash_screen
+    
     def run(self):
         self.window().show()
 
@@ -189,5 +194,4 @@ class SetInstitution(QWidget):
             yaml_file = yaml.safe_load(config_file)
             language = yaml_file['Language']
         return language
-
 

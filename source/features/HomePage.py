@@ -50,23 +50,38 @@ class SetHomePage(QWidget):
         self.update.clicked.connect(self.update_page_show)
         self.change.clicked.connect(self.change_page_show)
 
+
+    
+    def setHomePageButtonsEnabled(self, enabled):
+        self.search.setEnabled(enabled)
+        self.upload.setEnabled(enabled)
+        self.unload.setEnabled(enabled)
+        self.change.setEnabled(enabled)
+        self.update.setEnabled(enabled)
+    
+    ######################## THREAD
     def upload_page_show(self):
         global m
-        m = UploadSpreadsheet()
+        m = UploadSpreadsheet(self)
         m.show()
+
     def search_page_show(self):
         global m
         m = searchPageDriver()
         m.show()
+
+    ######################## THREAD
     def unload_page_show(self):
         global m
-        m = UnloadSpreadsheet()
+        m = UnloadSpreadsheet(self)
         m.show()
+
     def change_page_show(self): # change this
         global m
         m = ChangeInstitution()
         m.show()
         self.window().hide()
+
     def update_page_show(self):
         global m
         checker = UpdateChecker()
@@ -84,7 +99,8 @@ class SetHomePage(QWidget):
             update = SetFirstTimeUpdate(checker)
             m = update
             m.window().show()
-            self.window().close()            
+            self.window().close()    
+
     def run(self):
 
         self.setStyleSheet ("""
@@ -97,6 +113,3 @@ class SetHomePage(QWidget):
         """)
 
         self.window().show()
-
-
-  
