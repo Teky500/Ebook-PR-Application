@@ -12,9 +12,6 @@ class SplashScreen(QWidget):
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint) 
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
-        self.counter = 0
-        self.n = 300  # total instance
-
         self.initUI()
         self.setStyleSheet('''
 
@@ -44,37 +41,31 @@ class SplashScreen(QWidget):
         ''')
 
     def initUI(self):
-        layout = QVBoxLayout()
+        layout = QVBoxLayout(self)
         self.setLayout(layout)
 
-        self.frame = QFrame()
-        layout.addWidget(self.frame)
+        label = QLabel(f"Loading CRKN Data...", self)
+        font = label.font()
+        font.setPointSize(30) 
+        font.setBold(True)
+        label.setFont(font)
 
-        self.labelTitle = QLabel(self.frame)
-        self.labelTitle.setObjectName('LabelTitle')
- 
-        #center labels
-        self.labelTitle.resize(self.width() - 20, 150)
-        self.labelTitle.move(0, 10) # x,y
-        if self.getLanguage() == 1:
-            self.labelTitle.setText('<strong>Charger L\'information D\'institution</strong>')
-        else:
-            self.labelTitle.setText('<strong>Loading Institution Information</strong>')
-        self.labelTitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        
-        self.labelDescription = QLabel(self.frame)
-        self.labelDescription.move(0, self.labelTitle.height()) 
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(label)
 
-        # progress bar 
-        self.progressBar = QProgressBar(self.frame)
-        self.progressBar.resize(self.width() - 130 , 32)
-        self.progressBar.move(55, self.labelTitle.y() + 140)
-        self.progressBar.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.progressBar.setFormat('%p%')
-        self.progressBar.setTextVisible(True)
-        self.progressBar.setRange(0, self.n)
-        self.progressBar.setValue(20)
+        self.animation_timer = QTimer(self)
+        self.animation_timer.timeout.connect(self.animate_text)
+        self.animation_counter = 0
+        self.page_timer = QTimer(self)
 
+        self.animation_timer.start(600)
+        self.page_timer.start(5000)
+
+    def animate_text(self):
+        dots = '.' * (self.animation_counter % 4)
+        label = self.findChild(QLabel)
+        label.setText(f"Loading CRKN Data{dots}")
+        self.animation_counter += 1
 
     def getLanguage(self):
         with open('source/config/config.yaml', 'r') as config_file:
@@ -82,21 +73,10 @@ class SplashScreen(QWidget):
             language = yaml_file['Language']
         return language
     
-    def loading(self):
-        self.progressBar.setValue(self.counter)
-
-        
-        if self.counter >= self.n:
-            self.timer.stop()
-            self.timer.singleShot(1000, self.show_home_page)
-            self.window().hide()
-
-        self.counter += 1
-
-
     def show_home_page(self):
         global m
         new_window = SetHomePage()
         m = new_window
         new_window.run()
         self.window().close()
+
