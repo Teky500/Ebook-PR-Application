@@ -1,5 +1,4 @@
 import sys
-from .Themes import Theme, getTheme
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
 from .SetInstitutionPage import SetInstitution
@@ -10,8 +9,6 @@ from .helpers.crknUpdater import UpdateChecker
 
 
 import os
-theme = Theme(getTheme())
-themeColour = theme.getColor()
 class WelcomePage(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -179,13 +176,6 @@ def extra_run():
     main_window = QWidget()
     main_layout = QVBoxLayout(main_window)
 
-    if themeColour == {}:
-        pass
-        
-    else:
-        bg_col = themeColour['background_color']
-        txt_col = themeColour['text_color']
-        main_window.setStyleSheet(f'background-color: {bg_col}; color: {txt_col}')
 
     stacked_widget = QStackedWidget(main_window)
     welcome_page = WelcomePage(stacked_widget)

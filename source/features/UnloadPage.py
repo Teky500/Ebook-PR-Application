@@ -3,11 +3,19 @@ import sys
 from PyQt6.QtCore import Qt, QThread, pyqtSignal 
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QPushButton, QFileDialog, QLabel
-from .Themes import Theme, getTheme
 from .helpers.unload_file import removeFile, getFiles
 import sqlite3 as sq
 from .unload_success import UnloadSuccess
+import os
+def img_resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
 
+    return os.path.join(base_path, relative_path)
 
 #################### WORKER THREAD CLASS #########################
 class Worker(QThread):
@@ -32,17 +40,11 @@ class UnloadSpreadsheet(QWidget):
         super(UnloadSpreadsheet, self).__init__()
         self.filePicked = ''
         self.homePage = HomePage
-        loadUi("source/features/ui/unloadpage.ui", self)
+        loadUi(img_resource_path("source/features/ui/unloadpage.ui"), self)
         fileList = getFiles()
         for aF in fileList:
             print(aF)
             self.unload_sheets.addItem(aF[0])
-        theme = Theme(getTheme())
-        themeColour = theme.getColor()
-        if themeColour == "default":
-            pass
-        else:
-            self.setStyleSheet(f'background-color: {themeColour};')
 
         # Add unload functionality here
         self.submit_button.clicked.connect(self.unloadSpreadsheets)

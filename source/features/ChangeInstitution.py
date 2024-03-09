@@ -3,15 +3,24 @@ from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget
 from PyQt6.QtCore import Qt
 import yaml
+import os
 
 # from SetInstitutionPage import SetInstitution
 # from .helpers.download_excel import downloadFiles
+def img_resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
 
+    return os.path.join(base_path, relative_path)
 class ChangeInstitution(QWidget):
     def __init__(self):
         super(ChangeInstitution, self).__init__()
 
-        loadUi("source/features/ui/changeOfInstitution.ui", self)
+        loadUi(img_resource_path("source/features/ui/changeOfInstitution.ui"), self)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
         # self.confirm_change.clicked.connect(self.reset)
         self.cancel_change.clicked.connect(self.load_home_page)

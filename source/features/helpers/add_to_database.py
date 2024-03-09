@@ -49,8 +49,6 @@ def removeFromDatabase():
    
 def setDatabaseUni(university):
   University = university
-  with open('source/sqlscripts/db_setup.sql', 'r') as sql_file:
-      sql_script = sql_file.read()
   db_path = 'source/storage/database/proj.db'
   # check if the db exists first
   if os.path.isfile(db_path):
@@ -62,7 +60,20 @@ def setDatabaseUni(university):
   csv_files = [i for i in entries if ('.csv' in i) and ('CRKN_EbookPARightsTracking' in i)]
   db = sq.connect(db_path)
   cursor = db.cursor()
-  cursor.executescript(sql_script)
+  cursor.executescript("""CREATE TABLE books 
+    (ISBN text NOT NULL, 
+    title text NOT NULL, 
+    publisher text NOT NULL, 
+    platform_yop int, 
+    OCN int, 
+    result text NOT NULL,
+    spreadsheet text NOT NULL);
+CREATE TABLE platforms 
+    (spreadsheet text PRIMARY KEY,
+    platform text NOT NULL,
+    CRKN text NOT NULL);
+
+""")
   for i in csv_files:
       filename =i[:-4] + '.xlsx'
       df = access_csv(i)

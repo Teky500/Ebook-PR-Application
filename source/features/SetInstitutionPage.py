@@ -4,11 +4,19 @@ from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QVBoxLayout
 from PyQt6.QtCore import QObject, QThread, pyqtSignal
 from .helpers.add_to_database import setDatabaseUni
 import pandas as pd
-from .Themes import Theme, getTheme
 from .SplashScreenPage import SplashScreen
 import time
 import yaml
+import os
+def img_resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
 
+    return os.path.join(base_path, relative_path)
 #################### WORKER THREAD CLASS #########################
 class Worker(QThread):
     finished = pyqtSignal()
@@ -43,7 +51,7 @@ class Worker(QThread):
 class SetInstitution(QWidget):
     def __init__(self):
         super(SetInstitution, self).__init__()
-        loadUi("source/features/ui/dropdown.ui", self)
+        loadUi(img_resource_path("source/features/ui/dropdown.ui"), self)
         if self.getLanguage() == 1:
             self.institution.setText("Sélectionnez l\'Institution ci-dessous")
             self.submit_button_1.setText("Soumettre")
@@ -150,14 +158,6 @@ class SetInstitution(QWidget):
 
         self.window().setWindowTitle("Ebook PR Application")
         # self.window().resize(963, 571)
-        theme = Theme(getTheme())
-        themeColour = theme.getColor()
-        if themeColour == {}:
-            pass
-        else:
-            bg_col = themeColour['background_color']
-            txt_col = themeColour['text_color']
-            self.setStyleSheet(f'background-color: {bg_col}; color: {txt_col};')
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             uniList = yaml_file['Universities'] 

@@ -9,6 +9,26 @@ from .UnloadPage import UnloadSpreadsheet
 from .helpers.crknUpdater import UpdateChecker
 from .FirstTimeUpdate import SetFirstTimeUpdate
 from .ChangeInstitution import ChangeInstitution
+import os
+import os
+def img_resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+def img_resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 class SetHomePage(QWidget):
 
     def getLanguage(self):
@@ -21,8 +41,7 @@ class SetHomePage(QWidget):
         super(SetHomePage, self).__init__()
         # self.window_width, self.window_height = 960, 750
         # self.setMinimumSize(self.window_width, self.window_height)
-
-        loadUi("source/features/ui/homepage.ui", self)
+        loadUi(img_resource_path("source/features/ui/homepage.ui"), self)
         
         #If set to french
         if self.getLanguage() == 1:

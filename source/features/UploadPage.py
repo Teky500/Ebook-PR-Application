@@ -4,11 +4,19 @@ from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QPushButton, QFileDialog, QLabel
 import yaml
-from .Themes import Theme, getTheme
 from .helpers.manual_upload import man_upload
 from .upload_success import UploadSuccess
 from .upload_failure import UploadFailure
+import os
+def img_resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
 
+    return os.path.join(base_path, relative_path)
 #################### WORKER THREAD CLASS #########################
 class Worker(QThread):
     finished = pyqtSignal(list)
@@ -31,7 +39,7 @@ class UploadSpreadsheet(QWidget):
         self.home_page = HomePage ############################### THREADING: Initialize home page
         self.filePicked = ''
         self.worker = Worker(None) ############################## THREAD: initialize worker
-        loadUi("source/features/ui/upload.ui", self)
+        loadUi(img_resource_path("source/features/ui/upload.ui"), self)
 
         if self.getLanguage() == 1:
             self.label.setText("Mettre en ligne la feuille de calcul locale")
@@ -50,12 +58,7 @@ class UploadSpreadsheet(QWidget):
             self.cancel_process.setText("Annuler")
             self.file_label_1.setText("aucun fichier sélectionné")
 
-        theme = Theme(getTheme())
-        themeColour = theme.getColor()
-        if themeColour == "default":
-            pass
-        else:
-            self.setStyleSheet(f'background-color: {themeColour};')
+
 
         # Add upload button
         self.upload_button_1.clicked.connect(self.uploadFile)

@@ -11,7 +11,16 @@ from .helpers.add_to_database import access_csv, singleAddition, openExcel, remo
 import os
 import sqlite3 as sq
 import yaml
+import os
+def img_resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
 
+    return os.path.join(base_path, relative_path)
 ########################### THREAD WORKER CLASS
 class Worker(QThread):
     finished = pyqtSignal()
@@ -51,7 +60,7 @@ class SetFirstTimeUpdate(QWidget):
     def __init__(self, check):
         super(SetFirstTimeUpdate, self).__init__()
 
-        loadUi("source/features/ui/updatefirst-timepage.ui", self)
+        loadUi(img_resource_path("source/features/ui/updatefirst-timepage.ui"), self)
         self.checker = check
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.confirm_update_1.clicked.connect(self.load_confirm_page)
