@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\program\driver\features\ui\uploadpage_failure.ui'
+# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\uploadpage_failure.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -109,15 +109,29 @@ class Ui_Form(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.label = QtWidgets.QLabel(parent=Form)
-        self.label.setStyleSheet("font: italic 15pt \"Segoe UI\";")
-        self.label.setText("")
-        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label = QtWidgets.QTextEdit(parent=Form)
+        self.label.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.CursorShape.ArrowCursor))
+        self.label.setMouseTracking(True)
+        self.label.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
+        self.label.setStyleSheet("background-color: #333333;   \n"
+"display: flex;\n"
+"justify-content: center;\n"
+"align-items: center;\n"
+"height: 100vh;\n"
+"margin: 0;\n"
+"border: #333333;\n"
+"text-align: center;\n"
+"font: 700 italic 13pt \"Segoe UI\";\n"
+"")
+        self.label.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        self.label.setTabChangesFocus(False)
+        self.label.setReadOnly(True)
+        self.label.setCursorWidth(0)
         self.label.setObjectName("label")
         self.horizontalLayout_3.addWidget(self.label)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_2.setContentsMargins(50, -1, 50, 350)
+        self.horizontalLayout_2.setContentsMargins(50, 10, 50, 350)
         self.horizontalLayout_2.setSpacing(6)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.cancel_button = QtWidgets.QPushButton(parent=Form)
@@ -137,4 +151,12 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.unload.setText(_translate("Form", "Failure!"))
+        self.label.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:\'Segoe UI\'; font-size:13pt; font-weight:700; font-style:italic;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.cancel_button.setText(_translate("Form", "Cancel"))
