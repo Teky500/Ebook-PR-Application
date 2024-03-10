@@ -74,7 +74,7 @@ class SetFirstTimeUpdate(QWidget):
         self.worker = Worker(self.checker)
         self.worker.finished.connect(self.handle_thread_finished)
         self.worker.start()
-        self.ss = SplashScreen("Updating", 20)
+        self.ss = SplashScreen("Updating", 35)
         self.ss.window().show()
         self.window().hide()
 
