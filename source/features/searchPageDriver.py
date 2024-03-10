@@ -86,6 +86,9 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
                 print("Please select a search criteria")
             case 1:
                 s_result = search_title_substring(text, 'source/storage/database/proj.db')
+                if s_result == []:
+                    print('No Search found!')
+                    return
                 m = MainWindow(s_result, 1)
                 print(m)
                 m.window().show()
@@ -94,11 +97,17 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
                 pass
             case 3: 
                 s_result = search_OCN(text, 'source/storage/database/proj.db')
+                if s_result == []:
+                    print('No Search found!')
+                    return
                 m = MainWindow(s_result, 3)
                 print(m)
                 m.window().show()
             case 4:
                 s_result = search_ISBN(text, 'source/storage/database/proj.db')
+                if s_result == []:
+                    print('No Search found!')
+                    return
                 m = MainWindow(s_result, 0)
                 print(m)
                 m.window().show()
