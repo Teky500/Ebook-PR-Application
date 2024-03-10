@@ -22,20 +22,9 @@ class ChangeInstitution(QWidget):
 
         loadUi(img_resource_path("source/features/ui/changeOfInstitution.ui"), self)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
-        # self.confirm_change.clicked.connect(self.reset)
         self.cancel_change.clicked.connect(self.load_home_page)
         self.confirm_change.clicked.connect(self.start_again)
 
-    # # reset function here
-    # def reset(self):
-    #     if self.getStatus() == 0:
-    #         print('Status 0')
-    #         downloadFiles()
-    #         global m
-    #         new_window = SetInstitution()
-    #         m = new_window
-    #         new_window.run()
- 
 
     def load_home_page(self):
         from .HomePage import SetHomePage

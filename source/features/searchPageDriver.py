@@ -4,11 +4,24 @@ import yaml
 from .searchPage import Ui_Search_page
 from .helpers.search import search_title_substring, search_ISBN, search_OCN
 from .SearchPageResults import MainWindow
+from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtCore import Qt
 
 class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
     def __init__(self, parent = None):
         super().__init__(parent)
         self.setupUi(self)
+
+        # Create a transparent QPixmap
+        transparent_pixmap = QPixmap(1, 1)
+        transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+        # Set the window icon with the transparent QPixmap
+        self.setWindowIcon(QIcon(transparent_pixmap))
+            
+        # Remove title default name
+        self.window().setWindowTitle("     ")
        
         #search button
         self.pushButton.clicked.connect(self.search)
