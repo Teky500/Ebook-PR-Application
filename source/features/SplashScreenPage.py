@@ -5,9 +5,10 @@ import yaml
 from .HomePage import SetHomePage
 
 class SplashScreen(QWidget):
-    def __init__(self, loading_text):
+    def __init__(self, loading_text, size_font):
         super().__init__()
         self.loading_text = loading_text
+        self.size_font = size_font
         self.setWindowTitle('Splash Screen')
         self.setFixedSize(500, 280)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint) 
@@ -15,30 +16,13 @@ class SplashScreen(QWidget):
 
         self.initUI()
         self.setStyleSheet('''
-
-        #LabelTitle {
-            font-size: 28px;
-            color: white;             
-        }
-                      
+                                       
         QFrame {
             background-color: #333333;
             color: white;
-        }
 
-        QProgressBar {
-            background-color: white;
-            color: black;
-            border-style: none;
-            text-align: center;  
-            font-size: 15px;    
-            font-weight: bold;
         }
-                      
-        QProgressBar::chunk {
-            background-color: qlineargradient(spread:pad x1:0, x2:1, y1:0.511364, y2:0.523, stop:0 #4d4d4d, stop:1 #4d4d4d);      
-        }  
-        
+       
         ''')
 
     def initUI(self):
@@ -47,7 +31,7 @@ class SplashScreen(QWidget):
 
         label = QLabel(f"{self.loading_text}..", self)
         font = label.font()
-        font.setPointSize(30) 
+        font.setPointSize(self.size_font) 
         font.setBold(True)
         label.setFont(font)
 

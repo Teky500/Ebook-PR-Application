@@ -92,10 +92,34 @@ class UploadSpreadsheet(QWidget):
             self.worker.file_path = self.filePicked
             self.worker.finished.connect(self.handle_upload_result)
             self.worker.start()
-            self.show_splash_screen('Loading Spreadsheet Data')
-    def show_splash_screen(self, text):
+            self.show_splash_screen('Loading Spreadsheet Data', 25)
+            self.setStyleSheet("""
+                    QWidget{
+                        background-color: gray;
+                        color: #ffffff;
+                        border-color: #333333;
+                    }
+                               
+                    QPushButton {
+                        background-color: #A8A8A8;
+                        border: 1px solid gray;
+                        border-radius: 4px;
+                        color: #ffffff;
+                        padding: 5px;
+                    }
+                               
+                    QPushButton:hover {
+                        background-color: gray;
+                        border: 1px solid #5a5a5a;
+                    }
+                               
+            """)
+            
+
+
+    def show_splash_screen(self, text, size):
         from .SplashScreenPage import SplashScreen
-        self.splash_screen = SplashScreen(text)
+        self.splash_screen = SplashScreen(text, size)
         self.splash_screen.window().show()
     def close_window(self):
         self.window().close()
@@ -121,16 +145,29 @@ class UploadSpreadsheet(QWidget):
         if result == []:
             m = UploadSuccess()
             m.window().show()
-            self.filePicked = ''
-            self.upload_local_file.hide()
-            self.file_label_1.setText('No File Selected')
-            self.upload_button_1.setText('Upload')
         else:
             r = str(result)
             m = UploadFailure(r)
             m.window().show()
-            self.filePicked = ''
-            self.upload_local_file.hide()
-            self.file_label_1.setText('No File Selected')
-            self.upload_button_1.setText('Upload')
-    
+        self.filePicked = ''
+        self.upload_local_file.hide()
+        self.file_label_1.setText('No File Selected')
+        self.upload_button_1.setText('Upload')
+        self.setStyleSheet("""
+                    QWidget {
+                        background-color: #333333;
+                        color: #ffffff;
+                        border-color: #333333;
+                    }
+                    QPushButton {
+                        background-color: #4d4d4d;
+                        border: 1px solid #4d4d4d;
+                        border-radius: 4px;
+                        color: #ffffff;
+                        padding: 5px;
+                    }
+                    QPushButton:hover {
+                        background-color: #5a5a5a;
+                        border: 1px solid #5a5a5a;
+                    }
+            """)
