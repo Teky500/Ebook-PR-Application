@@ -104,7 +104,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.model = TableModel(self.data)
             self.table.setModel(self.model)
 
-            header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Path']
+            header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Name']
             self.model.setHeaderLabels(header_labels)
 
 
@@ -132,9 +132,9 @@ class MainWindow(QtWidgets.QMainWindow):
                 df = pd.DataFrame(self.data)
                 df[0] = df[0].astype(float).map(lambda x: '{:.0f}'.format(x))
                 df[0] = df[0].astype(str)
-                df.to_csv(file_path, header= ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Path'], index=False)
+                df.to_csv(file_path, header= ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Name'], index=False)
             if download_type == 1:
                 df = pd.DataFrame(self.data)
                 df[0] = df[0].astype(float).map(lambda x: '{:.0f}'.format(x))
                 df[0] = df[0].astype(str)
-                df.to_csv(file_path, header= ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Path'], index=False, sep='\t')
+                df.to_csv(file_path, header= ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Name'], index=False, sep='\t')

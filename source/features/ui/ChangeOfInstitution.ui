@@ -168,7 +168,7 @@
     <item>
      <widget class="QLabel" name="label">
       <property name="styleSheet">
-       <string notr="true">font: 700 15pt &quot;Segoe UI&quot;;</string>
+       <string notr="true">font: 700 17.5pt &quot;Segoe UI&quot;;</string>
       </property>
       <property name="text">
        <string>This will start over as a new installation,</string>
@@ -181,7 +181,7 @@
     <item>
      <widget class="QLabel" name="label_2">
       <property name="styleSheet">
-       <string notr="true">font: 700 15pt &quot;Segoe UI&quot;;</string>
+       <string notr="true">font: 700 17.5pt &quot;Segoe UI&quot;;</string>
       </property>
       <property name="text">
        <string>and remove all loaded data, are you sure?</string>
