@@ -1,8 +1,11 @@
 import csv
 import sys
-from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QPushButton, QFileDialog
+from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QVBoxLayout, QWidget, QPushButton, QFileDialog
 import pandas as pd
 class TableModel(QtCore.QAbstractTableModel):
     def __init__(self, data):
@@ -45,8 +48,19 @@ class TableModel(QtCore.QAbstractTableModel):
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, itemData, sType):
-
+        
         super().__init__()
+        # Create a transparent QPixmap
+        transparent_pixmap = QPixmap(1, 1)
+        transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+        # Set the window icon with the transparent QPixmap
+        self.setWindowIcon(QIcon(transparent_pixmap))
+            
+        # Remove title default name
+        self.window().setWindowTitle("     ")
+        
+
         if itemData == []:
             print('Nothing Found')
             self.window().close()

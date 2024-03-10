@@ -2,7 +2,10 @@ import sys
 ######################### THREADING IMPORT
 from PyQt6.QtCore import Qt, QThread, pyqtSignal 
 from PyQt6.uic import loadUi
-from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QPushButton, QFileDialog, QLabel
+from PyQt6.QtWidgets import QWidget, QFileDialog
+from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtCore import Qt
 import yaml
 from .helpers.manual_upload import man_upload
 from .upload_success import UploadSuccess
@@ -42,18 +45,29 @@ class UploadSpreadsheet(QWidget):
         self.worker = Worker(None) ############################## THREAD: initialize worker
         loadUi(img_resource_path("source/features/ui/upload.ui"), self)
 
+        # Create a transparent QPixmap
+        transparent_pixmap = QPixmap(1, 1)
+        transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+        # Set the window icon with the transparent QPixmap
+        self.setWindowIcon(QIcon(transparent_pixmap))
+            
+        # Remove title default name
+        self.window().setWindowTitle("     ")
+
         if self.getLanguage() == 1:
             self.label.setText("Mettre en ligne la feuille de calcul locale")
-                        #Change style sheet to reduce font size and fit text
+            #Change style sheet to reduce font size and fit text
             self.label.setStyleSheet("""
-    QLabel {
-        font: 700 38pt "Segoe UI";
-        color: #ffffff;
-        background-color: #333333; /* Change color */
-        border: 1px solid #333333;
-        padding: 5px;
-    }
-""")
+                QLabel {
+                    font: 700 38pt "Segoe UI";
+                    color: #ffffff;
+                    background-color: #333333; /* Change color */
+                    border: 1px solid #333333;
+                    padding: 5px;
+                }
+            """)
+    
             self.upload_button_1.setText("Mettre en ligne")
             self.upload_local_file.setText("Soumettre")
             self.cancel_process.setText("Annuler")

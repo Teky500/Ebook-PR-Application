@@ -1,7 +1,8 @@
 import sys
 from PyQt6.uic import loadUi
-from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget
+from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtCore import Qt
 import yaml
 from .searchPageDriver import searchPageDriver
 from .UploadPage import UploadSpreadsheet
@@ -42,6 +43,16 @@ class SetHomePage(QWidget):
         # self.window_width, self.window_height = 960, 750
         # self.setMinimumSize(self.window_width, self.window_height)
         loadUi(img_resource_path("source/features/ui/homepage.ui"), self)
+
+        # Create a transparent QPixmap
+        transparent_pixmap = QPixmap(1, 1)
+        transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+        # Set the window icon with the transparent QPixmap
+        self.setWindowIcon(QIcon(transparent_pixmap))
+            
+        # Remove title default name
+        self.window().setWindowTitle("     ")
         
         #If set to french
         if self.getLanguage() == 1:
@@ -51,16 +62,17 @@ class SetHomePage(QWidget):
             self.upload.setText("Mettre en ligne")
             self.unload.setText("Decharger")    #Check
             self.label.setText("PAGE D\'ACCUEIL")   #Too big
+
             #Change style sheet to reduce font size and fit text
             self.label.setStyleSheet("""
-    QLabel {
-        font: 700 80pt "Segoe UI";
-        color: #ffffff;
-        background-color: #333333; /* Change color */
-        border: 1px solid #333333;
-        padding: 5px;
-    }
-""")
+                QLabel {
+                    font: 700 80pt "Segoe UI";
+                    color: #ffffff;
+                    background-color: #333333; /* Change color */
+                    border: 1px solid #333333;
+                    padding: 5px;
+                }
+            """)
 
         # self.window().resize(850, 800)
         self.search.clicked.connect(self.search_page_show)

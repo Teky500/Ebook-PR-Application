@@ -1,11 +1,11 @@
 import sys
 from PyQt6.uic import loadUi
-from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QVBoxLayout 
-from PyQt6.QtCore import QObject, QThread, pyqtSignal
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtCore import QThread, pyqtSignal, Qt
 from .helpers.add_to_database import setDatabaseUni
 import pandas as pd
 from .SplashScreenPage import SplashScreen
-import time
 import yaml
 import os
 def img_resource_path(relative_path):
@@ -52,6 +52,17 @@ class SetInstitution(QWidget):
     def __init__(self):
         super(SetInstitution, self).__init__()
         loadUi(img_resource_path("source/features/ui/dropdown.ui"), self)
+
+        # Create a transparent QPixmap
+        transparent_pixmap = QPixmap(1, 1)
+        transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+        # Set the window icon with the transparent QPixmap
+        self.setWindowIcon(QIcon(transparent_pixmap))
+        
+        # Remove title default name
+        self.window().setWindowTitle("     ")
+        
         if self.getLanguage() == 1:
             self.institution.setText("Sélectionnez l\'Institution ci-dessous")
             self.submit_button_1.setText("Soumettre")
@@ -156,8 +167,6 @@ class SetInstitution(QWidget):
             }       
         ''')
 
-        self.window().setWindowTitle("Ebook PR Application")
-        # self.window().resize(963, 571)
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             uniList = yaml_file['Universities'] 

@@ -1,6 +1,9 @@
 import sys
 from PyQt6.uic import loadUi
-from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QPushButton, QFileDialog, QLabel
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtCore import Qt
 from .helpers.manual_upload import man_upload
 import os
 def img_resource_path(relative_path):
@@ -18,6 +21,17 @@ class UnloadSuccess(QWidget):
         self.filePicked = ''
 
         loadUi(img_resource_path("source/features/ui/unloadpage_success.ui"), self)
+        
+        # Create a transparent QPixmap
+        transparent_pixmap = QPixmap(1, 1)
+        transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+        # Set the window icon with the transparent QPixmap
+        self.setWindowIcon(QIcon(transparent_pixmap))
+            
+        # Remove title default name
+        self.window().setWindowTitle("     ")
+
         self.label.setText(f'Successfully removed file {fileN}')
         self.cancel_button.clicked.connect(self.close_window)
 
