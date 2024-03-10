@@ -69,14 +69,19 @@ class SetFirstTimeUpdate(QWidget):
     
     ######## THREADING: MODIFIED THIS CLASS
     def load_confirm_page(self):
+        from .SplashScreenPage import SplashScreen
         self.setButtonsEnabled(False)
         self.worker = Worker(self.checker)
         self.worker.finished.connect(self.handle_thread_finished)
         self.worker.start()
+        self.ss = SplashScreen("Updating", 20)
+        self.ss.window().show()
+        self.window().hide()
 
     ############ THREADING: CREATE NEW FUNCTION    
     def handle_thread_finished(self):
         self.setButtonsEnabled(True)
+        self.ss.window().close()
         global m
         new_window = SetFirstTimeUpdateConfirm()
         m = new_window
