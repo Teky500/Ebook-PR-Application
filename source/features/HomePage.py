@@ -38,6 +38,12 @@ class SetHomePage(QWidget):
             yaml_file = yaml.safe_load(config_file)
             language = yaml_file['Language']
         return language
+    
+    def getUniversity(self):
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            University = yaml_file['University']
+        return University
 
     def __init__(self):
         super(SetHomePage, self).__init__()
@@ -82,9 +88,10 @@ class SetHomePage(QWidget):
         self.update.clicked.connect(self.update_page_show)
         self.change.clicked.connect(self.change_page_show)
         self.exit.clicked.connect(self.exit_homepage)
+        self.set_university_name.setText(self.getUniversity())
 
     def exit_homepage(self):
-        self.close()
+        sys.exit()
 
     
     def setHomePageButtonsEnabled(self, enabled):
