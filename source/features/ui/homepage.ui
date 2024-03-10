@@ -189,7 +189,7 @@
           <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
-          <string>Search</string>
+          <string>Search E-book</string>
          </property>
         </widget>
        </item>
@@ -211,7 +211,7 @@
           <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
-          <string>Change</string>
+          <string>Reset All</string>
          </property>
         </widget>
        </item>
@@ -233,7 +233,7 @@
           <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
-          <string>Update</string>
+          <string>Update CRKN</string>
          </property>
         </widget>
        </item>
@@ -255,7 +255,7 @@
           <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
-          <string>Upload</string>
+          <string>Upload Local</string>
          </property>
         </widget>
        </item>
@@ -277,7 +277,7 @@
           <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
-          <string>Unload</string>
+          <string>Unload Local</string>
          </property>
         </widget>
        </item>

@@ -193,7 +193,7 @@ font: italic 15pt &quot;Segoe UI&quot;;</string>
           <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
-          <string>Cancel</string>
+          <string>Ok</string>
          </property>
         </widget>
        </item>
