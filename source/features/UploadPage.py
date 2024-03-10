@@ -92,10 +92,13 @@ class UploadSpreadsheet(QWidget):
             self.worker.file_path = self.filePicked
             self.worker.finished.connect(self.handle_upload_result)
             self.worker.start()
-            self.show_splash_screen('Loading Spreadsheet Data')
-    def show_splash_screen(self, text):
+            self.show_splash_screen('Loading Spreadsheet Data', 25)
+            
+
+
+    def show_splash_screen(self, text, size):
         from .SplashScreenPage import SplashScreen
-        self.splash_screen = SplashScreen(text)
+        self.splash_screen = SplashScreen(text, size)
         self.splash_screen.window().show()
     def close_window(self):
         self.window().close()
