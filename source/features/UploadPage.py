@@ -93,6 +93,12 @@ class UploadSpreadsheet(QWidget):
             self.worker.finished.connect(self.handle_upload_result)
             self.worker.start()
             self.show_splash_screen('Loading Spreadsheet Data', 25)
+            self.setStyleSheet("""
+                        QWidget{
+                    filter:blur(1px);
+                    background-color: white;
+                    }"""
+                    )
             
 
 
@@ -136,4 +142,10 @@ class UploadSpreadsheet(QWidget):
             self.upload_local_file.hide()
             self.file_label_1.setText('No File Selected')
             self.upload_button_1.setText('Upload')
-    
+            self.setStyleSheet("""
+                            QWidget {
+                        background-color: #333333;
+                        color: #ffffff;
+                        border-color: #333333;
+                    }"""
+        )
