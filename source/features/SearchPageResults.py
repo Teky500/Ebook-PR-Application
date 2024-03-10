@@ -114,6 +114,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
             # Add a button for downloading
             self.download_button = QPushButton("Download")
+            self.download_button.setText('Export to File')
             layout.addWidget(self.download_button)
             self.downloadType = 1
             self.download_button.clicked.connect(self.downloadTable) # backend function here 
