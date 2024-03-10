@@ -16,33 +16,13 @@ class SplashScreen(QWidget):
 
         self.initUI()
         self.setStyleSheet('''
-                           
-        #LabelTitle {
-            font-size: 28px;
-            color: white;             
-        }
-                      
+                                       
         QFrame {
             background-color: #333333;
             color: white;
-            border-radius: 10px; /* Add border-radius for rounded corners */
-            border: 2px solid black; /* Add border for the shadow effect */
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Add box-shadow for the shadow effect */
-        }
 
-        QProgressBar {
-            background-color: white;
-            color: black;
-            border-style: none;
-            text-align: center;  
-            font-size: 15px;    
-            font-weight: bold;
         }
-                      
-        QProgressBar::chunk {
-            background-color: qlineargradient(spread:pad x1:0, x2:1, y1:0.511364, y2:0.523, stop:0 #4d4d4d, stop:1 #4d4d4d);      
-        }  
-        
+       
         ''')
 
     def initUI(self):
