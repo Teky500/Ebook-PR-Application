@@ -136,9 +136,6 @@
         <widget class="QLabel" name="label">
          <property name="styleSheet">
           <string notr="true">background-color: #333333;   
-display: flex;
-justify-content: center;
-align-items: center;
 height: 100vh;
 margin: 0;
 border: #333333;
