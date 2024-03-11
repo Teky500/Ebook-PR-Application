@@ -1,8 +1,11 @@
 import csv
 import sys
-from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QPushButton, QFileDialog
+from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QVBoxLayout, QWidget, QPushButton, QFileDialog
 import pandas as pd
 class TableModel(QtCore.QAbstractTableModel):
     def __init__(self, data):
@@ -45,8 +48,19 @@ class TableModel(QtCore.QAbstractTableModel):
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, itemData, sType):
-
+        
         super().__init__()
+        # Create a transparent QPixmap
+        transparent_pixmap = QPixmap(1, 1)
+        transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+        # Set the window icon with the transparent QPixmap
+        self.setWindowIcon(QIcon(transparent_pixmap))
+            
+        # Remove title default name
+        self.window().setWindowTitle("     ")
+        
+
         if itemData == []:
             print('Nothing Found')
             self.window().close()
@@ -90,7 +104,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.model = TableModel(self.data)
             self.table.setModel(self.model)
 
-            header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Path']
+            header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Name']
             self.model.setHeaderLabels(header_labels)
 
 
@@ -100,6 +114,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
             # Add a button for downloading
             self.download_button = QPushButton("Download")
+            self.download_button.setText('Export to File')
             layout.addWidget(self.download_button)
             self.downloadType = 1
             self.download_button.clicked.connect(self.downloadTable) # backend function here 
@@ -117,9 +132,9 @@ class MainWindow(QtWidgets.QMainWindow):
                 df = pd.DataFrame(self.data)
                 df[0] = df[0].astype(float).map(lambda x: '{:.0f}'.format(x))
                 df[0] = df[0].astype(str)
-                df.to_csv(file_path, header= ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Path'], index=False)
+                df.to_csv(file_path, header= ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Name'], index=False)
             if download_type == 1:
                 df = pd.DataFrame(self.data)
                 df[0] = df[0].astype(float).map(lambda x: '{:.0f}'.format(x))
                 df[0] = df[0].astype(str)
-                df.to_csv(file_path, header= ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Path'], index=False, sep='\t')
+                df.to_csv(file_path, header= ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Name'], index=False, sep='\t')

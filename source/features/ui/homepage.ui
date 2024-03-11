@@ -116,7 +116,7 @@
         <number>50</number>
        </property>
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="set_university_name">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -130,10 +130,10 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">font: 700 110pt &quot;Segoe UI&quot;;</string>
+          <string notr="true">font: 700 50pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
-          <string>HOME PAGE</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -143,7 +143,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0,0,0">
+      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0">
        <property name="spacing">
         <number>20</number>
        </property>
@@ -154,132 +154,174 @@
         <number>5</number>
        </property>
        <property name="topMargin">
-        <number>50</number>
+        <number>20</number>
        </property>
        <property name="rightMargin">
         <number>5</number>
        </property>
        <property name="bottomMargin">
-        <number>300</number>
+        <number>50</number>
        </property>
        <item>
-        <widget class="QPushButton" name="search">
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>550</width>
-           <height>80</height>
-          </size>
-         </property>
-         <property name="sizeIncrement">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="contextMenuPolicy">
-          <enum>Qt::NoContextMenu</enum>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
-         </property>
-         <property name="text">
-          <string>Search</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QPushButton" name="search">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>70</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>700</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="sizeIncrement">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="contextMenuPolicy">
+            <enum>Qt::NoContextMenu</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
+           </property>
+           <property name="text">
+            <string>Search E-book</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="change">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>550</width>
+             <height>80</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
+           </property>
+           <property name="text">
+            <string>Reset All</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="update">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>550</width>
+             <height>80</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
+           </property>
+           <property name="text">
+            <string>Update CRKN</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="upload">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>550</width>
+             <height>80</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
+           </property>
+           <property name="text">
+            <string>Upload Local</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="unload">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>550</width>
+             <height>80</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
+           </property>
+           <property name="text">
+            <string>Unload Local</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="change">
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>60</height>
-          </size>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <property name="leftMargin">
+          <number>200</number>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>550</width>
-           <height>80</height>
-          </size>
+         <property name="topMargin">
+          <number>220</number>
          </property>
-         <property name="styleSheet">
-          <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
+         <property name="rightMargin">
+          <number>200</number>
          </property>
-         <property name="text">
-          <string>Change</string>
+         <property name="bottomMargin">
+          <number>0</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="update">
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>550</width>
-           <height>80</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
-         </property>
-         <property name="text">
-          <string>Update</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="upload">
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>550</width>
-           <height>80</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
-         </property>
-         <property name="text">
-          <string>Upload</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="unload">
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>550</width>
-           <height>80</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
-         </property>
-         <property name="text">
-          <string>Unload</string>
-         </property>
-        </widget>
+         <item>
+          <widget class="QPushButton" name="exit">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>180</width>
+             <height>80</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
+           </property>
+           <property name="text">
+            <string>Exit</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>

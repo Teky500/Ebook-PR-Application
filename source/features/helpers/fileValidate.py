@@ -167,7 +167,6 @@ class FileValidator:
         if (self.fileAccessible()):
             self.verifyNotEmpty()
             self.verifyMatching()
-        
         return (len(self.error_message) == 0)
 
 

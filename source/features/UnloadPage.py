@@ -2,7 +2,10 @@ import sys
 ######################### THREADING IMPORT
 from PyQt6.QtCore import Qt, QThread, pyqtSignal 
 from PyQt6.uic import loadUi
-from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QPushButton, QFileDialog, QLabel
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtWidgets import QWidget, QMessageBox
+from PyQt6.QtCore import Qt
 from .helpers.unload_file import removeFile, getFiles
 import sqlite3 as sq
 from .unload_success import UnloadSuccess
@@ -41,6 +44,17 @@ class UnloadSpreadsheet(QWidget):
         self.filePicked = ''
         self.homePage = HomePage
         loadUi(img_resource_path("source/features/ui/unloadpage.ui"), self)
+
+        # Create a transparent QPixmap
+        transparent_pixmap = QPixmap(1, 1)
+        transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+        # Set the window icon with the transparent QPixmap
+        self.setWindowIcon(QIcon(transparent_pixmap))
+            
+        # Remove title default name
+        self.window().setWindowTitle("     ")
+
         fileList = getFiles()
         for aF in fileList:
             print(aF)
@@ -59,6 +73,15 @@ class UnloadSpreadsheet(QWidget):
 
 
     def unloadSpreadsheets(self):
+        if self.unload_sheets.currentText() == '':
+            print('Must pick a spreadsheet!')
+            msg = QMessageBox()
+            msg.setWindowTitle("messageBox")
+            msg.setText("Please pick a spreadsheet!")
+            msg.setIcon(QMessageBox.Icon.Information)
+            msg.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
+            msg.exec()
+            return
         self.setButtonsEnabled(False)  # Disable buttons before starting the thread
         self.homePage.setHomePageButtonsEnabled(False)
         self.worker = Worker(self, self.unload_sheets.currentText(), self.unload_sheets.currentIndex())

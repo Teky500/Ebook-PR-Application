@@ -5,18 +5,32 @@ from .searchPage import Ui_Search_page
 from .helpers.search import search_title_substring, search_ISBN, search_OCN
 from .helpers.getLanguage import getLanguage
 from .SearchPageResults import MainWindow
+from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtCore import Qt
 
 class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
     def __init__(self, parent = None):
         super().__init__(parent)
         self.setupUi(self)
+
+        # Create a transparent QPixmap
+        transparent_pixmap = QPixmap(1, 1)
+        transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+        # Set the window icon with the transparent QPixmap
+        self.setWindowIcon(QIcon(transparent_pixmap))
+            
+        # Remove title default name
+        self.window().setWindowTitle("     ")
        
         #search button
         self.pushButton.clicked.connect(self.search)
 
         #Title button
         self.radioButton.clicked.connect(self.byTitle)
-
+        self.radioButton.setChecked(True)
+        self.radio = 1 
         #Keyword button
         self.radioButton_2.clicked.connect(self.byKeyword)
 
@@ -61,9 +75,26 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
             else:
                 msg.setText("Search field can not be empty!")
             msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-            msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok | QtWidgets.QMessageBox.StandardButton.Cancel)
+            msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+            msg.window().setWindowTitle("     ")
+            transparent_pixmap = QtGui.QPixmap(1, 1)
+            transparent_pixmap.fill(Qt.GlobalColor.transparent)
+            msg.setWindowIcon(QIcon(transparent_pixmap))
+            msg.resize(400, 200)
+            msg.setStyleSheet("""
+                                QPushButton {
+                                    font-weight: bold;
+                                    min-width: 60px;
+                                    }                                      
+                            """)
+
+            font = QtGui.QFont()
+            font.setPointSize(14) 
+            font.setBold(True) 
+            msg.setFont(font)
             msg.exec()
             return
+        
         global m
         match self.radio:
 
@@ -72,6 +103,41 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
                 print("Please select a search criteria")
             case 1:
                 s_result = search_title_substring(text, 'source/storage/database/proj.db')
+                if s_result == []:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle("messageBox")
+                    msg.setText("No matches found!")
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+
+                    # Remove the default window title
+                    msg.window().setWindowTitle("     ")
+
+                    # Create a transparent QPixmap
+                    transparent_pixmap = QtGui.QPixmap(1, 1)
+                    transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+                    # Set the window icon with the transparent QPixmap
+                    msg.setWindowIcon(QIcon(transparent_pixmap))
+
+                    msg.resize(400, 200)
+
+                    msg.setStyleSheet("""
+                                        QPushButton {
+                                            font-weight: bold;
+                                            min-width: 60px;
+                                        }         
+                                      
+                                      """)
+
+                    font = QtGui.QFont()
+                    font.setPointSize(14) 
+                    font.setBold(True) 
+                    msg.setFont(font)
+
+                    msg.exec()
+                    print('No Search found!')
+                    return
                 m = MainWindow(s_result, 1)
                 print(m)
                 m.window().show()
@@ -79,11 +145,80 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
                 pass
             case 3: 
                 s_result = search_OCN(text, 'source/storage/database/proj.db')
+                if s_result == []:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle("messageBox")
+                    msg.setText("No matches found!")
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+
+                    # Remove the default window title
+                    msg.window().setWindowTitle("     ")
+
+                    # Create a transparent QPixmap
+                    transparent_pixmap = QtGui.QPixmap(1, 1)
+                    transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+                    # Set the window icon with the transparent QPixmap
+                    msg.setWindowIcon(QIcon(transparent_pixmap))
+
+                    msg.resize(400, 200)
+
+                    msg.setStyleSheet("""
+                                        QPushButton {
+                                            font-weight: bold;
+                                            min-width: 60px;
+                                        }         
+                                      
+                                      """)
+
+                    font = QtGui.QFont()
+                    font.setPointSize(14) 
+                    font.setBold(True) 
+                    msg.setFont(font)
+
+                    msg.exec()
+                    print('No Search found!')
+                    return
                 m = MainWindow(s_result, 3)
                 print(m)
                 m.window().show()
             case 4:
                 s_result = search_ISBN(text, 'source/storage/database/proj.db')
+                if s_result == []:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle("messageBox")
+                    msg.setText("No matches found!")
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+
+                    # Remove the default window title
+                    msg.window().setWindowTitle("     ")
+
+                    # Create a transparent QPixmap
+                    transparent_pixmap = QtGui.QPixmap(1, 1)
+                    transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+                    # Set the window icon with the transparent QPixmap
+                    msg.setWindowIcon(QIcon(transparent_pixmap))
+
+                    msg.resize(400, 200)
+
+                    msg.setStyleSheet("""
+                                        QPushButton {
+                                            font-weight: bold;
+                                            min-width: 60px;
+                                        }         
+                                      
+                                      """)
+
+                    font = QtGui.QFont()
+                    font.setPointSize(14) 
+                    font.setBold(True) 
+                    msg.setFont(font)
+                    msg.exec()
+                    print('No Search found!')
+                    return
                 m = MainWindow(s_result, 0)
                 print(m)
                 m.window().show()

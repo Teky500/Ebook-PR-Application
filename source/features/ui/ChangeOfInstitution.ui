@@ -168,10 +168,10 @@
     <item>
      <widget class="QLabel" name="label">
       <property name="styleSheet">
-       <string notr="true">font: 700 20pt &quot;Segoe UI&quot;;</string>
+       <string notr="true">font: 700 17.5pt &quot;Segoe UI&quot;;</string>
       </property>
       <property name="text">
-       <string>This change is going to reset your</string>
+       <string>This will start over as a new installation,</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -181,10 +181,10 @@
     <item>
      <widget class="QLabel" name="label_2">
       <property name="styleSheet">
-       <string notr="true">font: 700 20pt &quot;Segoe UI&quot;;</string>
+       <string notr="true">font: 700 17.5pt &quot;Segoe UI&quot;;</string>
       </property>
       <property name="text">
-       <string>application, are you sure?</string>
+       <string>and remove all loaded data, are you sure?</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

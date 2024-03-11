@@ -39,9 +39,12 @@ def man_upload(file):
             db = sq.connect('source/storage/database/proj.db')
             cursor = db.cursor()
             df = access_csv(file_name)
+
             with open('source/config/config.yaml', 'r') as config_file:
                 yaml_file = yaml.safe_load(config_file)
-                University = yaml_file['University'] 
+                University = yaml_file['University']
+            if df[University].isnull().values.any():
+                return ['Null value found in University Column!']
             if singleAddition(df, cursor, platform, University, filename, 'N') == 0:
                 return ['Already Added File!']
             db.commit()

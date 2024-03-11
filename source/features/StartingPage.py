@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
 from .SetInstitutionPage import SetInstitution
 import yaml
@@ -10,6 +10,35 @@ from .helpers.getLanguage import getLanguage
 
 
 import os
+class Worker(QThread):
+    finished = pyqtSignal()
+    def __init__(self):
+        super(Worker, self).__init__()
+
+
+    #Here is where the time consuming task is placed
+    def run(self):
+        downloadFiles()
+        self.finished.emit()
+class Worker2(QThread):
+    finished = pyqtSignal()
+    def __init__(self, var):
+        super(Worker2, self).__init__()
+        self.var = var
+
+
+    #Here is where the time consuming task is placed
+    def run(self):
+        checker = UpdateChecker()
+        url = checker.config.get('link')
+        new_excel_files = checker.get_website_excel_files(url)
+        (added, removed) = checker.compare(new_excel_files)
+        self.var.added = added
+        self.var.removed = removed
+        self.var.checker = checker
+        self.finished.emit()
+
+
 class WelcomePage(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -36,13 +65,19 @@ class WelcomePage(QWidget):
         self.animation_counter = 0
 
         self.page_timer = QTimer(self)
-        self.page_timer.timeout.connect(self.show_next_page)
+
 
         self.animation_timer.start(600)
-        self.page_timer.start(5000)
 
         self.window().setFixedSize(500, 280)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        self.show_next_page()
+    #Method for fetching language configuration
+    def getLanguage(self):
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            language = yaml_file['Language']
+        return language
 
     def getStatus(self):
         with open('source/config/config.yaml', 'r') as config_file:
@@ -60,41 +95,47 @@ class WelcomePage(QWidget):
         self.animation_counter += 1
 
     def show_next_page(self):
-        self.page_timer.stop()
         self.window().close()
         self.openNewWindow()
   
     def setFixedSize(self, width, height):
         super().setFixedSize(width, height)
-
+    def post_thread_show_status_1(self):
+        self.window().close()
+        global m
+        new_window = SetInstitution()
+        m = new_window
+        new_window.run()
+    def post_thread_show_status_2(self):
+        global m
+        if (len(self.added) + len(self.removed)) == 0:
+            from .HomePage import SetHomePage
+            print('Status 1, found no updates')
+            self.window().close()
+            new_window = SetHomePage()
+            m = new_window
+            new_window.window().show()
+            self.window().close()
+        else:
+            from .FirstTimeUpdate import SetFirstTimeUpdate
+            print('Status 1, found update')
+            print(self.added, self.removed)
+            self.window().close()
+            update = SetFirstTimeUpdate(self.checker)
+            m = update
+            m.window().show()
+            self.window().close()
     def openNewWindow(self):
         if self.getStatus() == 0:
             print('Status 0')
-            downloadFiles()
-            global m
-            new_window = SetInstitution()
-            m = new_window
-            new_window.run()
+            self.worker = Worker()
+            self.worker.finished.connect(self.post_thread_show_status_1)
+            self.worker.start()            
         else:
-            checker = UpdateChecker()
-            url = checker.config.get('link')
-            new_excel_files = checker.get_website_excel_files(url)
-            (added, removed) = checker.compare(new_excel_files)
-            if (len(added) + len(removed)) == 0:
-                from .HomePage import SetHomePage
-                print('Status 1, found no updates')
-                new_window = SetHomePage()
-                m = new_window
-                new_window.window().show()
-                self.window().close()
-            else:
-                from .FirstTimeUpdate import SetFirstTimeUpdate
-                print('Status 1, found update')
-                print(added, removed)
-                update = SetFirstTimeUpdate(checker)
-                m = update
-                m.window().show()
-                self.window().close()
+            self.worker = Worker2(self)
+            self.worker.finished.connect(self.post_thread_show_status_2)
+            self.worker.start()  
+
 
 
 
