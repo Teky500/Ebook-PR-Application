@@ -76,9 +76,26 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
             msg.setWindowTitle("messageBox")
             msg.setText("Search field can not be empty!")
             msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-            msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok | QtWidgets.QMessageBox.StandardButton.Cancel)
+            msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+            msg.window().setWindowTitle("     ")
+            transparent_pixmap = QtGui.QPixmap(1, 1)
+            transparent_pixmap.fill(Qt.GlobalColor.transparent)
+            msg.setWindowIcon(QIcon(transparent_pixmap))
+            msg.resize(400, 200)
+            msg.setStyleSheet("""
+                                QPushButton {
+                                    font-weight: bold;
+                                    min-width: 60px;
+                                    }                                      
+                            """)
+
+            font = QtGui.QFont()
+            font.setPointSize(14) 
+            font.setBold(True) 
+            msg.setFont(font)
             msg.exec()
             return
+        
         global m
         match self.radio:
 
@@ -87,6 +104,38 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
             case 1:
                 s_result = search_title_substring(text, 'source/storage/database/proj.db')
                 if s_result == []:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle("messageBox")
+                    msg.setText("No matches found!")
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+
+                    # Remove the default window title
+                    msg.window().setWindowTitle("     ")
+
+                    # Create a transparent QPixmap
+                    transparent_pixmap = QtGui.QPixmap(1, 1)
+                    transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+                    # Set the window icon with the transparent QPixmap
+                    msg.setWindowIcon(QIcon(transparent_pixmap))
+
+                    msg.resize(400, 200)
+
+                    msg.setStyleSheet("""
+                                        QPushButton {
+                                            font-weight: bold;
+                                            min-width: 60px;
+                                        }         
+                                      
+                                      """)
+
+                    font = QtGui.QFont()
+                    font.setPointSize(14) 
+                    font.setBold(True) 
+                    msg.setFont(font)
+
+                    msg.exec()
                     print('No Search found!')
                     return
                 m = MainWindow(s_result, 1)
@@ -98,6 +147,38 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
             case 3: 
                 s_result = search_OCN(text, 'source/storage/database/proj.db')
                 if s_result == []:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle("messageBox")
+                    msg.setText("No matches found!")
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+
+                    # Remove the default window title
+                    msg.window().setWindowTitle("     ")
+
+                    # Create a transparent QPixmap
+                    transparent_pixmap = QtGui.QPixmap(1, 1)
+                    transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+                    # Set the window icon with the transparent QPixmap
+                    msg.setWindowIcon(QIcon(transparent_pixmap))
+
+                    msg.resize(400, 200)
+
+                    msg.setStyleSheet("""
+                                        QPushButton {
+                                            font-weight: bold;
+                                            min-width: 60px;
+                                        }         
+                                      
+                                      """)
+
+                    font = QtGui.QFont()
+                    font.setPointSize(14) 
+                    font.setBold(True) 
+                    msg.setFont(font)
+
+                    msg.exec()
                     print('No Search found!')
                     return
                 m = MainWindow(s_result, 3)
@@ -106,6 +187,37 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
             case 4:
                 s_result = search_ISBN(text, 'source/storage/database/proj.db')
                 if s_result == []:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle("messageBox")
+                    msg.setText("No matches found!")
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+
+                    # Remove the default window title
+                    msg.window().setWindowTitle("     ")
+
+                    # Create a transparent QPixmap
+                    transparent_pixmap = QtGui.QPixmap(1, 1)
+                    transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+                    # Set the window icon with the transparent QPixmap
+                    msg.setWindowIcon(QIcon(transparent_pixmap))
+
+                    msg.resize(400, 200)
+
+                    msg.setStyleSheet("""
+                                        QPushButton {
+                                            font-weight: bold;
+                                            min-width: 60px;
+                                        }         
+                                      
+                                      """)
+
+                    font = QtGui.QFont()
+                    font.setPointSize(14) 
+                    font.setBold(True) 
+                    msg.setFont(font)
+                    msg.exec()
                     print('No Search found!')
                     return
                 m = MainWindow(s_result, 0)
