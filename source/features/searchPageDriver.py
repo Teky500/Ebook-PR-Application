@@ -71,7 +71,7 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle("messageBox")
             if getLanguage() == 1:
-                msg.setText("Le champ de recherche ne peut pas étre vide!")
+                msg.setText("Le champ de recherche ne peut pas être vide!")
             else:
                 msg.setText("Search field can not be empty!")
             msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
@@ -99,14 +99,17 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
         match self.radio:
 
             case 0:
-                #Do we want a message box or failure page here?
-                print("Please select a search criteria")
+                #Case where no radio button selected (We have a default button so should never happen)
+                pass
             case 1:
                 s_result = search_title_substring(text, 'source/storage/database/proj.db')
                 if s_result == []:
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle("messageBox")
-                    msg.setText("No matches found!")
+                    if getLanguage() == 1:
+                        msg.setText("Aucun correspondance trouvée")
+                    else:
+                        msg.setText("No matches found!")
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
 
@@ -148,7 +151,10 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
                 if s_result == []:
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle("messageBox")
-                    msg.setText("No matches found!")
+                    if getLanguage() == 1:
+                        msg.setText("Aucun correspondance trouvée")
+                    else:
+                        msg.setText("No matches found!")
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
 
@@ -188,7 +194,10 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
                 if s_result == []:
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle("messageBox")
-                    msg.setText("No matches found!")
+                    if getLanguage() == 1:
+                        msg.setText("Aucun correspondance trouvée")
+                    else:
+                        msg.setText("No matches found!")
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
 

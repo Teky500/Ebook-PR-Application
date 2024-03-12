@@ -66,6 +66,11 @@ class SetInstitution(QWidget):
         
         if getLanguage() == 1:
             self.institution.setText("Sélectionnez l\'Institution ci-dessous")
+            self.institution.setStyleSheet('''font-size: 48pt;
+                                           background-color: #333333;
+                                            color: #ffffff;
+                                           padding: 5px;
+                                          border-color: #333333;''')
             self.submit_button_1.setText("Soumettre")
             
 
@@ -185,7 +190,10 @@ class SetInstitution(QWidget):
         self.worker = Worker(self, selected_text)
         self.worker.finished.connect(self.post_thread_action)
         self.worker.start()
-        self.ss = self.show_splash_screen('Loading CRKN Data', 30)
+        if getLanguage() == 1:
+            self.ss = self.show_splash_screen('Chargement des données CRKN', 20)
+        else:
+            self.ss = self.show_splash_screen('Loading CRKN Data', 30)
     def post_thread_action(self):
         global m
         m = self.ss.show_home_page()

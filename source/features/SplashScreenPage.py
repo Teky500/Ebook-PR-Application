@@ -52,12 +52,6 @@ class SplashScreen(QWidget):
         label = self.findChild(QLabel)
         label.setText(f"{self.loading_text}{dots}")
         self.animation_counter += 1
-
-    def getLanguage(self):
-        with open('source/config/config.yaml', 'r') as config_file:
-            yaml_file = yaml.safe_load(config_file)
-            language = yaml_file['Language']
-        return language
     
     def show_home_page(self):
         global m

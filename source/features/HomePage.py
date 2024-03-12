@@ -65,6 +65,7 @@ class SetHomePage(QWidget):
             self.update.setText("Mettre à jour")
             self.upload.setText("Mettre en ligne")
             self.unload.setText("Decharger")    #Check
+            self.exit.setText("Sortir")
 
         # self.window().resize(850, 800)
         self.search.clicked.connect(self.search_page_show)

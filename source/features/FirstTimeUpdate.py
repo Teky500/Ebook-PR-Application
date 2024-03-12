@@ -5,13 +5,14 @@ from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget
 from PyQt6.QtCore import Qt
 from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
-
+from .helpers.getLanguage import getLanguage
 from .helpers.download_excel import downloadFiles
 from .helpers.add_to_database import access_csv, singleAddition, openExcel, removeFromDatabase
 import os
 import sqlite3 as sq
 import yaml
 import os
+
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -63,6 +64,13 @@ class SetFirstTimeUpdate(QWidget):
         loadUi(img_resource_path("source/features/ui/updatefirst-timepage.ui"), self)
         self.checker = check
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
+
+        if getLanguage() == 1:
+            self.confirm_update_1.setText("Oui")
+            self.cancel_update_1.setText("Non")
+            self.label.setText("Vos données CRKN ne sont pas à jour,")
+            self.label_2.setText("souhaitez-vous les mettre 4 jour?")
+
         self.confirm_update_1.clicked.connect(self.load_confirm_page)
         self.cancel_update_1.clicked.connect(self.load_home_page)
 
@@ -74,7 +82,10 @@ class SetFirstTimeUpdate(QWidget):
         self.worker = Worker(self.checker)
         self.worker.finished.connect(self.handle_thread_finished)
         self.worker.start()
-        self.ss = SplashScreen("Updating", 35)
+        if getLanguage() == 1:
+            self.ss = SplashScreen("Mise à jour en cours", 32)
+        else:
+            self.ss = SplashScreen("Updating", 35)
         self.ss.window().show()
         self.window().hide()
 

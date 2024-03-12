@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget
 from PyQt6.QtCore import Qt
 import yaml
 import os
+from .helpers.getLanguage import getLanguage
 
 # from SetInstitutionPage import SetInstitution
 # from .helpers.download_excel import downloadFiles
@@ -22,6 +23,13 @@ class ChangeInstitution(QWidget):
 
         loadUi(img_resource_path("source/features/ui/changeOfInstitution.ui"), self)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
+
+        if getLanguage() == 1:
+            self.cancel.setText("Non")
+            self.confirm_change.setText("Oui")
+            self.label.setText("Cela commencera comme une nouvelle installation,")
+            self.label_2.setText("et supprimera toutes les données chargées, êtes-vous sûr?")
+
         self.cancel_change.clicked.connect(self.load_home_page)
         self.confirm_change.clicked.connect(self.start_again)
 
