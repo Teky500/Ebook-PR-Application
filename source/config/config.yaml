@@ -1,4 +1,4 @@
-Language: 1
+Language: 0
 Status: 1
 Theme: Default
 Universities:
@@ -78,7 +78,7 @@ Universities:
 - Western Univ.
 - Wilfrid Laurier Univ.
 - York Univ.
-University: Bishop's Univ.
+University: Univ. of Prince Edward Island
 excel_links:
 - https://library.upei.ca/sites/default/files/CRKN_EbookPARightsTracking_TaylorFrancis_2024_02_06_2.xlsx
 - https://library.upei.ca/sites/default/files/CRKN_EbookPARightsTracking_Proquest_2024_02_06_3.xlsx

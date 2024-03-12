@@ -64,7 +64,7 @@ class SetInstitution(QWidget):
         # Remove title default name
         self.window().setWindowTitle("     ")
         
-        if self.getLanguage() == 1:
+        if getLanguage() == 1:
             self.institution.setText("Sélectionnez l\'Institution ci-dessous")
             self.submit_button_1.setText("Soumettre")
             

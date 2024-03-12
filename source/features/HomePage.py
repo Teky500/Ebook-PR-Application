@@ -65,18 +65,6 @@ class SetHomePage(QWidget):
             self.update.setText("Mettre à jour")
             self.upload.setText("Mettre en ligne")
             self.unload.setText("Decharger")    #Check
-            self.label.setText("PAGE D\'ACCUEIL")   #Too big
-
-            #Change style sheet to reduce font size and fit text
-            self.label.setStyleSheet("""
-                QLabel {
-                    font: 700 80pt "Segoe UI";
-                    color: #ffffff;
-                    background-color: #333333; /* Change color */
-                    border: 1px solid #333333;
-                    padding: 5px;
-                }
-            """)
 
         # self.window().resize(850, 800)
         self.search.clicked.connect(self.search_page_show)

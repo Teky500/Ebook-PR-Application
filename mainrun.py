@@ -15,8 +15,6 @@ if __name__ == "__main__":
             yaml.dump(x, yF, default_flow_style=False)
     
 
-
-            
     app = QApplication(sys.argv)
     app.setStyleSheet("""
                            
