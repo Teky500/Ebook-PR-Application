@@ -6,9 +6,19 @@ import yaml
 from .helpers.crknScrapper import CrknExcelExtractor
 from .helpers.download_excel import downloadExcel, parseExcel, downloadFiles
 from .helpers.crknUpdater import UpdateChecker
-
+import time
 
 import os
+from urllib import request
+
+def internet_on():
+    try:
+        request.urlopen('https://www.google.com/', timeout=1)
+        return True
+    except request.URLError as err: 
+        print(err)
+        return False
+
 class Worker(QThread):
     finished = pyqtSignal()
     def __init__(self):
@@ -125,15 +135,33 @@ class WelcomePage(QWidget):
             m.window().show()
             self.window().close()
     def openNewWindow(self):
+        global m
         if self.getStatus() == 0:
             print('Status 0')
-            self.worker = Worker()
-            self.worker.finished.connect(self.post_thread_show_status_1)
-            self.worker.start()            
+            if internet_on():
+                self.worker = Worker()
+                self.worker.finished.connect(self.post_thread_show_status_1)
+                self.worker.start()
+            else:
+                print('No network connection: cant fetch data.')            
         else:
-            self.worker = Worker2(self)
-            self.worker.finished.connect(self.post_thread_show_status_2)
-            self.worker.start()  
+            if not internet_on():
+                print('No network connection: Can not check for updates')
+                from .HomePage import SetHomePage
+                self.window().close()
+                new_window = SetHomePage()
+                m = new_window
+                new_window.window().show()
+                self.window().close()                
+                QTimer.singleShot(0, self.window().close)
+
+
+            else:
+                self.worker = Worker2(self)
+                self.worker.finished.connect(self.post_thread_show_status_2)
+                self.worker.start()  
+
+
 
 
 
