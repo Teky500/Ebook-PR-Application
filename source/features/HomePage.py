@@ -16,7 +16,7 @@ from urllib import request
 
 def internet_on():
     try:
-        request.urlopen('http://216.58.192.142', timeout=1)
+        request.urlopen('https://www.google.com/', timeout=1)
         return True
     except request.URLError as err: 
         return False
@@ -144,7 +144,7 @@ class SetHomePage(QWidget):
         if (len(added) + len(removed)) == 0:
             print('Found no updates')
             from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
-            m = SetFirstTimeUpdateConfirm()
+            m = SetFirstTimeUpdateConfirm('Your CRKN Data is already up to date!', 0)
             m.show()
             self.window().close()
         else:
