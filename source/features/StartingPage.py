@@ -105,12 +105,14 @@ class WelcomePage(QWidget):
 
     def show_next_page(self):
         self.window().close()
+
         self.openNewWindow()
   
     def setFixedSize(self, width, height):
         super().setFixedSize(width, height)
     def post_thread_show_status_1(self):
         self.window().close()
+        self.animation_timer.stop()
         global m
         new_window = SetInstitution()
         m = new_window
@@ -118,6 +120,7 @@ class WelcomePage(QWidget):
         self.close()
     def post_thread_show_status_2(self):
         global m
+        self.animation_timer.stop()
         if (len(self.added) + len(self.removed)) == 0:
             from .HomePage import SetHomePage
             print('Status 1, found no updates')

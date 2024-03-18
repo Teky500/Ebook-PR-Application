@@ -27,6 +27,7 @@ def singleAddition(df, cursor, platform, University, filename, man_stat):
     print('Already added file previously!')
     print(str(e))
     return 0
+  counter = 0
   for row in df.iterrows():
     title = row[1]['Title']
     publisher = row[1]['Publisher']
@@ -35,13 +36,16 @@ def singleAddition(df, cursor, platform, University, filename, man_stat):
     OCN = row[1]['OCN']
     result = row[1][University]
     print('ADDING ROW TO DATABASE', (title, publisher, platform_yob, ISBN, OCN, result, filename))
+    
     try:
       cursor.execute("INSERT INTO books (title, publisher, platform_yop, ISBN, OCN, result, spreadsheet) VALUES(?, ?, ?, ?, ?, ?, ?)", 
                     (title, publisher, platform_yob, ISBN, OCN, result, filename))
+      counter += 1
     # sometimes the the same ISBN will be there twice. For now, ignore those rows.
     except sq.IntegrityError as e:
       print('FAILED ADDITION', (title, publisher, platform_yob, ISBN, OCN, result, filename))
       print(str(e))
+  return (1, counter)
 
 def removeFromDatabase():
   db_path = 'source/storage/database/proj.db'
