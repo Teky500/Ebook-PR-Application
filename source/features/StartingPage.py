@@ -51,13 +51,13 @@ class Worker2(QThread):
 class WelcomePage(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-       
+        self.language = self.getLanguage()
         self.setup_ui()
 
 
     def setup_ui(self):
         layout = QVBoxLayout(self)
-        if self.getLanguage() == 1:
+        if self.language == 1:
             label = QLabel(f"Démarrage", self)
         else:
             label = QLabel(f"Starting", self)
@@ -97,7 +97,7 @@ class WelcomePage(QWidget):
     def animate_text(self):
         dots = '.' * (self.animation_counter % 4)
         label = self.findChild(QLabel)
-        if self.getLanguage() == 1:
+        if self.language == 1:
             label.setText(f"Démarrage{dots}")
         else:
             label.setText(f"Starting{dots}")
@@ -115,6 +115,7 @@ class WelcomePage(QWidget):
         new_window = SetInstitution()
         m = new_window
         new_window.run()
+        self.close()
     def post_thread_show_status_2(self):
         global m
         if (len(self.added) + len(self.removed)) == 0:
@@ -143,7 +144,7 @@ class WelcomePage(QWidget):
                 self.worker.finished.connect(self.post_thread_show_status_1)
                 self.worker.start()
             else:
-                print('No network connection: cant fetch data.')            
+                print('No network connection: cant fetch data.')           
         else:
             if not internet_on():
                 print('No network connection: Can not check for updates')

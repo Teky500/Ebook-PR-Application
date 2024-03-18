@@ -10,8 +10,13 @@ def openExcel(file):
 def access_csv(file):
   spreadsheet_csv = pd.read_csv(f'source/storage/spreadsheets/{file}', skiprows=[0,1])
   df = pd.DataFrame(spreadsheet_csv)
-  df = df[df['Platform_eISBN'].notna()]
-  df['Platform_eISBN'] = (df['Platform_eISBN'].apply(int).astype(str))
+  try:
+    df = df[df['Platform_eISBN'].notna()]
+    df['Platform_eISBN'] = (df['Platform_eISBN'].apply(int).astype(str))
+  except Exception as e:
+    print('ERROR FORMING DATAFRAME')
+    print(e)
+
   return df
 def singleAddition(df, cursor, platform, University, filename, man_stat):
   try:
