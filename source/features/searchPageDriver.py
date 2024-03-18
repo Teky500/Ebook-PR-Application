@@ -1,11 +1,9 @@
-from PyQt6 import QtWidgets, QtCore, QtGui
-from PyQt6.QtWidgets import QMainWindow
+from PyQt6 import QtWidgets, QtGui
 import yaml
 from .searchPage import Ui_Search_page
 from .helpers.search import search_title_substring, search_ISBN, search_OCN
 from .SearchPageResults import MainWindow
 from PyQt6.QtGui import QIcon, QPixmap
-from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
 
 class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
@@ -96,7 +94,6 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
             msg.exec()
             return
         
-        global m
         match self.radio:
 
             case 0:
@@ -138,9 +135,9 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
                     msg.exec()
                     print('No Search found!')
                     return
-                m = MainWindow(s_result, 1)
-                print(m)
-                m.window().show()
+                self.main_window = MainWindow(s_result, 1)
+                print(self.main_window)
+                self.main_window.window().show()
 
             case 2:
                 pass
@@ -181,9 +178,10 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
                     msg.exec()
                     print('No Search found!')
                     return
-                m = MainWindow(s_result, 3)
-                print(m)
-                m.window().show()
+                self.main_window = MainWindow(s_result, 3)
+                print(self.main_window)
+                self.main_window.window().show()
+
             case 4:
                 s_result = search_ISBN(text, 'source/storage/database/proj.db')
                 if s_result == []:
@@ -220,9 +218,10 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
                     msg.exec()
                     print('No Search found!')
                     return
-                m = MainWindow(s_result, 0)
-                print(m)
-                m.window().show()
+                self.main_window = MainWindow(s_result, 0)
+                print(self.main_window)
+                self.main_window.window().show()
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)

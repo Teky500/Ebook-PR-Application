@@ -1,15 +1,16 @@
 import sys
 ######################### THREADING IMPORT
-from PyQt6.QtCore import Qt, QThread, pyqtSignal 
+from PyQt6.QtCore import Qt, QThread, pyqtSignal
+from PyQt6 import QtGui
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget, QMessageBox
 from PyQt6.QtCore import Qt
 from .helpers.unload_file import removeFile, getFiles
-import sqlite3 as sq
 from .unload_success import UnloadSuccess
 import os
+
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -66,23 +67,47 @@ class UnloadSpreadsheet(QWidget):
         # Cancel process here
         self.cancel_button.clicked.connect(self.close_window)
 
-
-
     def close_window(self):
         self.window().close()
-
 
     def unloadSpreadsheets(self):
         if self.unload_sheets.currentText() == '':
             print('Must pick a spreadsheet!')
             msg = QMessageBox()
             msg.setWindowTitle("messageBox")
-            msg.setText("Please pick a spreadsheet!")
+            msg.setText("Please select a spreadsheet")
             msg.setIcon(QMessageBox.Icon.Information)
-            msg.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
+            msg.setStandardButtons(QMessageBox.StandardButton.Ok )
+
+            # Remove the default window title
+            msg.window().setWindowTitle("     ")
+
+            # Create a transparent QPixmap
+            transparent_pixmap = QtGui.QPixmap(1, 1)
+            transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+            # Set the window icon with the transparent QPixmap
+            msg.setWindowIcon(QIcon(transparent_pixmap))
+
+            msg.resize(400, 200)
+
+            msg.setStyleSheet("""
+                                    QPushButton {
+                                            font-weight: bold;
+                                            min-width: 60px;
+                                    }         
+                                      
+                            """)
+
+            font = QtGui.QFont()
+            font.setPointSize(14) 
+            font.setBold(True) 
+            msg.setFont(font)
+
             msg.exec()
             return
-        self.setButtonsEnabled(False)  # Disable buttons before starting the thread
+        # Disable buttons before starting the thread
+        self.setButtonsEnabled(False)  
         self.homePage.setHomePageButtonsEnabled(False)
         self.worker = Worker(self, self.unload_sheets.currentText(), self.unload_sheets.currentIndex())
         self.worker.finished.connect(self.handle_thread_finished)
@@ -92,9 +117,8 @@ class UnloadSpreadsheet(QWidget):
         self.cIndex = self.unload_sheets.currentIndex()
         self.setButtonsEnabled(True)
         self.homePage.setHomePageButtonsEnabled(True)
-        global m
-        m = UnloadSuccess(self.filePicked)
-        m.window().show()
+        self.unload_page = UnloadSuccess(self.filePicked)
+        self.unload_page.window().show()
         self.unload_sheets.removeItem(self.cIndex)
         self.filePicked = ''
 
