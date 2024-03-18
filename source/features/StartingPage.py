@@ -59,7 +59,7 @@ class WelcomePage(QWidget):
 
     def setup_ui(self):
         layout = QVBoxLayout(self)
-        if self.getLanguage() == 1:
+        if self.language == 1:
             label = QLabel(f"Démarrage", self)
         else:
             label = QLabel(f"Starting", self)
@@ -99,7 +99,7 @@ class WelcomePage(QWidget):
     def animate_text(self):
         dots = '.' * (self.animation_counter % 4)
         label = self.findChild(QLabel)
-        if self.getLanguage() == 1:
+        if self.language == 1:
             label.setText(f"Démarrage{dots}")
         else:
             label.setText(f"Starting{dots}")
