@@ -16,7 +16,7 @@ def img_resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 class UploadSuccess(QWidget):
-    def __init__(self):
+    def __init__(self, msg='Success!'):
         super(UploadSuccess, self).__init__()
         self.filePicked = ''
 
@@ -31,6 +31,7 @@ class UploadSuccess(QWidget):
             
         # Remove title default name
         self.window().setWindowTitle("     ")
+        self.unload.setText(msg)
         
         self.cancel_button.clicked.connect(self.close_window)
 

@@ -13,6 +13,14 @@ from .helpers.getLanguage import getLanguage
 from .FirstTimeUpdate import SetFirstTimeUpdate
 from .ChangeInstitution import ChangeInstitution
 import os
+from urllib import request
+
+def internet_on():
+    try:
+        request.urlopen('https://www.google.com/', timeout=1)
+        return True
+    except request.URLError as err: 
+        return False
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -111,6 +119,9 @@ class SetHomePage(QWidget):
         self.window().hide()
 
     def update_page_show(self):
+        if not internet_on():
+            print('NO INTERNET')
+            return 
         global m
         checker = UpdateChecker()
         url = checker.config.get('link')
@@ -119,7 +130,7 @@ class SetHomePage(QWidget):
         if (len(added) + len(removed)) == 0:
             print('Found no updates')
             from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
-            m = SetFirstTimeUpdateConfirm()
+            m = SetFirstTimeUpdateConfirm('Your CRKN Data is already up to date!', 0)
             m.show()
             self.window().close()
         else:

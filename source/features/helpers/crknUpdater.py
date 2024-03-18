@@ -18,13 +18,18 @@ class UpdateChecker:
             return yaml.safe_load(config_file)
 
     def get_website_excel_files(self, url):
-        response = requests.get(url)
-        if response.status_code == 200:
-            soup = BeautifulSoup(response.text, 'html.parser')
-            base_url = response.url
-            return [urljoin(url, a['href']) for a in soup.find_all('a', href=True) if a['href'].endswith('.xlsx')]
-        else:
-            print(f"Failed to fetch URL. Status code: {response.status_code}")
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.text, 'html.parser')
+                base_url = response.url
+                return [urljoin(url, a['href']) for a in soup.find_all('a', href=True) if a['href'].endswith('.xlsx')]
+            else:
+                print(f"Failed to fetch URL. Status code: {response.status_code}")
+                return []
+        except Exception as E:
+            print(E)
+            print('Could not fetch links. Are you connected to the internet?')
             return []
 
     def compare(self, new_excel_files):
