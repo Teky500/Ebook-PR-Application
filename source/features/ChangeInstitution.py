@@ -1,12 +1,10 @@
 import sys
 from PyQt6.uic import loadUi
-from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget
+from PyQt6.QtWidgets import QWidget, QApplication
 from PyQt6.QtCore import Qt
 import yaml
 import os
 
-# from SetInstitutionPage import SetInstitution
-# from .helpers.download_excel import downloadFiles
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -25,25 +23,24 @@ class ChangeInstitution(QWidget):
         self.cancel_change.clicked.connect(self.load_home_page)
         self.confirm_change.clicked.connect(self.start_again)
 
-
     def load_home_page(self):
         from .HomePage import SetHomePage
-        global m
-        new_window = SetHomePage()
-        m = new_window
+        self.home_page = SetHomePage()
         self.window().hide()
-        new_window.show()
+        self.home_page.show()
+
     def start_again(self):
         from .StartingPage import WelcomePage
+
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             yaml_file['Status'] = 0
+
         with open('source/config/config.yaml', 'w') as config_file:
             yaml.dump(yaml_file, config_file)        
 
-        global m
-        m = WelcomePage()
-        m.show()
+        self.welcome_page = WelcomePage()
+        self.welcome_page.show()
         self.window().close()
 
 if __name__ == "__main__":

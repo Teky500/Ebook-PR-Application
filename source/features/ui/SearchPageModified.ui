@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1092</width>
+    <height>683</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1092</width>
+    <height>683</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">    QWidget {
+        background-color: #333333;
+        color: #ffffff;
+        border: none;
+    }
+    QPushButton {
+        background-color: #4d4d4d;
+        border: 1px solid #4d4d4d;
+        border-radius: 4px;
+        color: #ffffff;
+        padding: 5px;
+    }
+    QPushButton:hover {
+        background-color: #5a5a5a;
+        border: 1px solid #5a5a5a;
+    }
+    QCheckBox {
+        color: #ffffff;
+    }
+    QLineEdit {
+        background-color: #ffffff;
+        border: 1px solid #4d4d4d;
+        color: #000000;
+        padding: 5px;
+    }
+    QTextEdit {
+        background-color: #4d4d4d;
+        border: 1px solid #4d4d4d;
+        color: #ffffff;
+        padding: 5px;
+    }
+    QProgressBar {
+        border: 1px solid #444444;
+        border-radius: 7px;
+        background-color: #2e2e2e;
+        text-align: center;
+        font-size: 10pt;
+        color: white;
+    }
+    QProgressBar::chunk {
+        background-color: #3a3a3a;
+        width: 5px;
+    }
+    QScrollBar:vertical {
+        border: none;
+        background-color: #3a3a3a;
+        width: 10px;
+        margin: 16px 0 16px 0;
+    }
+    QScrollBar::handle:vertical {
+        background-color: #444444;
+        border-radius: 5px;
+    }
+    QScrollBar:horizontal {
+        border: none;
+        background-color: #3a3a3a;
+        height: 10px;
+        margin: 0px 16px 0 16px;
+    }
+    QScrollBar::handle:horizontal {
+        background-color: #444444;
+        border-radius: 5px;
+    }
+    QTabWidget {
+        background-color: #2e2e2e;
+        border: none;
+    }
+    QTabBar::tab {
+        background-color: #2e2e2e;
+        color: #b1b1b1;
+        padding: 8px 20px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border: none;
+    }
+ 
+    QTabBar::tab:selected, QTabBar::tab:hover {
+        background-color: #3a3a3a;
+        color: white;
+    }</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="leftMargin">
+      <number>10</number>
+     </property>
+     <property name="rightMargin">
+      <number>10</number>
+     </property>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="topMargin">
+        <number>30</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="styleSheet">
+          <string notr="true">font: 700 65pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>E-Book Search</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>10</number>
+       </property>
+       <item>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="minimumSize">
+          <size>
+           <width>500</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>1200</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+	
+	color: #333333;
+    border: 1px solid #999; /* Border color */
+    padding: 5px; /* Padding inside the combo box */
+	color: #333333;
+    font-size: 20px; /* Replace with your desired font size */
+    font-weight: bold; /* Make the text bold */
+	
+
+}</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="search_ebook">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>200</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 700 15pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Search</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="cancel_search">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>200</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 700 15pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Cancel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <property name="leftMargin">
+        <number>100</number>
+       </property>
+       <property name="rightMargin">
+        <number>100</number>
+       </property>
+       <property name="bottomMargin">
+        <number>300</number>
+       </property>
+       <item>
+        <widget class="QRadioButton" name="radio_button_1">
+         <property name="styleSheet">
+          <string notr="true">font: 700 25pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>OCN</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radio_button_2">
+         <property name="styleSheet">
+          <string notr="true">font: 700 25pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Title</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radio_button_3">
+         <property name="styleSheet">
+          <string notr="true">font: 700 25pt &quot;Segoe UI&quot;;</string>
+         </property>
+         <property name="text">
+          <string>eISBN</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

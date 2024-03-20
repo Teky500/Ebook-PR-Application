@@ -28,8 +28,6 @@ class SetFirstTimeUpdateConfirm(QWidget):
 
     def show_home_page(self):
         from .HomePage import SetHomePage
-        global m
-        new_window = SetHomePage()
-        m = new_window
+        self.home_page = SetHomePage()
         self.window().hide()
-        new_window.run()
+        self.home_page.run()
