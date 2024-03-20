@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
+from .helpers.getLanguage import getLanguage
 import os
 
 def img_resource_path(relative_path):
@@ -22,6 +23,8 @@ class UploadFailure(QWidget):
         self.filePicked = ''
 
         loadUi(img_resource_path("source/features/ui/uploadpage_failure.ui"), self)
+        if getLanguage() == 1:
+            self.unload.setText("Échec!")
         
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)

@@ -2,6 +2,7 @@ from PyQt6 import QtWidgets, QtGui
 import yaml
 from PyQt6.uic import loadUi
 from .helpers.search import search_title_substring, search_ISBN, search_OCN
+from .helpers.getLanguage import getLanguage
 from .SearchPageResults import MainWindow
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import Qt
@@ -44,17 +45,12 @@ class searchPageDriver(QtWidgets.QWidget):
         #Cancel button
         self.cancel_search.clicked.connect(self.close)
 
-        if self.getLanguage() == 1:
+        if getLanguage() == 1:
             self.label.setText("Recherche de Livre Électronique")
             self.search_ebook.setText("Recherche")
             self.cancel_search.setText("Annule la Recherche")
             self.radio_button_2.setText("Titre")
 
-    def getLanguage(self):
-        with open('source/config/config.yaml', 'r') as config_file:
-            yaml_file = yaml.safe_load(config_file)
-            language = yaml_file['Language']
-        return language
     
     def close(self):
         super().close()
@@ -75,7 +71,10 @@ class searchPageDriver(QtWidgets.QWidget):
         if (len(text) == 0):
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle("messageBox")
-            msg.setText("Search field can not be empty!")
+            if getLanguage() == 1:
+                msg.setText("Le champ de recherche ne peut pas être vide!")
+            else:
+                msg.setText("Search field can not be empty!")
             msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
             msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
             msg.window().setWindowTitle("     ")
@@ -100,13 +99,17 @@ class searchPageDriver(QtWidgets.QWidget):
         match self.radio:
 
             case 0:
-                print("Please select a search criteria")
+                #Case where no radio button selected (We have a default button so should never happen)
+                pass
             case 1:
                 s_result = search_title_substring(text, 'source/storage/database/proj.db')
                 if s_result == []:
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle("messageBox")
-                    msg.setText("No matches found!")
+                    if getLanguage() == 1:
+                        msg.setText("Aucun correspondance trouvée")
+                    else:
+                        msg.setText("No matches found!")
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
 
@@ -144,7 +147,10 @@ class searchPageDriver(QtWidgets.QWidget):
                 if s_result == []:
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle("messageBox")
-                    msg.setText("No matches found!")
+                    if getLanguage() == 1:
+                        msg.setText("Aucun correspondance trouvée")
+                    else:
+                        msg.setText("No matches found!")
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
 
@@ -180,7 +186,10 @@ class searchPageDriver(QtWidgets.QWidget):
                 if s_result == []:
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle("messageBox")
-                    msg.setText("No matches found!")
+                    if getLanguage() == 1:
+                        msg.setText("Aucun correspondance trouvée")
+                    else:
+                        msg.setText("No matches found!")
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
 

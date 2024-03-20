@@ -8,6 +8,7 @@ from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget, QMessageBox
 from PyQt6.QtCore import Qt
 from .helpers.unload_file import removeFile, getFiles
+from .helpers.getLanguage import getLanguage
 from .unload_success import UnloadSuccess
 import os
 
@@ -45,6 +46,12 @@ class UnloadSpreadsheet(QWidget):
         self.filePicked = ''
         self.homePage = HomePage
         loadUi(img_resource_path("source/features/ui/unloadpage.ui"), self)
+        if getLanguage() == 1:
+            self.unload.setText("Sélectionner le Tableau à Décharger")
+            self.unload.setStyleSheet('''font-size: 48pt;
+                                           ''')
+            self.submit_button.setText("Soumettre")
+            self.cancel_button.setText("Annuler")
 
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)
@@ -75,7 +82,10 @@ class UnloadSpreadsheet(QWidget):
             print('Must pick a spreadsheet!')
             msg = QMessageBox()
             msg.setWindowTitle("messageBox")
-            msg.setText("Please select a spreadsheet")
+            if getLanguage() == 1:
+                msg.setText("Veuillez Sélectionner un Tableau")
+            else:
+                msg.setText("Please select a spreadsheet")
             msg.setIcon(QMessageBox.Icon.Information)
             msg.setStandardButtons(QMessageBox.StandardButton.Ok )
 

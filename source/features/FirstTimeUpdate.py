@@ -5,7 +5,7 @@ from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication
 from PyQt6.QtCore import Qt
 from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
-
+from .helpers.getLanguage import getLanguage
 from .helpers.download_excel import downloadFiles
 from .helpers.add_to_database import access_csv, singleAddition, openExcel, removeFromDatabase
 import os
@@ -61,7 +61,6 @@ class Worker(QThread):
         self.finished.emit()
 
 
-
 class SetFirstTimeUpdate(QWidget):
     def __init__(self, check):
         super(SetFirstTimeUpdate, self).__init__()
@@ -69,6 +68,13 @@ class SetFirstTimeUpdate(QWidget):
         loadUi(img_resource_path("source/features/ui/updatefirst-timepage.ui"), self)
         self.checker = check
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
+
+        if getLanguage() == 1:
+            self.confirm_update_1.setText("Oui")
+            self.cancel_update_1.setText("Non")
+            self.label.setText("Vos données CRKN ne sont pas à jour,")
+            self.label_2.setText("souhaitez-vous les mettre à jour?")
+
         self.confirm_update_1.clicked.connect(self.load_confirm_page)
         self.cancel_update_1.clicked.connect(self.load_home_page)
 
@@ -80,7 +86,10 @@ class SetFirstTimeUpdate(QWidget):
         self.worker = Worker(self.checker)
         self.worker.finished.connect(self.handle_thread_finished)
         self.worker.start()
-        self.ss = SplashScreen("Updating", 35)
+        if getLanguage() == 1:
+            self.ss = SplashScreen("Mise à jour en cours", 32)
+        else:
+            self.ss = SplashScreen("Updating", 35)
         self.ss.window().show()
         self.window().hide()
 
@@ -89,7 +98,10 @@ class SetFirstTimeUpdate(QWidget):
         self.setButtonsEnabled(True)
         self.ss.window().close()
 
-        self.first_time_update = SetFirstTimeUpdateConfirm('Your CRKN data is now up to date.', 0)
+        if getLanguage() == 1:
+            self.first_time_update = SetFirstTimeUpdateConfirm("Vos données CRKN sont déjà à jour !", 0)
+        else:
+            self.first_time_update = SetFirstTimeUpdateConfirm('Your CRKN data is now up to date.', 0)
 
         self.window().hide()
         self.first_time_update.run()

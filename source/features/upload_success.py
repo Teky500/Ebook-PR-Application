@@ -4,6 +4,8 @@ from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
+from .helpers.manual_upload import man_upload
+from .helpers.getLanguage import getLanguage
 import os
 
 def img_resource_path(relative_path):
@@ -32,8 +34,10 @@ class UploadSuccess(QWidget):
             
         # Remove title default name
         self.window().setWindowTitle("     ")
-        self.unload.setText(msg)
         
+        if getLanguage() == 1:
+            self.unload.setText("Succès!")    
+        self.unload.setText(msg)
         self.cancel_button.clicked.connect(self.close_window)
 
     def close_window(self):
