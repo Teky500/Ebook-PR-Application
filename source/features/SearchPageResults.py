@@ -132,13 +132,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
             self.resize(1092, 683)
 
-            self.download_button = QPushButton("Download")
-            if getLanguage() == 1:
-                self.download_button.setText('Exporter vers un fichier')
-            else:
-                self.download_button.setText('Export to File')
-            layout.addWidget(self.download_button)
-            self.downloadType = 1
             self.download_button.clicked.connect(self.downloadTable) 
 
 
