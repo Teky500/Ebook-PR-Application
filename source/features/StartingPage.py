@@ -118,9 +118,7 @@ class WelcomePage(QWidget):
     def post_thread_show_status_2(self):
         self.animation_timer.stop()
         global m
-        new_window = SetInstitution()
-        m = new_window
-        new_window.run()
+
         self.close()
         if (len(self.added) + len(self.removed)) == 0:
             from .HomePage import SetHomePage

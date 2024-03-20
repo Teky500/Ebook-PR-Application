@@ -142,7 +142,7 @@ class SetHomePage(QWidget):
             print('Found no updates')
             from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
 
-            self.update_confirm_page = SetFirstTimeUpdateConfirm()
+            self.update_confirm_page = SetFirstTimeUpdateConfirm('Your CRKN Data is already up to date!', 0)
             self.update_confirm_page.show()
 
             self.window().close()

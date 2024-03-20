@@ -89,7 +89,7 @@ class SetFirstTimeUpdate(QWidget):
         self.setButtonsEnabled(True)
         self.ss.window().close()
 
-        self.first_time_update = SetFirstTimeUpdateConfirm()
+        self.first_time_update = SetFirstTimeUpdateConfirm('Your CRKN data is now up to date.', 0)
 
         self.window().hide()
         self.first_time_update.run()
