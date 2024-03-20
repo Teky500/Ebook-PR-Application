@@ -7,7 +7,7 @@ from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
 import yaml
-from .helpers.manual_upload import man_upload
+from .helpers.LocalUpload import man_upload
 from .upload_success import UploadSuccess
 from .upload_failure import UploadFailure
 

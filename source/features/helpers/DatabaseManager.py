@@ -2,18 +2,20 @@ import sqlite3 as sq
 import os
 import pandas as pd
 
-def openExcel(file):
+def open_excel(file):
     workbook = pd.read_excel(file, sheet_name='PA-Rights')
     workbook = pd.DataFrame(workbook)
     value = workbook.columns
     return value[0]
+
 def access_csv(file):
   spreadsheet_csv = pd.read_csv(f'source/storage/spreadsheets/{file}', skiprows=[0,1])
   df = pd.DataFrame(spreadsheet_csv)
   df = df[df['Platform_eISBN'].notna()]
   df['Platform_eISBN'] = (df['Platform_eISBN'].apply(int).astype(str))
   return df
-def singleAddition(df, cursor, platform, University, filename, man_stat):
+
+def single_addition(df, cursor, platform, University, filename, man_stat):
   try:
     cursor.execute('INSERT INTO platforms (spreadsheet, platform, CRKN) VALUES(?, ?, ?)', (filename, platform, man_stat))
     print(f'SUCCESSFULL ADD OF PLATFORM {filename}')
@@ -38,7 +40,7 @@ def singleAddition(df, cursor, platform, University, filename, man_stat):
       print('FAILED ADDITION', (title, publisher, platform_yob, ISBN, OCN, result, filename))
       print(str(e))
 
-def removeFromDatabase():
+def remove_from_database():
   db_path = 'source/storage/database/proj.db'
   db = sq.connect(db_path)
   cursor = db.cursor()
@@ -47,7 +49,7 @@ def removeFromDatabase():
   db.commit()
   db.close()
    
-def setDatabaseUni(university):
+def set_database_university(university):
   University = university
   db_path = 'source/storage/database/proj.db'
   # check if the db exists first
@@ -84,8 +86,8 @@ CREATE TABLE platforms
         print(f'Ignored {filename}. Does not include {University}')
         continue      
       db.commit()
-      platform = openExcel(f'source/storage/excel/{filename}')
-      singleAddition(df, cursor, platform, University, filename, 'Y')
+      platform = open_excel(f'source/storage/excel/{filename}')
+      single_addition(df, cursor, platform, University, filename, 'Y')
   db.commit()
   db.close()
 

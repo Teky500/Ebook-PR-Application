@@ -2,7 +2,7 @@ from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import QMainWindow
 import yaml
 from .searchPage import Ui_Search_page
-from .helpers.search import search_title_substring, search_ISBN, search_OCN
+from .helpers.EbookSearcher import search_title_substring, search_ISBN, search_OCN
 from .SearchPageResults import MainWindow
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget

@@ -6,8 +6,6 @@ import yaml
 from urllib.parse import urljoin
 
 
-
-
 class UpdateChecker:
     def __init__(self, config_path='source/config/config.yaml'):
         self.config_path = config_path

@@ -8,7 +8,7 @@ import yaml
 from .searchPageDriver import searchPageDriver
 from .UploadPage import UploadSpreadsheet
 from .UnloadPage import UnloadSpreadsheet
-from .helpers.crknUpdater import UpdateChecker
+from .helpers.CrknUpdater import UpdateChecker
 from .FirstTimeUpdate import SetFirstTimeUpdate
 from .ChangeInstitution import ChangeInstitution
 import os

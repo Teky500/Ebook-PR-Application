@@ -1,15 +1,15 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from crknScrapper import CrknExcelExtractor
+from CrknScraper import CrknExcelExtractor
 
 
 class TestUpdateChecker(unittest.TestCase):
 
-   @patch('crknScrapper.yaml.safe_load')
-   @patch('crknScrapper.requests.get')
-   @patch('crknScrapper.BeautifulSoup')
+   @patch('CrknScraper.yaml.safe_load')
+   @patch('CrknScraper.requests.get')
+   @patch('CrknScraper.BeautifulSoup')
    @patch('builtins.open', new_callable=unittest.mock.mock_open)
-   @patch('crknScrapper.yaml.dump')
+   @patch('CrknScraper.yaml.dump')
    def test_extract_excel_links(self, mock_yaml_dump, mock_open, mock_beautifulsoup, mock_requests_get, mock_yaml_load):
         
         config_path = 'source/config/config.yaml'

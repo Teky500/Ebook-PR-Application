@@ -3,7 +3,7 @@ from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import QThread, pyqtSignal, Qt
-from .helpers.add_to_database import setDatabaseUni
+from .helpers.DatabaseManager import set_database_university
 import pandas as pd
 from .SplashScreenPage import SplashScreen
 import yaml
@@ -37,7 +37,7 @@ class Worker(QThread):
         else:
 
             
-            setDatabaseUni(self.selected_text)
+            set_database_university(self.selected_text)
             with open('source/config/config.yaml', 'r') as config_file:
                 yaml_file = yaml.safe_load(config_file)
                 yaml_file['University'] = self.selected_text

@@ -2,23 +2,12 @@ import sys
 ######################### THREADING IMPORT
 from PyQt6.QtCore import Qt, QThread, pyqtSignal 
 from PyQt6.uic import loadUi
-from PyQt6.QtWidgets import QWidget
-from PyQt6.QtGui import QIcon, QPixmap
-from PyQt6.QtWidgets import QWidget, QMessageBox
-from PyQt6.QtCore import Qt
-from .helpers.LocalUnload import remove_file, get_files
+from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget, QPushButton, QFileDialog, QLabel
+from .Themes import Theme, getTheme
+from .helpers.LocalUnload import removeFile, get_files
 import sqlite3 as sq
 from .unload_success import UnloadSuccess
-import os
-def img_resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
 
-    return os.path.join(base_path, relative_path)
 
 #################### WORKER THREAD CLASS #########################
 class Worker(QThread):
@@ -32,7 +21,7 @@ class Worker(QThread):
 
     def run(self):
         try:
-            remove_file(self.file_picked)
+            removeFile(self.file_picked)
             self.finished.emit()
         except Exception as e:
             print('FAILURE')
@@ -43,22 +32,17 @@ class UnloadSpreadsheet(QWidget):
         super(UnloadSpreadsheet, self).__init__()
         self.filePicked = ''
         self.homePage = HomePage
-        loadUi(img_resource_path("source/features/ui/unloadpage.ui"), self)
-
-        # Create a transparent QPixmap
-        transparent_pixmap = QPixmap(1, 1)
-        transparent_pixmap.fill(Qt.GlobalColor.transparent)
-
-        # Set the window icon with the transparent QPixmap
-        self.setWindowIcon(QIcon(transparent_pixmap))
-            
-        # Remove title default name
-        self.window().setWindowTitle("     ")
-
-        fileList = get_files()
+        loadUi("source/program/driver/features/ui/unloadpage.ui", self)
+        fileList = getFiles()
         for aF in fileList:
             print(aF)
             self.unload_sheets.addItem(aF[0])
+        theme = Theme(getTheme())
+        themeColour = theme.getColor()
+        if themeColour == "default":
+            pass
+        else:
+            self.setStyleSheet(f'background-color: {themeColour};')
 
         # Add unload functionality here
         self.submit_button.clicked.connect(self.unloadSpreadsheets)
@@ -72,22 +56,15 @@ class UnloadSpreadsheet(QWidget):
         self.window().close()
 
 
+    ############### THREAD: MODIFY FUNCTION
     def unloadSpreadsheets(self):
-        if self.unload_sheets.currentText() == '':
-            print('Must pick a spreadsheet!')
-            msg = QMessageBox()
-            msg.setWindowTitle("messageBox")
-            msg.setText("Please pick a spreadsheet!")
-            msg.setIcon(QMessageBox.Icon.Information)
-            msg.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
-            msg.exec()
-            return
         self.setButtonsEnabled(False)  # Disable buttons before starting the thread
         self.homePage.setHomePageButtonsEnabled(False)
         self.worker = Worker(self, self.unload_sheets.currentText(), self.unload_sheets.currentIndex())
         self.worker.finished.connect(self.handle_thread_finished)
         self.worker.start()
 
+    ############## THREAD: ADD THIS FUNCTION
     def handle_thread_finished(self):
         self.cIndex = self.unload_sheets.currentIndex()
         self.setButtonsEnabled(True)
@@ -98,6 +75,7 @@ class UnloadSpreadsheet(QWidget):
         self.unload_sheets.removeItem(self.cIndex)
         self.filePicked = ''
 
+    ##########
     def setButtonsEnabled(self, enabled):
         self.submit_button.setEnabled(enabled)
         self.cancel_button.setEnabled(enabled)

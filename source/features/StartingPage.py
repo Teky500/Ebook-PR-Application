@@ -3,9 +3,9 @@ from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
 from .SetInstitutionPage import SetInstitution
 import yaml
-from .helpers.crknScrapper import CrknExcelExtractor
-from .helpers.download_excel import downloadExcel, parseExcel, downloadFiles
-from .helpers.crknUpdater import UpdateChecker
+from .helpers.CrknScraper import CrknExcelExtractor
+from .helpers.DownloadExcel import download_excel, parse_excel, download_files
+from .helpers.CrknUpdater import UpdateChecker
 import time
 
 import os
@@ -27,7 +27,7 @@ class Worker(QThread):
 
     #Here is where the time consuming task is placed
     def run(self):
-        downloadFiles()
+        download_files()
         self.finished.emit()
 class Worker2(QThread):
     finished = pyqtSignal()

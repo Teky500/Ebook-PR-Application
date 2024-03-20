@@ -1,14 +1,15 @@
 import sqlite3 as sq
-def removeFile(rFilename):
+
+def remove_file(file_name):
     db = sq.connect('source/storage/database/proj.db')
     cursor = db.cursor()
-    cursor.execute(f"DELETE FROM books WHERE spreadsheet = '{rFilename}'")
-    cursor.execute(f"DELETE FROM platforms WHERE spreadsheet = '{rFilename}'")
+    cursor.execute(f"DELETE FROM books WHERE spreadsheet = '{file_name}'")
+    cursor.execute(f"DELETE FROM platforms WHERE spreadsheet = '{file_name}'")
     db.commit()
     db.close()
-    print(f'Successfully removed file with name {rFilename}')
+    print(f'Successfully removed file with name {file_name}')
 
-def getFiles():
+def get_files():
     db = sq.connect('source/storage/database/proj.db')
     cursor = db.cursor()
     cursor.execute(f"SELECT spreadsheet FROM platforms WHERE CRKN = 'N'")

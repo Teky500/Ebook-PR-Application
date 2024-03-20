@@ -7,20 +7,11 @@ from PyQt6.QtCore import Qt
 from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
 
 from .helpers.DownloadExcel import download_files
-from .helpers.DatabaseManager import access_csv, single_addition, open_excel, remove_from_database
+from .helpers.add_to_database import access_csv, singleAddition, openExcel, removeFromDatabase
 import os
 import sqlite3 as sq
 import yaml
-import os
-def img_resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
 
-    return os.path.join(base_path, relative_path)
 ########################### THREAD WORKER CLASS
 class Worker(QThread):
     finished = pyqtSignal()
@@ -31,7 +22,7 @@ class Worker(QThread):
     #Time consuming task
     def run(self):
         self.checker.update_config()
-        remove_from_database()
+        removeFromDatabase()
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             University = yaml_file['University'] 
@@ -49,8 +40,8 @@ class Worker(QThread):
                 print(str(e))
                 print(f'Ignored {filename}. Does not include {University}')
                 continue      
-            platform = open_excel(f'source/storage/excel/{filename}')
-            single_addition(df, cursor, platform, University, filename, 'Y')
+            platform = openExcel(f'source/storage/excel/{filename}')
+            singleAddition(df, cursor, platform, University, filename, 'Y')
             db.commit()
         self.finished.emit()
 
@@ -60,7 +51,7 @@ class SetFirstTimeUpdate(QWidget):
     def __init__(self, check):
         super(SetFirstTimeUpdate, self).__init__()
 
-        loadUi(img_resource_path("source/features/ui/updatefirst-timepage.ui"), self)
+        loadUi("source/program/driver/features/ui/updatefirst-timepage.ui", self)
         self.checker = check
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.confirm_update_1.clicked.connect(self.load_confirm_page)
@@ -69,21 +60,16 @@ class SetFirstTimeUpdate(QWidget):
     
     ######## THREADING: MODIFIED THIS CLASS
     def load_confirm_page(self):
-        from .SplashScreenPage import SplashScreen
         self.setButtonsEnabled(False)
         self.worker = Worker(self.checker)
         self.worker.finished.connect(self.handle_thread_finished)
         self.worker.start()
-        self.ss = SplashScreen("Updating", 35)
-        self.ss.window().show()
-        self.window().hide()
 
     ############ THREADING: CREATE NEW FUNCTION    
     def handle_thread_finished(self):
         self.setButtonsEnabled(True)
-        self.ss.window().close()
         global m
-        new_window = SetFirstTimeUpdateConfirm('Your CRKN Data is now up to date!')
+        new_window = SetFirstTimeUpdateConfirm()
         m = new_window
         self.window().hide()
         new_window.run()
@@ -96,6 +82,7 @@ class SetFirstTimeUpdate(QWidget):
         self.window().hide()
         new_window.run()
 
+    ######### THREAD ADD THIS FUNCTION
     def setButtonsEnabled(self, enabled):
         self.confirm_update_1.setEnabled(enabled)
         self.cancel_update_1.setEnabled(enabled)
