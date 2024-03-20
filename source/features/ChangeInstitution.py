@@ -23,10 +23,20 @@ class ChangeInstitution(QWidget):
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
         if getLanguage() == 1:
-            self.cancel.setText("Non")
+            self.cancel_change.setText("Non")
             self.confirm_change.setText("Oui")
             self.label.setText("Cela commencera comme une nouvelle installation,")
+            self.label.setStyleSheet('''font-size: 14pt;
+                                           background-color: #333333;
+                                            color: #ffffff;
+                                           padding: 5px;
+                                          border-color: #333333;''')
             self.label_2.setText("et supprimera toutes les données chargées, êtes-vous sûr?")
+            self.label_2.setStyleSheet('''font-size: 14pt;
+                                           background-color: #333333;
+                                            color: #ffffff;
+                                           padding: 5px;
+                                          border-color: #333333;''')
 
         self.cancel_change.clicked.connect(self.load_home_page)
         self.confirm_change.clicked.connect(self.start_again)

@@ -91,6 +91,8 @@ class UploadSpreadsheet(QWidget):
             if getLanguage() == 1:
                 self.file_label_1.setText(f"Fichier sélectionné: {fileName}")
                 self.upload_button_1.setText("Changer de fichier")
+                self.upload_button_1.setStyleSheet('''font-size: 16pt;
+                                           ''')
             else:
                 self.file_label_1.setText(f"Selected File: {fileName}")
                 self.upload_button_1.setText('Change File')
@@ -107,7 +109,7 @@ class UploadSpreadsheet(QWidget):
             self.worker.finished.connect(self.handle_upload_result)
             self.worker.start()
             if getLanguage() == 1:
-               self.show_splash_screen('Chargement des Données du Tableau', 25) 
+               self.show_splash_screen('Chargement des Données du Tableau', 18)
             else:
                 self.show_splash_screen('Loading Spreadsheet Data', 25)
             self.setStyleSheet("""

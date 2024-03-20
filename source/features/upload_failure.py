@@ -24,7 +24,7 @@ class UploadFailure(QWidget):
 
         loadUi(img_resource_path("source/features/ui/uploadpage_failure.ui"), self)
         if getLanguage() == 1:
-            
+            self.unload.setText("Échec!")
         
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)

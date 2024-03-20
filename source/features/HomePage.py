@@ -34,20 +34,7 @@ def img_resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
-def img_resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
-
 class SetHomePage(QWidget):
-
-
-
     
     def getUniversity(self):
         with open('source/config/config.yaml', 'r') as config_file:
@@ -76,17 +63,6 @@ class SetHomePage(QWidget):
             self.update.setText("Mettre à jour")
             self.upload.setText("Mettre en ligne")
             self.unload.setText("Decharger")    #Check
-            self.label.setText("PAGE D\'ACCUEIL")   #Too big
-
-            self.label.setStyleSheet("""
-                QLabel {
-                    font: 700 80pt "Segoe UI";
-                    color: #ffffff;
-                    background-color: #333333; /* Change color */
-                    border: 1px solid #333333;
-                    padding: 5px;
-                }
-            """)
             self.exit.setText("Sortir")
 
         self.search.clicked.connect(self.search_page_show)
@@ -141,7 +117,10 @@ class SetHomePage(QWidget):
             print('Found no updates')
             from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
 
-            self.update_confirm_page = SetFirstTimeUpdateConfirm('Your CRKN Data is already up to date!', 0)
+            if getLanguage() == 1:
+                self.update_confirm_page = SetFirstTimeUpdateConfirm("Vos données CRKN sont déjà à jour !", 0)
+            else:
+                self.update_confirm_page = SetFirstTimeUpdateConfirm('Your CRKN Data is already up to date!', 0)
             self.update_confirm_page.show()
 
             self.window().close()

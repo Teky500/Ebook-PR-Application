@@ -10,11 +10,6 @@ from .SplashScreenPage import SplashScreen
 import yaml
 import os
 
-def getLanguage():
-        with open('source/config/config.yaml', 'r') as config_file:
-            yaml_file = yaml.safe_load(config_file)
-            language = yaml_file['Language']
-        return language
 
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """

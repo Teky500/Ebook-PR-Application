@@ -61,7 +61,6 @@ class Worker(QThread):
         self.finished.emit()
 
 
-
 class SetFirstTimeUpdate(QWidget):
     def __init__(self, check):
         super(SetFirstTimeUpdate, self).__init__()
@@ -74,7 +73,7 @@ class SetFirstTimeUpdate(QWidget):
             self.confirm_update_1.setText("Oui")
             self.cancel_update_1.setText("Non")
             self.label.setText("Vos données CRKN ne sont pas à jour,")
-            self.label_2.setText("souhaitez-vous les mettre 4 jour?")
+            self.label_2.setText("souhaitez-vous les mettre à jour?")
 
         self.confirm_update_1.clicked.connect(self.load_confirm_page)
         self.cancel_update_1.clicked.connect(self.load_home_page)
@@ -99,7 +98,10 @@ class SetFirstTimeUpdate(QWidget):
         self.setButtonsEnabled(True)
         self.ss.window().close()
 
-        self.first_time_update = SetFirstTimeUpdateConfirm('Your CRKN data is now up to date.', 0)
+        if getLanguage() == 1:
+            self.first_time_update = SetFirstTimeUpdateConfirm("Vos données CRKN sont déjà à jour !", 0)
+        else:
+            self.first_time_update = SetFirstTimeUpdateConfirm('Your CRKN data is now up to date.', 0)
 
         self.window().hide()
         self.first_time_update.run()

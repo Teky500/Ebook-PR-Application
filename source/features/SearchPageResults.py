@@ -4,6 +4,7 @@ from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QVBoxLayout, QWidget, QPushButton, QFileDialog
+from .helpers.getLanguage import getLanguage
 import pandas as pd
 
 class TableModel(QtCore.QAbstractTableModel):
@@ -99,7 +100,10 @@ class MainWindow(QtWidgets.QMainWindow):
             self.model = TableModel(self.data)
             self.table.setModel(self.model)
 
-            header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Name', 'Platform']
+            if getLanguage() == 1:
+                header_labels = ['eISBN', 'Titre', 'Éditeur', 'Année', 'OCN', 'Droits PA', 'Nom du fichier', 'Plate-forme']
+            else:
+                header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Name', 'Platform']
             self.model.setHeaderLabels(header_labels)
 
             self.table.resizeColumnsToContents()
@@ -107,7 +111,10 @@ class MainWindow(QtWidgets.QMainWindow):
             layout.addWidget(self.table)
 
             self.download_button = QPushButton("Download")
-            self.download_button.setText('Export to File')
+            if getLanguage() == 1:
+                self.download_button.setText('Exporter vers un fichier')
+            else:
+                self.download_button.setText('Export to File')
             layout.addWidget(self.download_button)
             self.downloadType = 1
             self.download_button.clicked.connect(self.downloadTable) 
