@@ -43,12 +43,16 @@ def man_upload(file):
                 yaml_file = yaml.safe_load(config_file)
                 University = yaml_file['University']
             if df[University].isnull().values.any():
+                db.close()
                 return ['Null value found in University Column!']
-            if singleAddition(df, cursor, platform, University, filename, 'N') == 0:
+            sAddResult =  singleAddition(df, cursor, platform, University, filename, 'N')
+            if sAddResult == 0:
+                db.close()
                 return ['Already Added File!']
-            db.commit()
-            db.close()
-            return []
+            else:
+                db.commit()
+                db.close()
+                return [sAddResult[1]]
         else:
             print("Something went wrong while parsing the excel file.")
             return ['Something went wrong!']

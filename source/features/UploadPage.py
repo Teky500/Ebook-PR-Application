@@ -148,8 +148,9 @@ class UploadSpreadsheet(QWidget):
         self.setUploadPageButtonsEnabled(True)
         self.home_page.setHomePageButtonsEnabled(True)
         self.splash_screen.window().close()
-        if result == []:
-            self.upload_success_page = UploadSuccess()
+        if type(result[0]) == int:
+            
+            self.upload_success_page = UploadSuccess(f'Successfully added {result[0]} rows!')
             self.upload_success_page.window().show()
         else:
             r = str(result)
