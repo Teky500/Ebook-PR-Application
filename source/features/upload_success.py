@@ -7,6 +7,7 @@ from PyQt6.QtCore import Qt
 from .helpers.manual_upload import man_upload
 from .helpers.getLanguage import getLanguage
 import os
+
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -16,6 +17,7 @@ def img_resource_path(relative_path):
         base_path = os.path.abspath(".")
 
     return os.path.join(base_path, relative_path)
+
 class UploadSuccess(QWidget):
     def __init__(self, msg='Success!'):
         super(UploadSuccess, self).__init__()
@@ -37,7 +39,6 @@ class UploadSuccess(QWidget):
             self.unload.setText("Succès!")    
         self.unload.setText(msg)
         self.cancel_button.clicked.connect(self.close_window)
-
 
     def close_window(self):
         self.window().close()

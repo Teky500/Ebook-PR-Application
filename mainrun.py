@@ -1,7 +1,7 @@
 import sys
 from source.features.StartingPage import WelcomePage
 
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
+from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QStackedWidget
 import os
 import yaml
 if __name__ == "__main__":
@@ -13,8 +13,7 @@ if __name__ == "__main__":
     if not os.path.isfile('source/config/config.yaml'):
         with open("source/config/config.yaml", 'w') as yF:
             yaml.dump(x, yF, default_flow_style=False)
-    
-
+                
     app = QApplication(sys.argv)
     app.setStyleSheet("""
                            

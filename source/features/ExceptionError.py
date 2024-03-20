@@ -4,7 +4,6 @@ from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
-from .helpers.manual_upload import man_upload
 import os
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -34,8 +33,6 @@ class ExceptionErrorPage(QWidget):
         self.window().setWindowTitle("     ")
 
         self.label.setText(message)
-
-
 
     def close_window(self):
         self.window().close()

@@ -36,7 +36,6 @@ class Worker(QThread):
         result = man_upload(self.file_path) 
         self.finished.emit(result)
 
-
 class UploadSpreadsheet(QWidget):
     ########################################### THREAD (ADD PARAMTER): HomePage object
     def __init__(self, HomePage): 
@@ -74,8 +73,6 @@ class UploadSpreadsheet(QWidget):
             self.cancel_process.setText("Annuler")
             self.file_label_1.setText("aucun fichier sélectionné")
 
-
-
         # Add upload button
         self.upload_button_1.clicked.connect(self.uploadFile)
 
@@ -83,8 +80,6 @@ class UploadSpreadsheet(QWidget):
         self.cancel_process.clicked.connect(self.close_window)
         self.upload_local_file.clicked.connect(self.submitFile)
         self.upload_local_file.hide()
-        
-
 
     def uploadFile(self):
         # Open file dialog to select a file
@@ -136,8 +131,6 @@ class UploadSpreadsheet(QWidget):
                     }
                                
             """)
-            
-
 
     def show_splash_screen(self, text, size):
         from .SplashScreenPage import SplashScreen
@@ -154,7 +147,6 @@ class UploadSpreadsheet(QWidget):
 
     ############################## THREAD (NEW FUNCTION): to handle what happens after upload occurs
     def handle_upload_result(self, result):
-        global m
         self.setUploadPageButtonsEnabled(True)
         self.home_page.setHomePageButtonsEnabled(True)
         self.splash_screen.window().close()
@@ -166,8 +158,8 @@ class UploadSpreadsheet(QWidget):
             m.window().show()
         else:
             r = str(result)
-            m = UploadFailure(r)
-            m.window().show()
+            self.upload_success_page = UploadFailure(r)
+            self.upload_success_page.window().show()
         self.filePicked = ''
         self.upload_local_file.hide()
         if getLanguage() == 1:

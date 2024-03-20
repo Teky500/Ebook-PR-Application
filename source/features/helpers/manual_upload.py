@@ -44,9 +44,11 @@ def man_upload(file):
                 yaml_file = yaml.safe_load(config_file)
                 University = yaml_file['University']
             if df[University].isnull().values.any():
+                db.close()
                 return ['Null value found in University Column!']
             sAddResult =  singleAddition(df, cursor, platform, University, filename, 'N')
             if sAddResult == 0:
+                db.close()
                 return ['Already Added File!']
             else:
                 db.commit()

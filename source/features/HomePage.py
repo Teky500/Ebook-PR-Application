@@ -1,4 +1,5 @@
 import sys
+import os
 from PyQt6.uic import loadUi
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget
@@ -12,6 +13,7 @@ from .helpers.crknUpdater import UpdateChecker
 from .helpers.getLanguage import getLanguage
 from .FirstTimeUpdate import SetFirstTimeUpdate
 from .ChangeInstitution import ChangeInstitution
+
 import os
 from urllib import request
 
@@ -21,6 +23,7 @@ def internet_on():
         return True
     except request.URLError as err: 
         return False
+
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -30,6 +33,7 @@ def img_resource_path(relative_path):
         base_path = os.path.abspath(".")
 
     return os.path.join(base_path, relative_path)
+
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -39,6 +43,7 @@ def img_resource_path(relative_path):
         base_path = os.path.abspath(".")
 
     return os.path.join(base_path, relative_path)
+
 class SetHomePage(QWidget):
 
 
@@ -52,8 +57,6 @@ class SetHomePage(QWidget):
 
     def __init__(self):
         super(SetHomePage, self).__init__()
-        # self.window_width, self.window_height = 960, 750
-        # self.setMinimumSize(self.window_width, self.window_height)
         loadUi(img_resource_path("source/features/ui/homepage.ui"), self)
 
         # Create a transparent QPixmap
@@ -73,9 +76,19 @@ class SetHomePage(QWidget):
             self.update.setText("Mettre à jour")
             self.upload.setText("Mettre en ligne")
             self.unload.setText("Decharger")    #Check
+            self.label.setText("PAGE D\'ACCUEIL")   #Too big
+
+            self.label.setStyleSheet("""
+                QLabel {
+                    font: 700 80pt "Segoe UI";
+                    color: #ffffff;
+                    background-color: #333333; /* Change color */
+                    border: 1px solid #333333;
+                    padding: 5px;
+                }
+            """)
             self.exit.setText("Sortir")
 
-        # self.window().resize(850, 800)
         self.search.clicked.connect(self.search_page_show)
         self.upload.clicked.connect(self.upload_page_show)
         self.unload.clicked.connect(self.unload_page_show)
@@ -86,7 +99,6 @@ class SetHomePage(QWidget):
 
     def exit_homepage(self):
         sys.exit()
-
     
     def setHomePageButtonsEnabled(self, enabled):
         self.search.setEnabled(enabled)
@@ -97,47 +109,45 @@ class SetHomePage(QWidget):
     
     ######################## THREAD
     def upload_page_show(self):
-        global m
-        m = UploadSpreadsheet(self)
-        m.show()
+        self.upload_page = UploadSpreadsheet(self)
+        self.upload_page.show()
 
     def search_page_show(self):
-        global m
-        m = searchPageDriver()
-        m.show()
+        self.search_page = searchPageDriver()
+        self.search_page.show()
 
     ######################## THREAD
     def unload_page_show(self):
-        global m
-        m = UnloadSpreadsheet(self)
-        m.show()
+        self.unload_page = UnloadSpreadsheet(self)
+        self.unload_page.show()
 
-    def change_page_show(self): # change this
-        global m
-        m = ChangeInstitution()
-        m.show()
+    def change_page_show(self):
+        self.change_page = ChangeInstitution()
+        self.change_page.show()
         self.window().hide()
 
     def update_page_show(self):
+
         if not internet_on():
             print('NO INTERNET')
             return 
-        global m
+
         checker = UpdateChecker()
         url = checker.config.get('link')
         new_excel_files = checker.get_website_excel_files(url)
         (added, removed) = checker.compare(new_excel_files)
+
         if (len(added) + len(removed)) == 0:
             print('Found no updates')
             from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
-            m = SetFirstTimeUpdateConfirm('Your CRKN Data is already up to date!', 0)
-            m.show()
+
+            self.update_confirm_page = SetFirstTimeUpdateConfirm('Your CRKN Data is already up to date!', 0)
+            self.update_confirm_page.show()
+
             self.window().close()
         else:
-
-            update = SetFirstTimeUpdate(checker)
-            m = update
-            m.window().show()
+            self.update = SetFirstTimeUpdate(checker)
+            self.update.window().show()
             self.window().close()    
 
     def run(self):
