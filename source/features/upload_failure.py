@@ -5,6 +5,7 @@ from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
 from .helpers.manual_upload import man_upload
+from .helpers.getLanguage import getLanguage
 import os
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -21,6 +22,8 @@ class UploadFailure(QWidget):
         self.filePicked = ''
 
         loadUi(img_resource_path("source/features/ui/uploadpage_failure.ui"), self)
+        if getLanguage() == 1:
+            
         
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)
