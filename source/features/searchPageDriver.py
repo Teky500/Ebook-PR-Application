@@ -1,51 +1,54 @@
 from PyQt6 import QtWidgets, QtGui
 import yaml
-from .searchPage import Ui_Search_page
+from PyQt6.uic import loadUi
 from .helpers.search import search_title_substring, search_ISBN, search_OCN
 from .SearchPageResults import MainWindow
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import Qt
+import os
 
-class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
+def img_resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+class searchPageDriver(QtWidgets.QWidget):
     def __init__(self, parent = None):
         super().__init__(parent)
-        self.setupUi(self)
+        loadUi(img_resource_path("source/features/ui/SearchPageModified.ui"), self)
 
-        # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)
         transparent_pixmap.fill(Qt.GlobalColor.transparent)
-
-        # Set the window icon with the transparent QPixmap
         self.setWindowIcon(QIcon(transparent_pixmap))
-            
-        # Remove title default name
         self.window().setWindowTitle("     ")
        
         #search button
-        self.pushButton.clicked.connect(self.search)
+        self.search_ebook.clicked.connect(self.search)
 
         #Title button
-        self.radioButton.clicked.connect(self.byTitle)
-        self.radioButton.setChecked(True)
+        self.radio_button_2.clicked.connect(self.byTitle)
+        self.radio_button_2.setChecked(True)
         self.radio = 1 
-        #Keyword button
-        self.radioButton_2.clicked.connect(self.byKeyword)
 
         #OCN button
-        self.radioButton_3.clicked.connect(self.byOCN)
+        self.radio_button_1.clicked.connect(self.byOCN)
 
         #eISBN button
-        self.radioButton_4.clicked.connect(self.by_eISBN)
+        self.radio_button_3.clicked.connect(self.by_eISBN)
 
         #Cancel button
-        self.pushButton_2.clicked.connect(self.close)
+        self.cancel_search.clicked.connect(self.close)
 
         if self.getLanguage() == 1:
             self.label.setText("Recherche de Livre Électronique")
-            self.pushButton.setText("Recherche")
-            self.pushButton_2.setText("Annule la Recherche")
-            self.radioButton.setText("Titre")
-            self.radioButton_2.setText("Mot Clé")
+            self.search_ebook.setText("Recherche")
+            self.cancel_search.setText("Annule la Recherche")
+            self.radio_button_2.setText("Titre")
 
     def getLanguage(self):
         with open('source/config/config.yaml', 'r') as config_file:
@@ -107,14 +110,9 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
 
-                    # Remove the default window title
                     msg.window().setWindowTitle("     ")
-
-                    # Create a transparent QPixmap
                     transparent_pixmap = QtGui.QPixmap(1, 1)
                     transparent_pixmap.fill(Qt.GlobalColor.transparent)
-
-                    # Set the window icon with the transparent QPixmap
                     msg.setWindowIcon(QIcon(transparent_pixmap))
 
                     msg.resize(400, 200)
@@ -150,14 +148,9 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
 
-                    # Remove the default window title
                     msg.window().setWindowTitle("     ")
-
-                    # Create a transparent QPixmap
                     transparent_pixmap = QtGui.QPixmap(1, 1)
                     transparent_pixmap.fill(Qt.GlobalColor.transparent)
-
-                    # Set the window icon with the transparent QPixmap
                     msg.setWindowIcon(QIcon(transparent_pixmap))
 
                     msg.resize(400, 200)
@@ -191,14 +184,9 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
 
-                    # Remove the default window title
                     msg.window().setWindowTitle("     ")
-
-                    # Create a transparent QPixmap
                     transparent_pixmap = QtGui.QPixmap(1, 1)
                     transparent_pixmap.fill(Qt.GlobalColor.transparent)
-
-                    # Set the window icon with the transparent QPixmap
                     msg.setWindowIcon(QIcon(transparent_pixmap))
 
                     msg.resize(400, 200)
