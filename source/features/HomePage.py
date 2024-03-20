@@ -13,6 +13,16 @@ from .helpers.crknUpdater import UpdateChecker
 from .FirstTimeUpdate import SetFirstTimeUpdate
 from .ChangeInstitution import ChangeInstitution
 
+import os
+from urllib import request
+
+def internet_on():
+    try:
+        request.urlopen('https://www.google.com/', timeout=1)
+        return True
+    except request.URLError as err: 
+        return False
+
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -118,6 +128,11 @@ class SetHomePage(QWidget):
         self.window().hide()
 
     def update_page_show(self):
+
+        if not internet_on():
+            print('NO INTERNET')
+            return 
+
         checker = UpdateChecker()
         url = checker.config.get('link')
         new_excel_files = checker.get_website_excel_files(url)
@@ -126,8 +141,10 @@ class SetHomePage(QWidget):
         if (len(added) + len(removed)) == 0:
             print('Found no updates')
             from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
+
             self.update_confirm_page = SetFirstTimeUpdateConfirm()
             self.update_confirm_page.show()
+
             self.window().close()
         else:
             self.update = SetFirstTimeUpdate(checker)

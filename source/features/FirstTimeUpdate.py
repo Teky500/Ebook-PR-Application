@@ -88,7 +88,9 @@ class SetFirstTimeUpdate(QWidget):
     def handle_thread_finished(self):
         self.setButtonsEnabled(True)
         self.ss.window().close()
+
         self.first_time_update = SetFirstTimeUpdateConfirm()
+
         self.window().hide()
         self.first_time_update.run()
 

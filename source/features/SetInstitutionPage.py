@@ -8,6 +8,12 @@ from .SplashScreenPage import SplashScreen
 import yaml
 import os
 
+def getLanguage():
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            language = yaml_file['Language']
+        return language
+
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -30,7 +36,7 @@ class Worker(QThread):
     def run(self):
 
         if self.selected_text == '':
-            if self.getLanguage == 1:
+            if getLanguage() == 1:
                 print('Tu as besoin de selectionez une institution')
             else:
                 print('You need to select an institution')
@@ -173,6 +179,9 @@ class SetInstitution(QWidget):
     
     def clicked_function(self):
         selected_text = self.institutions.currentText()
+        if selected_text == '':
+            print('You need to select an institution')
+            return 
         self.window().hide()
         self.worker = Worker(self, selected_text)
         self.worker.finished.connect(self.post_thread_action)

@@ -6,6 +6,20 @@ import yaml
 from .helpers.download_excel import downloadFiles
 from .helpers.crknUpdater import UpdateChecker
 
+import time
+
+import os
+from urllib import request
+
+def internet_on():
+    try:
+        request.urlopen('https://www.google.com/', timeout=1)
+        return True
+    except request.URLError as err: 
+        print(err)
+        return False
+
+
 class Worker(QThread):
     finished = pyqtSignal()
     def __init__(self):
@@ -36,11 +50,13 @@ class Worker2(QThread):
 class WelcomePage(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.language = self.getLanguage()
+
         self.setup_ui()
 
     def setup_ui(self):
         layout = QVBoxLayout(self)
-        if self.getLanguage() == 1:
+        if self.language == 1:
             label = QLabel(f"Démarrage", self)
         else:
             label = QLabel(f"Starting", self)
@@ -80,7 +96,7 @@ class WelcomePage(QWidget):
     def animate_text(self):
         dots = '.' * (self.animation_counter % 4)
         label = self.findChild(QLabel)
-        if self.getLanguage() == 1:
+        if self.language == 1:
             label.setText(f"Démarrage{dots}")
         else:
             label.setText(f"Starting{dots}")
@@ -88,6 +104,7 @@ class WelcomePage(QWidget):
 
     def show_next_page(self):
         self.window().close()
+
         self.openNewWindow()
   
     def setFixedSize(self, width, height):
@@ -99,6 +116,12 @@ class WelcomePage(QWidget):
         self.set_institution.run()
 
     def post_thread_show_status_2(self):
+        self.animation_timer.stop()
+        global m
+        new_window = SetInstitution()
+        m = new_window
+        new_window.run()
+        self.close()
         if (len(self.added) + len(self.removed)) == 0:
             from .HomePage import SetHomePage
             print('Status 1, found no updates')
@@ -116,15 +139,33 @@ class WelcomePage(QWidget):
             self.window().close()
 
     def openNewWindow(self):
+        global m
         if self.getStatus() == 0:
             print('Status 0')
-            self.worker = Worker()
-            self.worker.finished.connect(self.post_thread_show_status_1)
-            self.worker.start()            
+            if internet_on():
+                self.worker = Worker()
+                self.worker.finished.connect(self.post_thread_show_status_1)
+                self.worker.start()
+            else:
+                print('No network connection: cant fetch data.')           
         else:
-            self.worker = Worker2(self)
-            self.worker.finished.connect(self.post_thread_show_status_2)
-            self.worker.start()  
+            if not internet_on():
+                print('No network connection: Can not check for updates')
+                from .HomePage import SetHomePage
+                self.window().close()
+                new_window = SetHomePage()
+                m = new_window
+                new_window.window().show()
+                self.window().close()                
+                QTimer.singleShot(0, self.window().close)
+
+
+            else:
+                self.worker = Worker2(self)
+                self.worker.finished.connect(self.post_thread_show_status_2)
+                self.worker.start()  
+
+
 
 def extra_run():
 
