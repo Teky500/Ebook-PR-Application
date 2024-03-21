@@ -22,6 +22,7 @@ class LanguageChoice(QWidget):
         self.filePicked = ''
 
         loadUi(img_resource_path("source/features/ui/language_choice.ui"), self)
+        self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
         
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)
@@ -33,17 +34,17 @@ class LanguageChoice(QWidget):
         # Remove title default name
         self.window().setWindowTitle("     ")
 
-        self.English_button.clicked.connect(self.english_text)
-        self.French_button.clicked.connect(self.french_text)
+    #     self.English_button.clicked.connect(self.english_text)
+    #     self.French_button.clicked.connect(self.french_text)
 
-    def english_text(self):
-        self.confirmationText.setText("Language set to English")
+    # def english_text(self):
+    #     self.confirmationText.setText("Language set to English")
 
-    def french_text(self):
-        self.confirmationText.setText("Language set to French")
+    # def french_text(self):
+    #     self.confirmationText.setText("Language set to French")
 
-    def close_window(self):
-        self.window().close()
+    # def close_window(self):
+    #     self.window().close()
         
 from PyQt6.QtWidgets import QApplication, QWidget
     
