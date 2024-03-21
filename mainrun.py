@@ -1,7 +1,7 @@
 import sys
 from source.features.StartingPage import WelcomePage
 from source.features.LanguageChoice import LanguageChoice
-
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
 import os
 import yaml
@@ -96,6 +96,7 @@ if __name__ == "__main__":
     
     stacked_widget.addWidget(page)
     main_layout.addWidget(stacked_widget)
+    main_window.setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
     
     main_window.show()

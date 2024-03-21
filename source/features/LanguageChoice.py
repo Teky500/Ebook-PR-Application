@@ -30,7 +30,7 @@ class LanguageChoice(QWidget):
         transparent_pixmap.fill(Qt.GlobalColor.transparent)
 
         self.setFixedSize(500, 400)  # Set the fixed size of the window
-        self.ui.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
         # Set the window icon with the transparent QPixmap
         self.setWindowIcon(QIcon(transparent_pixmap))
             
@@ -57,7 +57,3 @@ class LanguageChoice(QWidget):
         self.new_page = WelcomePage()
         self.new_page.window().show()
         self.window().close()
-
-    def close_window(self):
-        self.window().close()
-        
