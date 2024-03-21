@@ -154,10 +154,10 @@ class UploadSpreadsheet(QWidget):
         self.splash_screen.window().close()
         if type(result[0]) == int:
             if getLanguage() == 1:
-                m = UploadSuccess(f'{result[0]} lignes ajoutées avex succès!')
+                self.upload_success = UploadSuccess(f'{result[0]} lignes ajoutées avex succès!')
             else:
-                m = UploadSuccess(f'Successfully added {result[0]} rows!')
-            m.window().show()
+                self.upload_success = UploadSuccess(f'Successfully added {result[0]} rows!')
+            self.upload_success.window().show()
         else:
             r = str(result)
             self.upload_success_page = UploadFailure(r)
