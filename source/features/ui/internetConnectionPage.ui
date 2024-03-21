@@ -95,11 +95,39 @@
         color: white;
     }</string>
   </property>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>481</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="styleSheet">
+       <string notr="true">font: 700 20pt &quot;Segoe UI&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Please check your internet connection and try again!</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>159</y>
+     <y>160</y>
      <width>481</width>
      <height>111</height>
     </rect>
@@ -109,7 +137,7 @@
      <number>60</number>
     </property>
     <item>
-     <widget class="QPushButton" name="confirm_change">
+     <widget class="QPushButton" name="confirm_error">
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -127,57 +155,7 @@
 </string>
       </property>
       <property name="text">
-       <string>Yes</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="cancel_change">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>120</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
-      </property>
-      <property name="text">
-       <string>No</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="verticalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>40</y>
-     <width>481</width>
-     <height>96</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QLabel" name="label">
-      <property name="styleSheet">
-       <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
-      </property>
-      <property name="text">
-       <string>This will start over as a new installation,  and remove all loaded data, are you sure?</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
+       <string>Ok</string>
       </property>
      </widget>
     </item>

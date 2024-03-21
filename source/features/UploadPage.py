@@ -56,14 +56,11 @@ class UploadSpreadsheet(QWidget):
         self.window().setWindowTitle("     ")
 
         if getLanguage() == 1:
-            self.label.setText("Mettre en ligne la feuille de calcul locale")
+            self.label.setText("<b>Mettre en ligne la feuille de calcul locale<b>")
             #Change style sheet to reduce font size and fit text
             self.label.setStyleSheet("""
                 QLabel {
                     font: 700 38pt "Segoe UI";
-                    color: #ffffff;
-                    background-color: #333333; /* Change color */
-                    border: 1px solid #333333;
                     padding: 5px;
                 }
             """)

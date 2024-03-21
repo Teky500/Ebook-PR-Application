@@ -109,7 +109,7 @@ class Ui_Form(object):
         sizePolicy.setHeightForWidth(self.set_university_name.sizePolicy().hasHeightForWidth())
         self.set_university_name.setSizePolicy(sizePolicy)
         self.set_university_name.setMaximumSize(QtCore.QSize(1000, 208))
-        self.set_university_name.setStyleSheet("font: 700 40pt \"Segoe UI\";")
+        self.set_university_name.setStyleSheet("font: 700 45pt \"Segoe UI\";")
         self.set_university_name.setText("")
         self.set_university_name.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.set_university_name.setWordWrap(True)

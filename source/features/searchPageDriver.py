@@ -46,9 +46,9 @@ class searchPageDriver(QtWidgets.QWidget):
         self.cancel_search.clicked.connect(self.close)
 
         if getLanguage() == 1:
-            self.label.setText("Recherche de Livre Électronique")
+            self.label.setText("<font size='2'>Recherche de Livre Électronique</font>")
             self.search_ebook.setText("Recherche")
-            self.cancel_search.setText("Annule la Recherche")
+            self.cancel_search.setText("Annuler")
             self.radio_button_2.setText("Titre")
 
     

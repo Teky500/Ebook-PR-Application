@@ -65,7 +65,7 @@ class SetInstitution(QWidget):
         self.window().setWindowTitle("     ")
         
         if getLanguage() == 1:
-            self.institution.setText("Sélectionnez l\'Institution ci-dessous")
+            self.institution.setText("<b>Sélectionnez l\'Institution ci-dessous<b>")
             self.institution.setStyleSheet('''font-size: 48pt;
                                            background-color: #333333;
                                             color: #ffffff;
