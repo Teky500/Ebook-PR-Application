@@ -10,6 +10,7 @@ import yaml
 from .helpers.manual_upload import man_upload
 from .upload_success import UploadSuccess
 from .upload_failure import UploadFailure
+from .helpers.getLanguage import getLanguage
 
 import os
 def img_resource_path(relative_path):
@@ -35,7 +36,6 @@ class Worker(QThread):
         result = man_upload(self.file_path) 
         self.finished.emit(result)
 
-
 class UploadSpreadsheet(QWidget):
     ########################################### THREAD (ADD PARAMTER): HomePage object
     def __init__(self, HomePage): 
@@ -55,7 +55,7 @@ class UploadSpreadsheet(QWidget):
         # Remove title default name
         self.window().setWindowTitle("     ")
 
-        if self.getLanguage() == 1:
+        if getLanguage() == 1:
             self.label.setText("Mettre en ligne la feuille de calcul locale")
             #Change style sheet to reduce font size and fit text
             self.label.setStyleSheet("""
@@ -73,8 +73,6 @@ class UploadSpreadsheet(QWidget):
             self.cancel_process.setText("Annuler")
             self.file_label_1.setText("aucun fichier sélectionné")
 
-
-
         # Add upload button
         self.upload_button_1.clicked.connect(self.uploadFile)
 
@@ -82,8 +80,6 @@ class UploadSpreadsheet(QWidget):
         self.cancel_process.clicked.connect(self.close_window)
         self.upload_local_file.clicked.connect(self.submitFile)
         self.upload_local_file.hide()
-        
-
 
     def uploadFile(self):
         # Open file dialog to select a file
@@ -92,8 +88,14 @@ class UploadSpreadsheet(QWidget):
             print(f"File selected: {fileName}")
             # Update the label to show the selected file path
             self.filePicked = fileName
-            self.file_label_1.setText(f"Selected File: {fileName}")
-            self.upload_button_1.setText('Change File')
+            if getLanguage() == 1:
+                self.file_label_1.setText(f"Fichier sélectionné: {fileName}")
+                self.upload_button_1.setText("Changer de fichier")
+                self.upload_button_1.setStyleSheet('''font-size: 16pt;
+                                           ''')
+            else:
+                self.file_label_1.setText(f"Selected File: {fileName}")
+                self.upload_button_1.setText('Change File')
             self.upload_local_file.show()
 
     ################################### THREAD (MODIFIED FUNCTION)
@@ -106,7 +108,10 @@ class UploadSpreadsheet(QWidget):
             self.worker.file_path = self.filePicked
             self.worker.finished.connect(self.handle_upload_result)
             self.worker.start()
-            self.show_splash_screen('Loading Spreadsheet Data', 25)
+            if getLanguage() == 1:
+               self.show_splash_screen('Chargement des Données du Tableau', 18)
+            else:
+                self.show_splash_screen('Loading Spreadsheet Data', 25)
             self.setStyleSheet("""
                     QWidget{
                         background-color: gray;
@@ -128,8 +133,6 @@ class UploadSpreadsheet(QWidget):
                     }
                                
             """)
-            
-
 
     def show_splash_screen(self, text, size):
         from .SplashScreenPage import SplashScreen
@@ -137,12 +140,6 @@ class UploadSpreadsheet(QWidget):
         self.splash_screen.window().show()
     def close_window(self):
         self.window().close()
-
-    def getLanguage(self):
-        with open('source/config/config.yaml', 'r') as config_file:
-            yaml_file = yaml.safe_load(config_file)
-            language = yaml_file['Language']
-        return language
     
     ################################# THREAD (NEW FUNCTION): TO DISABLE BUTTONS
     def setUploadPageButtonsEnabled(self, enabled):
@@ -152,22 +149,27 @@ class UploadSpreadsheet(QWidget):
 
     ############################## THREAD (NEW FUNCTION): to handle what happens after upload occurs
     def handle_upload_result(self, result):
-        global m
         self.setUploadPageButtonsEnabled(True)
         self.home_page.setHomePageButtonsEnabled(True)
         self.splash_screen.window().close()
         if type(result[0]) == int:
-            
-            m = UploadSuccess(f'Successfully added {result[0]} rows!')
-            m.window().show()
+            if getLanguage() == 1:
+                self.upload_success = UploadSuccess(f'{result[0]} lignes ajoutées avex succès!')
+            else:
+                self.upload_success = UploadSuccess(f'Successfully added {result[0]} rows!')
+            self.upload_success.window().show()
         else:
             r = str(result)
-            m = UploadFailure(r)
-            m.window().show()
+            self.upload_success_page = UploadFailure(r)
+            self.upload_success_page.window().show()
         self.filePicked = ''
         self.upload_local_file.hide()
-        self.file_label_1.setText('No File Selected')
-        self.upload_button_1.setText('Upload')
+        if getLanguage() == 1:
+            self.file_label_1.setText('Aucun Fichier Sélectionné')
+            self.upload_button_1.setText('Télécharger vers')
+        else:
+            self.file_label_1.setText('No File Selected')
+            self.upload_button_1.setText('Upload')
         self.setStyleSheet("""
                     QWidget {
                         background-color: #333333;

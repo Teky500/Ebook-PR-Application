@@ -3,11 +3,10 @@ from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
 from .SetInstitutionPage import SetInstitution
 import yaml
-from .helpers.crknScrapper import CrknExcelExtractor
-from .helpers.download_excel import downloadExcel, parseExcel, downloadFiles
+from .helpers.download_excel import downloadFiles
 from .helpers.crknUpdater import UpdateChecker
 import time
-
+from .helpers.getLanguage import getLanguage
 import os
 from urllib import request
 
@@ -19,22 +18,22 @@ def internet_on():
         print(err)
         return False
 
+
 class Worker(QThread):
     finished = pyqtSignal()
     def __init__(self):
         super(Worker, self).__init__()
 
-
     #Here is where the time consuming task is placed
     def run(self):
         downloadFiles()
         self.finished.emit()
+
 class Worker2(QThread):
     finished = pyqtSignal()
     def __init__(self, var):
         super(Worker2, self).__init__()
         self.var = var
-
 
     #Here is where the time consuming task is placed
     def run(self):
@@ -47,13 +46,12 @@ class Worker2(QThread):
         self.var.checker = checker
         self.finished.emit()
 
-
 class WelcomePage(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.language = self.getLanguage()
-        self.setup_ui()
+        self.language = getLanguage()
 
+        self.setup_ui()
 
     def setup_ui(self):
         layout = QVBoxLayout(self)
@@ -75,18 +73,11 @@ class WelcomePage(QWidget):
 
         self.page_timer = QTimer(self)
 
-
         self.animation_timer.start(600)
 
         self.window().setFixedSize(500, 280)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.show_next_page()
-    #Method for fetching language configuration
-    def getLanguage(self):
-        with open('source/config/config.yaml', 'r') as config_file:
-            yaml_file = yaml.safe_load(config_file)
-            language = yaml_file['Language']
-        return language
 
     def getStatus(self):
         with open('source/config/config.yaml', 'r') as config_file:
@@ -110,34 +101,33 @@ class WelcomePage(QWidget):
   
     def setFixedSize(self, width, height):
         super().setFixedSize(width, height)
+        
     def post_thread_show_status_1(self):
         self.window().close()
-        self.animation_timer.stop()
-        global m
-        new_window = SetInstitution()
-        m = new_window
-        new_window.run()
-        self.close()
+        self.set_institution = SetInstitution()
+        self.set_institution.run()
+
     def post_thread_show_status_2(self):
-        global m
         self.animation_timer.stop()
+        global m
+
+        self.close()
         if (len(self.added) + len(self.removed)) == 0:
             from .HomePage import SetHomePage
             print('Status 1, found no updates')
             self.window().close()
-            new_window = SetHomePage()
-            m = new_window
-            new_window.window().show()
+            self.home_page = SetHomePage()
+            self.home_page.window().show()
             self.window().close()
         else:
             from .FirstTimeUpdate import SetFirstTimeUpdate
             print('Status 1, found update')
             print(self.added, self.removed)
             self.window().close()
-            update = SetFirstTimeUpdate(self.checker)
-            m = update
-            m.window().show()
+            self.update = SetFirstTimeUpdate(self.checker)
+            self.update.window().show()
             self.window().close()
+
     def openNewWindow(self):
         global m
         if self.getStatus() == 0:
@@ -164,12 +154,6 @@ class WelcomePage(QWidget):
                 self.worker = Worker2(self)
                 self.worker.finished.connect(self.post_thread_show_status_2)
                 self.worker.start()  
-
-
-
-
-
-
 
 
 
@@ -242,14 +226,12 @@ def extra_run():
     main_window = QWidget()
     main_layout = QVBoxLayout(main_window)
 
-
     stacked_widget = QStackedWidget(main_window)
     welcome_page = WelcomePage(stacked_widget)
   
     stacked_widget.addWidget(welcome_page)
     main_layout.addWidget(stacked_widget)
 
-    
     main_window.show()
 
     sys.exit(app.exec())

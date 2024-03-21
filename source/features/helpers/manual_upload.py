@@ -7,6 +7,7 @@ from .fileValidate import FileTemplate, FileValidator
 import yaml
 import shutil
 import os
+from .getLanguage import getLanguage
 
 def openExcel(file):
     workbook = pd.read_excel(file, sheet_name='PA-Rights')
@@ -43,17 +44,28 @@ def man_upload(file):
                 yaml_file = yaml.safe_load(config_file)
                 University = yaml_file['University']
             if df[University].isnull().values.any():
-                return ['Null value found in University Column!']
+                db.close()
+                if getLanguage() == 1:
+                    return ['Valeur nulle trouvée dans la colonne Université']
+                else:
+                    return ['Null value found in University Column!']
             sAddResult =  singleAddition(df, cursor, platform, University, filename, 'N')
             if sAddResult == 0:
-                return ['Already Added File!']
+                db.close()
+                if getLanguage() == 1:
+                    return ['Fichier déjà ajouté']
+                else:
+                    return ['Already Added File!']
             else:
                 db.commit()
                 db.close()
                 return [sAddResult[1]]
         else:
             print("Something went wrong while parsing the excel file.")
-            return ['Something went wrong!']
+            if getLanguage() == 1:
+                return ['Quelque chose s\'est mal passé']
+            else:
+                return ['Something went wrong!']
     else:
         print('Invalid File!')
         print(V.getErrorMessage())

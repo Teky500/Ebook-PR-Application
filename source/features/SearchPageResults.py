@@ -1,13 +1,15 @@
-import csv
-import sys
 from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QVBoxLayout, QWidget, QPushButton, QFileDialog
+from PyQt6.QtWidgets import QVBoxLayout, QWidget, QPushButton, QFileDialog, QHBoxLayout
+
+from .helpers.getLanguage import getLanguage
 import pandas as pd
+
 class TableModel(QtCore.QAbstractTableModel):
+
     def __init__(self, data):
         super(TableModel, self).__init__()
         self._data = data
@@ -22,7 +24,6 @@ class TableModel(QtCore.QAbstractTableModel):
         
         if role == Qt.ItemDataRole.ToolTipRole:
             return self._data[index.row()][index.column()]
-
 
     def rowCount(self, index):
         # The length of the outer list.
@@ -44,12 +45,10 @@ class TableModel(QtCore.QAbstractTableModel):
         self._header_labels = labels
         self.headerDataChanged.emit(Qt.Orientation.Horizontal, 0, len(labels) - 1)
 
-
-
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self, itemData, sType):
-        
+    def __init__(self, itemData, sType):    
         super().__init__()
+
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)
         transparent_pixmap.fill(Qt.GlobalColor.transparent)
@@ -59,12 +58,11 @@ class MainWindow(QtWidgets.QMainWindow):
             
         # Remove title default name
         self.window().setWindowTitle("     ")
-        
-
         if itemData == []:
             print('Nothing Found')
             self.window().close()
             return None
+        
         self.setStyleSheet("""
              
             QTableView {    
@@ -100,25 +98,45 @@ class MainWindow(QtWidgets.QMainWindow):
             main_widget.setLayout(layout)
             self.table = QtWidgets.QTableView()
 
-
             self.model = TableModel(self.data)
             self.table.setModel(self.model)
 
-            header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Name', 'Platform']
+            if getLanguage() == 1:
+                header_labels = ['eISBN', 'Titre', 'Éditeur', 'Année', 'OCN', 'Droits PA', 'Nom du fichier', 'Plate-forme']
+            else:
+                header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Name', 'Platform']
             self.model.setHeaderLabels(header_labels)
 
+            layout.addWidget(self.table)
+            button_layout = QHBoxLayout()
+
+            self.download_button = QPushButton('Export')
+            self.cancel_button = QPushButton('Cancel')
+
+
+            button_style = "QPushButton { font-size: 18px; font-weight: bold; background-color: #4d4d4d; border: 1px solid #4d4d4d; border-radius: 4px; color: #ffffff; padding: 5px;}"
+            self.download_button.setStyleSheet(button_style)
+            self.cancel_button.setStyleSheet(button_style)
+
+            button_layout.addWidget(self.download_button)
+            button_layout.addWidget(self.cancel_button)
+
+
+            self.downloadType = 1
+            self.download_button.clicked.connect(self.downloadTable)
+            self.cancel_button.clicked.connect(self.exitResultsPage)
+
+            layout.addLayout(button_layout)
 
             self.table.resizeColumnsToContents()
 
-            layout.addWidget(self.table)
+            self.resize(1092, 683)
 
-            # Add a button for downloading
-            self.download_button = QPushButton("Download")
-            self.download_button.setText('Export to File')
-            layout.addWidget(self.download_button)
-            self.downloadType = 1
-            self.download_button.clicked.connect(self.downloadTable) # backend function here 
+            self.download_button.clicked.connect(self.downloadTable) 
 
+
+    def exitResultsPage(self):
+        self.close()
 
     def downloadTable(self):
         # Get the file path using a file dialog

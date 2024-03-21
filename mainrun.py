@@ -1,8 +1,10 @@
 import sys
 from source.features.StartingPage import WelcomePage
+
 from source.features.LanguageChoice import LanguageChoice
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
+
 import os
 import yaml
 if __name__ == "__main__":
@@ -22,6 +24,7 @@ if __name__ == "__main__":
         return status
 
             
+
     app = QApplication(sys.argv)
     app.setStyleSheet("""
                            

@@ -4,15 +4,13 @@ from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import QThread, pyqtSignal, Qt
 from .helpers.add_to_database import setDatabaseUni
+from .helpers.getLanguage import getLanguage
 import pandas as pd
 from .SplashScreenPage import SplashScreen
 import yaml
 import os
-def getLanguage():
-        with open('source/config/config.yaml', 'r') as config_file:
-            yaml_file = yaml.safe_load(config_file)
-            language = yaml_file['Language']
-        return language
+
+
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -39,9 +37,7 @@ class Worker(QThread):
                 print('Tu as besoin de selectionez une institution')
             else:
                 print('You need to select an institution')
-        else:
-
-            
+        else:   
             setDatabaseUni(self.selected_text)
             with open('source/config/config.yaml', 'r') as config_file:
                 yaml_file = yaml.safe_load(config_file)
@@ -68,8 +64,13 @@ class SetInstitution(QWidget):
         # Remove title default name
         self.window().setWindowTitle("     ")
         
-        if self.getLanguage() == 1:
+        if getLanguage() == 1:
             self.institution.setText("Sélectionnez l\'Institution ci-dessous")
+            self.institution.setStyleSheet('''font-size: 48pt;
+                                           background-color: #333333;
+                                            color: #ffffff;
+                                           padding: 5px;
+                                          border-color: #333333;''')
             self.submit_button_1.setText("Soumettre")
             
 
@@ -178,10 +179,6 @@ class SetInstitution(QWidget):
         for i in uniList:
             self.institutions.addItem(i)
         self.submit_button_1.clicked.connect(self.clicked_function)
-
-
-
-
     
     def clicked_function(self):
         selected_text = self.institutions.currentText()
@@ -192,10 +189,12 @@ class SetInstitution(QWidget):
         self.worker = Worker(self, selected_text)
         self.worker.finished.connect(self.post_thread_action)
         self.worker.start()
-        self.ss = self.show_splash_screen('Loading CRKN Data', 30)
+        if getLanguage() == 1:
+            self.ss = self.show_splash_screen('Chargement des données CRKN', 20)
+        else:
+            self.ss = self.show_splash_screen('Loading CRKN Data', 30)
     def post_thread_action(self):
-        global m
-        m = self.ss.show_home_page()
+        self.home_page = self.ss.show_home_page()
     
     def show_splash_screen(self, text, size):
         self.splash_screen = SplashScreen(text, size)
@@ -205,10 +204,3 @@ class SetInstitution(QWidget):
     
     def run(self):
         self.window().show()
-
-    def getLanguage(self):
-        with open('source/config/config.yaml', 'r') as config_file:
-            yaml_file = yaml.safe_load(config_file)
-            language = yaml_file['Language']
-        return language
-

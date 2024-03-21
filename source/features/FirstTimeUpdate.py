@@ -2,16 +2,17 @@ import sys
 ################# THREAD IMPORT
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from PyQt6.uic import loadUi
-from PyQt6.QtWidgets import QWidget, QApplication, QStackedWidget
+from PyQt6.QtWidgets import QWidget, QApplication
 from PyQt6.QtCore import Qt
 from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
-
+from .helpers.getLanguage import getLanguage
 from .helpers.download_excel import downloadFiles
 from .helpers.add_to_database import access_csv, singleAddition, openExcel, removeFromDatabase
 import os
 import sqlite3 as sq
 import yaml
 import os
+
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -21,6 +22,7 @@ def img_resource_path(relative_path):
         base_path = os.path.abspath(".")
 
     return os.path.join(base_path, relative_path)
+
 ########################### THREAD WORKER CLASS
 class Worker(QThread):
     finished = pyqtSignal()
@@ -28,18 +30,22 @@ class Worker(QThread):
     def __init__(self, checker):
         super(Worker, self).__init__()
         self.checker = checker
+
     #Time consuming task
     def run(self):
         self.checker.update_config()
         removeFromDatabase()
+
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             University = yaml_file['University'] 
         downloadFiles()
+
         entries = os.listdir('source/storage/spreadsheets/')
         csv_files = [i for i in entries if ('.csv' in i) and ('CRKN_EbookPARightsTracking' in i)]
         db = sq.connect('source/storage/database/proj.db')
         cursor = db.cursor()
+
         for i in csv_files:
             filename = i[:-4] + '.xlsx'
             df = access_csv(i)
@@ -55,7 +61,6 @@ class Worker(QThread):
         self.finished.emit()
 
 
-
 class SetFirstTimeUpdate(QWidget):
     def __init__(self, check):
         super(SetFirstTimeUpdate, self).__init__()
@@ -63,6 +68,13 @@ class SetFirstTimeUpdate(QWidget):
         loadUi(img_resource_path("source/features/ui/updatefirst-timepage.ui"), self)
         self.checker = check
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
+
+        if getLanguage() == 1:
+            self.confirm_update_1.setText("Oui")
+            self.cancel_update_1.setText("Non")
+            self.label.setText("Vos données CRKN ne sont pas à jour,")
+            self.label_2.setText("souhaitez-vous les mettre à jour?")
+
         self.confirm_update_1.clicked.connect(self.load_confirm_page)
         self.cancel_update_1.clicked.connect(self.load_home_page)
 
@@ -74,7 +86,10 @@ class SetFirstTimeUpdate(QWidget):
         self.worker = Worker(self.checker)
         self.worker.finished.connect(self.handle_thread_finished)
         self.worker.start()
-        self.ss = SplashScreen("Updating", 35)
+        if getLanguage() == 1:
+            self.ss = SplashScreen("Mise à jour en cours", 32)
+        else:
+            self.ss = SplashScreen("Updating", 35)
         self.ss.window().show()
         self.window().hide()
 
@@ -82,24 +97,24 @@ class SetFirstTimeUpdate(QWidget):
     def handle_thread_finished(self):
         self.setButtonsEnabled(True)
         self.ss.window().close()
-        global m
-        new_window = SetFirstTimeUpdateConfirm('Your CRKN Data is now up to date!')
-        m = new_window
+
+        if getLanguage() == 1:
+            self.first_time_update = SetFirstTimeUpdateConfirm("Vos données CRKN sont déjà à jour !", 0)
+        else:
+            self.first_time_update = SetFirstTimeUpdateConfirm('Your CRKN data is now up to date.', 0)
+
         self.window().hide()
-        new_window.run()
+        self.first_time_update.run()
 
     def load_home_page(self):
         from .HomePage import SetHomePage
-        global m
-        new_window = SetHomePage()
-        m = new_window
+        self.home_page = SetHomePage()
         self.window().hide()
-        new_window.run()
+        self.home_page.run()
 
     def setButtonsEnabled(self, enabled):
         self.confirm_update_1.setEnabled(enabled)
         self.cancel_update_1.setEnabled(enabled)
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
