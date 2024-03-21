@@ -109,7 +109,7 @@
      <number>60</number>
     </property>
     <item>
-     <widget class="QPushButton" name="confirm_update_1">
+     <widget class="QPushButton" name="French_button">
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -132,7 +132,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="cancel_update_1">
+     <widget class="QPushButton" name="English_button">
       <property name="minimumSize">
        <size>
         <width>0</width>
