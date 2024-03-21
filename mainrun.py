@@ -1,7 +1,10 @@
 import sys
 from source.features.StartingPage import WelcomePage
 
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QStackedWidget
+from source.features.LanguageChoice import LanguageChoice
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
+
 import os
 import yaml
 if __name__ == "__main__":
@@ -13,7 +16,15 @@ if __name__ == "__main__":
     if not os.path.isfile('source/config/config.yaml'):
         with open("source/config/config.yaml", 'w') as yF:
             yaml.dump(x, yF, default_flow_style=False)
-                
+    
+    def getStatus():
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            status = yaml_file['Status']
+        return status
+
+            
+
     app = QApplication(sys.argv)
     app.setStyleSheet("""
                            
@@ -80,12 +91,15 @@ if __name__ == "__main__":
 
     main_window = QWidget()
     main_layout = QVBoxLayout(main_window)
-
     stacked_widget = QStackedWidget(main_window)
-    welcome_page = WelcomePage(stacked_widget)
-  
-    stacked_widget.addWidget(welcome_page)
+    if getStatus() == 0:
+        page = LanguageChoice(stacked_widget)
+    else:
+        page = WelcomePage(stacked_widget)
+    
+    stacked_widget.addWidget(page)
     main_layout.addWidget(stacked_widget)
+    main_window.setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
     
     main_window.show()
