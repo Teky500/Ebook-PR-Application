@@ -2,8 +2,8 @@ import sys
 from source.features.StartingPage import WelcomePage
 
 from source.features.LanguageChoice import LanguageChoice
-from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
+from PyQt6.QtCore import Qt 
+from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QStackedWidget, QHBoxLayout
 
 import os
 import yaml
@@ -89,19 +89,38 @@ if __name__ == "__main__":
 
             """)
 
-    main_window = QWidget()
-    main_layout = QVBoxLayout(main_window)
-    stacked_widget = QStackedWidget(main_window)
-    if getStatus() == 0:
-        page = LanguageChoice(stacked_widget)
-    else:
-        page = WelcomePage(stacked_widget)
+    # main_window = QWidget()
+    # main_layout = QVBoxLayout(main_window)
+    # stacked_widget = QStackedWidget(main_window)
     
-    stacked_widget.addWidget(page)
-    main_layout.addWidget(stacked_widget)
+    # if getStatus() == 0:
+    #     page = LanguageChoice(stacked_widget)
+    # else:
+    #     page = WelcomePage(stacked_widget)
+    
+    # stacked_widget.addWidget(page)
+    # main_layout.addWidget(stacked_widget)
+
+    # main_window.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+
+    # main_window.show()
+
+    main_window = QWidget()
+    main_layout = QHBoxLayout(main_window)
+
+    if getStatus() == 0:
+        page = LanguageChoice(main_window)
+    else:
+        page = WelcomePage(main_window)
+
+    main_layout.addWidget(page)
+
     main_window.setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
-    
     main_window.show()
+
+    screen_geometry = app.primaryScreen().geometry()
+    center_point = screen_geometry.center()
+    main_window.move(center_point - main_window.rect().center())
 
     sys.exit(app.exec())
