@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\ChangeOfInstitution.ui'
+# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\update_network_failure.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -100,27 +100,27 @@ class Ui_Form(object):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setSpacing(60)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.confirm_change = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
-        self.confirm_change.setMinimumSize(QtCore.QSize(0, 0))
-        self.confirm_change.setMaximumSize(QtCore.QSize(120, 16777215))
-        self.confirm_change.setStyleSheet("font: 700 18pt \"Segoe UI\";\n"
+        self.continue_button = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
+        self.continue_button.setMinimumSize(QtCore.QSize(0, 0))
+        self.continue_button.setMaximumSize(QtCore.QSize(150, 50))
+        self.continue_button.setStyleSheet("font: 700 18pt \"Segoe UI\";\n"
 "")
-        self.confirm_change.setObjectName("confirm_change")
-        self.horizontalLayout.addWidget(self.confirm_change)
-        self.cancel_change = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
-        self.cancel_change.setMinimumSize(QtCore.QSize(0, 0))
-        self.cancel_change.setMaximumSize(QtCore.QSize(120, 16777215))
-        self.cancel_change.setStyleSheet("font: 700 18pt \"Segoe UI\";")
-        self.cancel_change.setObjectName("cancel_change")
-        self.horizontalLayout.addWidget(self.cancel_change)
+        self.continue_button.setObjectName("continue_button")
+        self.horizontalLayout.addWidget(self.continue_button)
+        self.exit_button = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
+        self.exit_button.setMinimumSize(QtCore.QSize(0, 0))
+        self.exit_button.setMaximumSize(QtCore.QSize(150, 50))
+        self.exit_button.setStyleSheet("font: 700 18pt \"Segoe UI\";")
+        self.exit_button.setObjectName("exit_button")
+        self.horizontalLayout.addWidget(self.exit_button)
         self.verticalLayoutWidget = QtWidgets.QWidget(parent=Form)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 40, 481, 96))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 40, 481, 81))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
-        self.label.setStyleSheet("font: 700 18pt \"Segoe UI\";")
+        self.label.setStyleSheet("font: 700 20pt \"Segoe UI\";")
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
@@ -132,6 +132,6 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.confirm_change.setText(_translate("Form", "Yes"))
-        self.cancel_change.setText(_translate("Form", "No"))
-        self.label.setText(_translate("Form", "This will start over as a new installation,  and remove all loaded data, are you sure?"))
+        self.continue_button.setText(_translate("Form", "Continue"))
+        self.exit_button.setText(_translate("Form", "Exit"))
+        self.label.setText(_translate("Form", "Could not check for CRKN updates due to network error"))

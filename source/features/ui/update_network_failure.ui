@@ -109,7 +109,7 @@
      <number>60</number>
     </property>
     <item>
-     <widget class="QPushButton" name="confirm_change">
+     <widget class="QPushButton" name="continue_button">
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -118,8 +118,8 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>120</width>
-        <height>16777215</height>
+        <width>150</width>
+        <height>50</height>
        </size>
       </property>
       <property name="styleSheet">
@@ -127,12 +127,12 @@
 </string>
       </property>
       <property name="text">
-       <string>Yes</string>
+       <string>Continue</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="cancel_change">
+     <widget class="QPushButton" name="exit_button">
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -141,15 +141,15 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>120</width>
-        <height>16777215</height>
+        <width>150</width>
+        <height>50</height>
        </size>
       </property>
       <property name="styleSheet">
        <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
       </property>
       <property name="text">
-       <string>No</string>
+       <string>Exit</string>
       </property>
      </widget>
     </item>
@@ -161,17 +161,17 @@
      <x>10</x>
      <y>40</y>
      <width>481</width>
-     <height>96</height>
+     <height>81</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QLabel" name="label">
       <property name="styleSheet">
-       <string notr="true">font: 700 18pt &quot;Segoe UI&quot;;</string>
+       <string notr="true">font: 700 20pt &quot;Segoe UI&quot;;</string>
       </property>
       <property name="text">
-       <string>This will start over as a new installation,  and remove all loaded data, are you sure?</string>
+       <string>Could not check for CRKN updates due to network error</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

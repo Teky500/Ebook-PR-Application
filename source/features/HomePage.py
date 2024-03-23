@@ -106,6 +106,9 @@ class SetHomePage(QWidget):
 
         if not internet_on():
             print('NO INTERNET')
+            from .NetworkFailurePage import NetworkPage
+            self.NPage = NetworkPage('Could not check for updates due to network error. Please check your network connection and try again.')
+            self.NPage.window().show()
             return 
 
         checker = UpdateChecker()
@@ -118,9 +121,9 @@ class SetHomePage(QWidget):
             from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
 
             if getLanguage() == 1:
-                self.update_confirm_page = SetFirstTimeUpdateConfirm("Vos données CRKN sont déjà à jour !", 0)
+                self.update_confirm_page = SetFirstTimeUpdateConfirm("<b>Vos données CRKN sont déjà à jour !<b>", 0)
             else:
-                self.update_confirm_page = SetFirstTimeUpdateConfirm('Your CRKN Data is already up to date!', 0)
+                self.update_confirm_page = SetFirstTimeUpdateConfirm('Your CRKN data is already up to date!', 0)
             self.update_confirm_page.show()
 
             self.window().close()

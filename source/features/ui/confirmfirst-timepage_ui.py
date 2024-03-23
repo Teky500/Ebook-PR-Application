@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\ChangeOfInstitution.ui'
+# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\confirmfirst-timepage.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -93,38 +93,31 @@ class Ui_Form(object):
 "        background-color: #3a3a3a;\n"
 "        color: white;\n"
 "    }")
-        self.horizontalLayoutWidget = QtWidgets.QWidget(parent=Form)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 159, 481, 111))
-        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout.setSpacing(60)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.confirm_change = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
-        self.confirm_change.setMinimumSize(QtCore.QSize(0, 0))
-        self.confirm_change.setMaximumSize(QtCore.QSize(120, 16777215))
-        self.confirm_change.setStyleSheet("font: 700 18pt \"Segoe UI\";\n"
-"")
-        self.confirm_change.setObjectName("confirm_change")
-        self.horizontalLayout.addWidget(self.confirm_change)
-        self.cancel_change = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
-        self.cancel_change.setMinimumSize(QtCore.QSize(0, 0))
-        self.cancel_change.setMaximumSize(QtCore.QSize(120, 16777215))
-        self.cancel_change.setStyleSheet("font: 700 18pt \"Segoe UI\";")
-        self.cancel_change.setObjectName("cancel_change")
-        self.horizontalLayout.addWidget(self.cancel_change)
         self.verticalLayoutWidget = QtWidgets.QWidget(parent=Form)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 40, 481, 96))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 40, 481, 81))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
-        self.label.setStyleSheet("font: 700 18pt \"Segoe UI\";")
+        self.label.setStyleSheet("font: 700 20pt \"Segoe UI\";")
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label.setWordWrap(True)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
+        self.horizontalLayoutWidget = QtWidgets.QWidget(parent=Form)
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 160, 481, 111))
+        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setSpacing(60)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.confirm_update_first_time = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
+        self.confirm_update_first_time.setMinimumSize(QtCore.QSize(0, 0))
+        self.confirm_update_first_time.setMaximumSize(QtCore.QSize(120, 16777215))
+        self.confirm_update_first_time.setStyleSheet("font: 700 18pt \"Segoe UI\";\n"
+"")
+        self.confirm_update_first_time.setObjectName("confirm_update_first_time")
+        self.horizontalLayout.addWidget(self.confirm_update_first_time)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -132,6 +125,5 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.confirm_change.setText(_translate("Form", "Yes"))
-        self.cancel_change.setText(_translate("Form", "No"))
-        self.label.setText(_translate("Form", "This will start over as a new installation,  and remove all loaded data, are you sure?"))
+        self.label.setText(_translate("Form", "Your CRKN data is now up to date!"))
+        self.confirm_update_first_time.setText(_translate("Form", "Ok"))

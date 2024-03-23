@@ -48,7 +48,8 @@ class UnloadSpreadsheet(QWidget):
         loadUi(img_resource_path("source/features/ui/unloadpage.ui"), self)
         if getLanguage() == 1:
             self.unload.setText("Sélectionner le Tableau à Décharger")
-            self.unload.setStyleSheet('''font-size: 48pt;
+            self.unload.setStyleSheet('''font-size: 45pt;
+                                        font-weight: bold;
                                            ''')
             self.submit_button.setText("Soumettre")
             self.cancel_button.setText("Annuler")

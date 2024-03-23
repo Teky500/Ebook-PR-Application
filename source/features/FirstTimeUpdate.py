@@ -72,8 +72,22 @@ class SetFirstTimeUpdate(QWidget):
         if getLanguage() == 1:
             self.confirm_update_1.setText("Oui")
             self.cancel_update_1.setText("Non")
-            self.label.setText("Vos données CRKN ne sont pas à jour,")
-            self.label_2.setText("souhaitez-vous les mettre à jour?")
+            self.label.setText("<b>Vos données CRKN ne sont pas à jour,<b>")
+            self.label_2.setText("<b>souhaitez-vous les mettre à jour?<b>")
+            self.label.setStyleSheet('''    
+                                            font-size: 18pt;
+                                            background-color: #333333;
+                                            color: #ffffff;
+                                            padding: 5px;
+                                            border-color: #333333;
+                                     ''')
+            self.label_2.setStyleSheet('''    
+                                            font-size: 18pt;
+                                            background-color: #333333;
+                                            color: #ffffff;
+                                            padding: 5px;
+                                            border-color: #333333;
+                                     ''')
 
         self.confirm_update_1.clicked.connect(self.load_confirm_page)
         self.cancel_update_1.clicked.connect(self.load_home_page)
@@ -99,7 +113,7 @@ class SetFirstTimeUpdate(QWidget):
         self.ss.window().close()
 
         if getLanguage() == 1:
-            self.first_time_update = SetFirstTimeUpdateConfirm("Vos données CRKN sont déjà à jour !", 0)
+            self.first_time_update = SetFirstTimeUpdateConfirm("<b>Vos données CRKN sont déjà à jour !<b>", 0)
         else:
             self.first_time_update = SetFirstTimeUpdateConfirm('Your CRKN data is now up to date.', 0)
 
