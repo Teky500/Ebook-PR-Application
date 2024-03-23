@@ -3,6 +3,7 @@ from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import Qt
+from .helpers.getLanguage import getLanguage
 import os
 # from .helpers.getLanguage import getLanguage (helpers import)
 
@@ -22,6 +23,12 @@ class NetworkUpdateFailurePage(QWidget):
         super(NetworkUpdateFailurePage, self).__init__()
 
         loadUi(img_resource_path("source/features/ui/update_network_failure.ui"), self)
+
+        if getLanguage() == 1:
+            self.continue_button.setText("Continuer")
+            self.exit_button.setText("Sortir")
+            self.label.setText("Impossible de vérifier les mises à jour CRKN en raison d'une erreur réseau")
+
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
         # Create a transparent QPixmap

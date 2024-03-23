@@ -3,6 +3,7 @@ from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import Qt
+from .helpers.getLanguage import getLanguage
 import os
 # from .helpers.getLanguage import getLanguage (helpers import)
 
@@ -22,6 +23,10 @@ class NetworkPage(QWidget):
         super(NetworkPage, self).__init__()
 
         loadUi(img_resource_path("source/features/ui/internetConnectionPage.ui"), self)
+
+        if getLanguage() == 1:
+            self.optional_label.setText("Veuillez vérifier votre connexion internet et réessayer!")
+
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
         # Create a transparent QPixmap

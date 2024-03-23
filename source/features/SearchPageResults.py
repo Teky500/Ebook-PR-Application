@@ -113,6 +113,10 @@ class MainWindow(QtWidgets.QMainWindow):
             self.download_button = QPushButton('Export')
             self.cancel_button = QPushButton('Cancel')
 
+            if getLanguage() == 1:
+                self.download_button.setText("Exporter")
+                self.cancel_button.setText("Annuler")
+
 
             button_style = "QPushButton { font-size: 18px; font-weight: bold; background-color: #4d4d4d; border: 1px solid #4d4d4d; border-radius: 4px; color: #ffffff; padding: 5px;}"
             self.download_button.setStyleSheet(button_style)

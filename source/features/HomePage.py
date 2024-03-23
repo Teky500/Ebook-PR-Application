@@ -120,7 +120,10 @@ class SetHomePage(QWidget):
         if not internet_on():
             logging.info('NO INTERNET')
             from .NetworkFailurePage import NetworkPage
-            self.NPage = NetworkPage('Could not check for updates due to network error. Please check your network connection and try again.')
+            msg = 'Could not check for updates due to network error. Please check your network connection and try again.'
+            if getLanguage() == 1:
+                msg = "Impossible de vérifier les mises à jour CRKN en raison d'une erreur réseau. Veuillez vérifier votre connexion internet et réessayer!"
+            self.NPage = NetworkPage(msg)
             self.NPage.window().show()
             return 
 
