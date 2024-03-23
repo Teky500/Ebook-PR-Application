@@ -1,4 +1,5 @@
 import sys
+import logging
 ######################### THREADING IMPORT
 from PyQt6.QtCore import Qt, QThread, pyqtSignal 
 from PyQt6.uic import loadUi
@@ -82,7 +83,7 @@ class UploadSpreadsheet(QWidget):
         # Open file dialog to select a file
         fileName, _ = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*);;Spreadsheet Files (*.xls *.xlsx)")
         if fileName:
-            print(f"File selected: {fileName}")
+            logging.info(f"File selected: {fileName}")
             # Update the label to show the selected file path
             self.filePicked = fileName
             if getLanguage() == 1:
@@ -98,7 +99,7 @@ class UploadSpreadsheet(QWidget):
     ################################### THREAD (MODIFIED FUNCTION)
     def submitFile(self):
         if self.filePicked == "":
-            print('NO FILE SELECTED')
+            logging.info('NO FILE SELECTED')
         else:
             self.home_page.setHomePageButtonsEnabled(False)
             self.setUploadPageButtonsEnabled(False)
@@ -149,12 +150,18 @@ class UploadSpreadsheet(QWidget):
         self.setUploadPageButtonsEnabled(True)
         self.home_page.setHomePageButtonsEnabled(True)
         self.splash_screen.window().close()
-        if type(result[0]) == str:
+        if result[0] == 'Y':
             if getLanguage() == 1:
                 self.upload_success = UploadSuccess(f'{result[1]} lignes ajoutées avex succès!')
             else:
                 self.upload_success = UploadSuccess(f'Successfully added {result[1]} rows!')
             self.upload_success.window().show()
+        elif type(result[0]) == str:
+            r = result[0]
+            logging.info(r)
+            self.upload_success_page = UploadFailure(r)
+            self.upload_success_page.window().show()            
+
         else:
             r = ''
             if result[0] == 3:

@@ -11,6 +11,7 @@ from .helpers.unload_file import removeFile, getFiles
 from .helpers.getLanguage import getLanguage
 from .unload_success import UnloadSuccess
 import os
+import logging
 
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -37,8 +38,8 @@ class Worker(QThread):
             removeFile(self.file_picked)
             self.finished.emit()
         except Exception as e:
-            print('FAILURE')
-            print(e)
+            logging.info('FAILURE')
+            logging.info(e)
 
 class UnloadSpreadsheet(QWidget):
     def __init__(self, HomePage):
@@ -66,7 +67,7 @@ class UnloadSpreadsheet(QWidget):
 
         fileList = getFiles()
         for aF in fileList:
-            print(aF)
+            logging.info(aF)
             self.unload_sheets.addItem(aF[0])
 
         # Add unload functionality here
@@ -80,7 +81,7 @@ class UnloadSpreadsheet(QWidget):
 
     def unloadSpreadsheets(self):
         if self.unload_sheets.currentText() == '':
-            print('Must pick a spreadsheet!')
+            logging.info('Must pick a spreadsheet!')
             msg = QMessageBox()
             msg.setWindowTitle("messageBox")
             if getLanguage() == 1:

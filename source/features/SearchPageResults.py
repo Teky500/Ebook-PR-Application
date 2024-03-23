@@ -7,7 +7,7 @@ from PyQt6.QtWidgets import QVBoxLayout, QWidget, QPushButton, QFileDialog, QHBo
 
 from .helpers.getLanguage import getLanguage
 import pandas as pd
-
+import logging
 class TableModel(QtCore.QAbstractTableModel):
 
     def __init__(self, data):
@@ -59,7 +59,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Remove title default name
         self.window().setWindowTitle("     ")
         if itemData == []:
-            print('Nothing Found')
+            logging.info('Nothing Found')
             self.window().close()
             return None
         

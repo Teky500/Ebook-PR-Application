@@ -8,7 +8,7 @@ from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import Qt
 import os
 import sys
-
+import logging
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -137,10 +137,10 @@ class searchPageDriver(QtWidgets.QWidget):
                     msg.setFont(font)
 
                     msg.exec()
-                    print('No Search found!')
+                    logging.info('No Search found!')
                     return
                 self.main_window = MainWindow(s_result, 1)
-                print(self.main_window)
+                logging.info(self.main_window)
                 self.main_window.window().show()
 
             case 2:
@@ -178,10 +178,10 @@ class searchPageDriver(QtWidgets.QWidget):
                     msg.setFont(font)
 
                     msg.exec()
-                    print('No Search found!')
+                    logging.info('No Search found!')
                     return
                 self.main_window = MainWindow(s_result, 3)
-                print(self.main_window)
+                logging.info(self.main_window)
                 self.main_window.window().show()
 
             case 4:
@@ -216,10 +216,10 @@ class searchPageDriver(QtWidgets.QWidget):
                     font.setBold(True) 
                     msg.setFont(font)
                     msg.exec()
-                    print('No Search found!')
+                    logging.info('No Search found!')
                     return
                 self.main_window = MainWindow(s_result, 0)
-                print(self.main_window)
+                logging.info(self.main_window)
                 self.main_window.window().show()
 
 if __name__ == "__main__":

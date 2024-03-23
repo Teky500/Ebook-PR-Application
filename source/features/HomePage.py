@@ -16,7 +16,8 @@ from .ChangeInstitution import ChangeInstitution
 
 import os
 from urllib import request
-from .helpers.setstdoutput import fixStdout
+
+import logging
 
 def internet_on():
     try:
@@ -117,7 +118,7 @@ class SetHomePage(QWidget):
     def update_page_show(self):
 
         if not internet_on():
-            print('NO INTERNET')
+            logging.info('NO INTERNET')
             from .NetworkFailurePage import NetworkPage
             msg = 'Could not check for updates due to network error. Please check your network connection and try again.'
             if getLanguage() == 1:
@@ -132,7 +133,7 @@ class SetHomePage(QWidget):
         (added, removed) = checker.compare(new_excel_files)
 
         if (len(added) + len(removed)) == 0:
-            print('Found no updates')
+            logging.info('Found no updates')
             from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
 
             if getLanguage() == 1:

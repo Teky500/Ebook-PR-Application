@@ -3,7 +3,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 import os
 import yaml
 from .getLanguage import getLanguage
-
+import logging
 
 class FileTemplate:
     
@@ -14,7 +14,7 @@ class FileTemplate:
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             uni = yaml_file['University'] 
-            print(uni)
+            logging.info(uni)
         self.fixed_fields = {
                             "A3": "Title",
                             "B3": "Publisher",
@@ -169,7 +169,7 @@ class FileValidator:
         if (self.fileAccessible()):
             self.verifyNotEmpty()
             self.verifyMatching()
-        print(self.excess_error)
+        logging.info(self.excess_error)
         return (len(self.error_message) == 0)
 
 

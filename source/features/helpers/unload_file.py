@@ -1,4 +1,5 @@
 import sqlite3 as sq
+import logging
 def removeFile(rFilename):
     db = sq.connect('source/storage/database/proj.db')
     cursor = db.cursor()
@@ -6,7 +7,7 @@ def removeFile(rFilename):
     cursor.execute(f"DELETE FROM platforms WHERE spreadsheet = '{rFilename}'")
     db.commit()
     db.close()
-    print(f'Successfully removed file with name {rFilename}')
+    logging.info(f'Successfully removed file with name {rFilename}')
 
 def getFiles():
     db = sq.connect('source/storage/database/proj.db')
