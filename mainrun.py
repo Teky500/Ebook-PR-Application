@@ -2,13 +2,15 @@ import sys
 from source.features.StartingPage import WelcomePage
 
 from source.features.LanguageChoice import LanguageChoice
+from source.features.helpers.setstdoutput import fixStdout
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
 
 import os
 import yaml
 if __name__ == "__main__":
-    pathes = ['source/storage/spreadsheets', 'source/storage/database', 'source/storage/excel', 'source/config']
+    fixStdout()
+    pathes = ['source/storage/spreadsheets', 'source/storage/database', 'source/storage/excel', 'source/config', 'source/logs']
     for newpath in pathes:
         if not os.path.exists(newpath):
             os.makedirs(newpath)

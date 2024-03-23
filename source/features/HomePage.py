@@ -16,6 +16,7 @@ from .ChangeInstitution import ChangeInstitution
 
 import os
 from urllib import request
+from .helpers.setstdoutput import fixStdout
 
 def internet_on():
     try:
@@ -43,7 +44,9 @@ class SetHomePage(QWidget):
         return University
 
     def __init__(self):
+
         super(SetHomePage, self).__init__()
+
 
         loadUi(img_resource_path("source/features/ui/homepage.ui"), self)
 
