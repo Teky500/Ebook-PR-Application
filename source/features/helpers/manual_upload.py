@@ -59,7 +59,7 @@ def man_upload(file):
             else:
                 db.commit()
                 db.close()
-                return [sAddResult[1]]
+                return ['Y', sAddResult[1]]
         else:
             print("Something went wrong while parsing the excel file.")
             if getLanguage() == 1:

@@ -70,7 +70,7 @@ class FileValidator:
     def __init__(self, file_to_be_validated):
         self.f = file_to_be_validated
         self.error_message = []
-
+        self.excess_error = []
     def fileAccessible(self):
         
         path = self.f.get_file_path()
@@ -78,31 +78,23 @@ class FileValidator:
 
         file_name, file_extension = os.path.splitext(path)
         if (path == ""):
-            if getLanguage() == 1:
-                self.error_message.append("Erreur: Aucun Fichier Fourni")
-            else:
-                self.error_message.append("Error: No File Provided")
+            self.error_message.append(0)
+            # ("Error: No File Provided")
 
         elif file_extension not in [".xlsx", ".xls"]:
-            if getLanguage() == 1:
-                self.error_message.append("Erreur: Fichier Invalide")
-            else:
-                self.error_message.append("Error: Invalid File")
+            self.error_message.append(1)
+            # ("Error: Invalid File")
         elif (not os.path.isfile(path)):
-            if getLanguage() == 1:
-                self.error_message.append("Erreur: Le Fichier n'Existe pas")
-            else:
-                self.error_message.append("Error: File Does Not Exist")
+            self.error_message.append(2)
+            # ("Error: File does not exist")
         else:
             try:
                 self.wb = openpyxl.load_workbook(path)
                 self.ws = self.wb[sheet]
 
             except (KeyError):
-                if getLanguage() == 1:
-                    self.error_message.append("Nom de feuille invalide: Définissez le nom de la feuille sur PA-Rights")
-                else:
-                    self.error_message.append("Invalid sheet name: Set sheet name to PA-Rights")
+                self.error_message.append(3)
+                # "Invalid sheet name: Set sheet name to PA-Rights"
             
         return (len(self.error_message) == 0)
         
@@ -114,7 +106,9 @@ class FileValidator:
         self.ws = self.wb[self.f.get_file_sheet()]
 
         list2 = []
-
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            uni = yaml_file['University'] 
         for i in range (len(self.f.get_not_empty_fields())):
 
             cell_keys = list(self.f.get_not_empty_fields().keys())
@@ -125,12 +119,14 @@ class FileValidator:
             maybe_missing = cell_values[i]
 
             if (current_cell_value == None):
+                if 4 not in self.error_message:
+                    self.error_message.append(4)
                 if getLanguage() == 1:
                     list2.append("Champ manquant: Insérez le champ " + maybe_missing + " dans la cellule " + cell_keys[i])
                 else:
                     list2.append("Missing Field: Insert " + maybe_missing + " field into cell " + cell_keys[i])
 
-        self.error_message = self.error_message + list2
+        self.excess_error = self.excess_error + list2
 
 
 
@@ -139,7 +135,9 @@ class FileValidator:
         self.wb = openpyxl.load_workbook(self.f.get_file_path())
         self.ws = self.wb[self.f.get_file_sheet()]
         list2 = []
-
+        with open('source/config/config.yaml', 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            uni = yaml_file['University'] 
         for i in range (len(self.f.get_fixed_fields())):
 
             cell_keys = list(self.f.get_fixed_fields().keys())
@@ -150,12 +148,16 @@ class FileValidator:
             expected_cell_value = cell_values[i]
 
             if (current_cell_value != expected_cell_value):
+                if expected_cell_value == uni:
+                    self.error_message.append(5)
+                elif 4 not in self.error_message:
+                    self.error_message.append(4)
                 if getLanguage() == 1:
                     list2.append("Champ de cellule invalide: Définissez la cellule " + cell_keys[i] + " à " + cell_values[i])
                 else:
                     list2.append("Invalid cell field: Set cell " + cell_keys[i] + " to " + cell_values[i])
 
-        self.error_message = self.error_message + list2
+        self.excess_error = self.excess_error + list2
 
 
     def getErrorMessage(self):
@@ -167,6 +169,7 @@ class FileValidator:
         if (self.fileAccessible()):
             self.verifyNotEmpty()
             self.verifyMatching()
+        print(self.excess_error)
         return (len(self.error_message) == 0)
 
 

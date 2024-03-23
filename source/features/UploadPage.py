@@ -149,14 +149,20 @@ class UploadSpreadsheet(QWidget):
         self.setUploadPageButtonsEnabled(True)
         self.home_page.setHomePageButtonsEnabled(True)
         self.splash_screen.window().close()
-        if type(result[0]) == int:
+        if type(result[0]) == str:
             if getLanguage() == 1:
-                self.upload_success = UploadSuccess(f'{result[0]} lignes ajoutées avex succès!')
+                self.upload_success = UploadSuccess(f'{result[1]} lignes ajoutées avex succès!')
             else:
-                self.upload_success = UploadSuccess(f'Successfully added {result[0]} rows!')
+                self.upload_success = UploadSuccess(f'Successfully added {result[1]} rows!')
             self.upload_success.window().show()
         else:
-            r = str(result)
+            r = ''
+            if result[0] == 3:
+                r += 'No PA-Rights sheet!'
+            if 4 in result:
+                r = 'Incorrect headers!'
+            if 5 in result:
+                r += ' University not found on I3 cell on sheet!'
             self.upload_success_page = UploadFailure(r)
             self.upload_success_page.window().show()
         self.filePicked = ''
