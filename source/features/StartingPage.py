@@ -10,13 +10,13 @@ from .helpers.getLanguage import getLanguage
 import os
 from urllib import request
 from .NetworkFailurePage import NetworkPage
-
+import logging
 def internet_on():
     try:
         request.urlopen('https://www.google.com/', timeout=1)
         return True
     except request.URLError as err: 
-        print(err)
+        logging.info(err)
         return False
 
 
@@ -115,15 +115,15 @@ class WelcomePage(QWidget):
         self.close()
         if (len(self.added) + len(self.removed)) == 0:
             from .HomePage import SetHomePage
-            print('Status 1, found no updates')
+            logging.info('Status 1, found no updates')
             self.window().close()
             self.home_page = SetHomePage()
             self.home_page.window().show()
             self.window().close()
         else:
             from .FirstTimeUpdate import SetFirstTimeUpdate
-            print('Status 1, found update')
-            print(self.added, self.removed)
+            logging.info('Status 1, found update')
+            logging.info(self.added, self.removed)
             self.window().close()
             self.update = SetFirstTimeUpdate(self.checker)
             self.update.window().show()
@@ -132,20 +132,20 @@ class WelcomePage(QWidget):
     def openNewWindow(self):
         global m
         if self.getStatus() == 0:
-            print('Status 0')
+            logging.info('Status 0')
             if internet_on():
                 self.worker = Worker()
                 self.worker.finished.connect(self.post_thread_show_status_1)
                 self.worker.start()
             else:
-                print('No network connection: cant fetch data.')
+                logging.info('No network connection: cant fetch data.')
                 self.network_page = NetworkPage("Can't download spreadsheets for initial launch due to network connection error. Please check your internet connection and try again.")
                 self.network_page.show()
                 QTimer.singleShot(0, self.window().close)
 
         else:
             if not internet_on():
-                print('No network connection: Can not check for updates')
+                logging.info('No network connection: Can not check for updates')
                 from .UpdateFailureNetworkPage import NetworkUpdateFailurePage
                 self.new_window = NetworkUpdateFailurePage()
                 self.new_window.window().show()

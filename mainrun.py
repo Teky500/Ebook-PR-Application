@@ -2,14 +2,33 @@ import sys
 from source.features.StartingPage import WelcomePage
 
 from source.features.LanguageChoice import LanguageChoice
-from source.features.helpers.setstdoutput import fixStdout
+
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
 
 import os
 import yaml
+import logging
+from datetime import datetime
+import traceback
+
 if __name__ == "__main__":
-    fixStdout()
+    today = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
+    filename = "log_" + today
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s %(filename)s %(funcName)s %(lineno)d', handlers=[ logging.FileHandler(f'source/logs/{filename}'), logging.StreamHandler() ] )
+
+    logging.info('Starting app')
+    logger = logging.getLogger('mylogger.app')
+    # Configure logger to write to a file...
+
+    def my_handler(type, value, tb):
+        for line in traceback.TracebackException(type, value, tb).format(chain=True):
+            logging.exception(line)
+        logging.exception(value)
+        sys.exit()
+
+    # Install exception handler
+    sys.excepthook = my_handler
     pathes = ['source/storage/spreadsheets', 'source/storage/database', 'source/storage/excel', 'source/config', 'source/logs']
     for newpath in pathes:
         if not os.path.exists(newpath):
@@ -26,7 +45,7 @@ if __name__ == "__main__":
         return status
 
             
-
+    
     app = QApplication(sys.argv)
     app.setStyleSheet("""
                            

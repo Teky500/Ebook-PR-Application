@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import yaml
 from urllib.parse import urljoin
-
+import logging
 
 
 
@@ -25,11 +25,11 @@ class UpdateChecker:
                 base_url = response.url
                 return [urljoin(url, a['href']) for a in soup.find_all('a', href=True) if a['href'].endswith('.xlsx')]
             else:
-                print(f"Failed to fetch URL. Status code: {response.status_code}")
+                logging.info(f"Failed to fetch URL. Status code: {response.status_code}")
                 return []
         except Exception as E:
-            print(E)
-            print('Could not fetch links. Are you connected to the internet?')
+            logging.info(E)
+            logging.info('Could not fetch links. Are you connected to the internet?')
             return []
 
     def compare(self, new_excel_files):
@@ -49,8 +49,8 @@ class UpdateChecker:
 
     def update_config(self):
         self.config['excel_links'] = self.get_website_excel_files(self.config['link'])
-        print('NEW CONFIG LINKS')
-        print(self.config['excel_links'])
+        logging.info('NEW CONFIG LINKS')
+        logging.info(self.config['excel_links'])
         with open(self.config_path, 'w') as config_file:
             yaml.dump(self.config, config_file)
 

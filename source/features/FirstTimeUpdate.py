@@ -52,8 +52,8 @@ class Worker(QThread):
             try:  
                 uni = df.columns.get_loc(University)
             except KeyError as e:
-                print(str(e))
-                print(f'Ignored {filename}. Does not include {University}')
+                logging.info(str(e))
+                logging.info(f'Ignored {filename}. Does not include {University}')
                 continue      
             platform = openExcel(f'source/storage/excel/{filename}')
             singleAddition(df, cursor, platform, University, filename, 'Y')

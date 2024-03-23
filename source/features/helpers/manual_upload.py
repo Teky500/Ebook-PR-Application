@@ -1,4 +1,5 @@
-import openpyxl 
+import openpyxl
+import logging
 from openpyxl.worksheet.datavalidation import DataValidation
 import pandas as pd
 from .add_to_database import singleAddition
@@ -19,10 +20,10 @@ def parseExcelManual(file):
     try:
         xfile = pd.read_excel(f'source/storage/excel/{file}', sheet_name= "PA-Rights")
     except Exception as e:
-        print(str(e))
-        print('FAILED')
+        logging.info(str(e))
+        logging.info('FAILED')
         return 0
-    print(xfile)
+    logging.info(xfile)
     xfile.to_csv(f'source/storage/spreadsheets/{file[:-5]}.csv')
     return 1
 
@@ -61,14 +62,14 @@ def man_upload(file):
                 db.close()
                 return ['Y', sAddResult[1]]
         else:
-            print("Something went wrong while parsing the excel file.")
+            logging.info("Something went wrong while parsing the excel file.")
             if getLanguage() == 1:
                 return ['Quelque chose s\'est mal passé']
             else:
                 return ['Something went wrong!']
     else:
-        print('Invalid File!')
-        print(V.getErrorMessage())
+        logging.info('Invalid File!')
+        logging.info(V.getErrorMessage())
         return V.getErrorMessage()
 def access_csv(file):
   spreadsheet_csv = pd.read_csv(f'source/storage/spreadsheets/{file}.csv', skiprows=[0,1])

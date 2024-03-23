@@ -1,7 +1,7 @@
 import sqlite3 as sq
 import os
 import pandas as pd
-
+import logging
 def openExcel(file):
     workbook = pd.read_excel(file, sheet_name='PA-Rights')
     workbook = pd.DataFrame(workbook)
@@ -14,18 +14,18 @@ def access_csv(file):
     df = df[df['Platform_eISBN'].notna()]
     df['Platform_eISBN'] = (df['Platform_eISBN'].apply(int).astype(str))
   except Exception as e:
-    print('ERROR FORMING DATAFRAME')
-    print(e)
+    logging.info('ERROR FORMING DATAFRAME')
+    logging.info(e)
 
   return df
 def singleAddition(df, cursor, platform, University, filename, man_stat):
   try:
     cursor.execute('INSERT INTO platforms (spreadsheet, platform, CRKN) VALUES(?, ?, ?)', (filename, platform, man_stat))
-    print(f'SUCCESSFULL ADD OF PLATFORM {filename}')
+    logging.info(f'SUCCESSFULL ADD OF PLATFORM {filename}')
   except sq.IntegrityError as e:
 
-    print('Already added file previously!')
-    print(str(e))
+    logging.info('Already added file previously!')
+    logging.info(str(e))
     return 0
   counter = 0
   for row in df.iterrows():
@@ -35,7 +35,7 @@ def singleAddition(df, cursor, platform, University, filename, man_stat):
     ISBN = row[1]['Platform_eISBN']
     OCN = row[1]['OCN']
     result = row[1][University]
-    print('ADDING ROW TO DATABASE', (title, publisher, platform_yob, ISBN, OCN, result, filename))
+    logging.info('ADDING ROW TO DATABASE', (title, publisher, platform_yob, ISBN, OCN, result, filename))
     
     try:
       cursor.execute("INSERT INTO books (title, publisher, platform_yop, ISBN, OCN, result, spreadsheet) VALUES(?, ?, ?, ?, ?, ?, ?)", 
@@ -43,8 +43,8 @@ def singleAddition(df, cursor, platform, University, filename, man_stat):
       counter += 1
     # sometimes the the same ISBN will be there twice. For now, ignore those rows.
     except sq.IntegrityError as e:
-      print('FAILED ADDITION', (title, publisher, platform_yob, ISBN, OCN, result, filename))
-      print(str(e))
+      logging.info('FAILED ADDITION', (title, publisher, platform_yob, ISBN, OCN, result, filename))
+      logging.info(str(e))
   return (1, counter)
 
 def removeFromDatabase():
@@ -61,7 +61,7 @@ def setDatabaseUni(university):
   db_path = 'source/storage/database/proj.db'
   # check if the db exists first
   if os.path.isfile(db_path):
-      print('Removed Old Path')
+      logging.info('Removed Old Path')
       os.remove(db_path)
   # clean csv file (should be done in another file, but done here for now)
   # using skiprows=[0,1] to skip the first two fluff lines. Not a long term solution, we have to look for something else, but this will do for now.
@@ -89,8 +89,8 @@ CREATE TABLE platforms
       try:  
         uni = df.columns.get_loc(University)
       except KeyError as e:
-        print(str(e))
-        print(f'Ignored {filename}. Does not include {University}')
+        logging.info(str(e))
+        logging.info(f'Ignored {filename}. Does not include {University}')
         continue      
       db.commit()
       platform = openExcel(f'source/storage/excel/{filename}')
