@@ -12,7 +12,7 @@ import os
 import sqlite3 as sq
 import yaml
 import os
-
+import logging
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
