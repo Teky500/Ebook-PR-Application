@@ -55,7 +55,9 @@ class SetHomePage(QWidget):
             
         # Remove title default name
         self.window().setWindowTitle("     ")
-
+        self.unload_page = None
+        self.upload_page = None
+        self.search_page = None
         #If set to french
         if getLanguage() == 1:
             self.search.setText("Chercher")
@@ -100,7 +102,13 @@ class SetHomePage(QWidget):
     def change_page_show(self):
         self.change_page = ChangeInstitution()
         self.change_page.show()
-        self.window().hide()
+        self.window().close()
+        if self.unload_page:
+            self.unload_page.close()
+        if self.search_page:
+            self.search_page.close()
+        if self.upload_page:
+            self.upload_page.close()
 
     def update_page_show(self):
 
