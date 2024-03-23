@@ -35,7 +35,7 @@ def singleAddition(df, cursor, platform, University, filename, man_stat):
     ISBN = row[1]['Platform_eISBN']
     OCN = row[1]['OCN']
     result = row[1][University]
-    logging.info('ADDING ROW TO DATABASE', (title, publisher, platform_yob, ISBN, OCN, result, filename))
+    logging.info(f'ADDING ROW TO DATABASE: {str([title, publisher, platform_yob, ISBN, OCN, result, filename])}')
     
     try:
       cursor.execute("INSERT INTO books (title, publisher, platform_yop, ISBN, OCN, result, spreadsheet) VALUES(?, ?, ?, ?, ?, ?, ?)", 
@@ -43,7 +43,7 @@ def singleAddition(df, cursor, platform, University, filename, man_stat):
       counter += 1
     # sometimes the the same ISBN will be there twice. For now, ignore those rows.
     except sq.IntegrityError as e:
-      logging.info('FAILED ADDITION', (title, publisher, platform_yob, ISBN, OCN, result, filename))
+      logging.info(f'FAILED ADDITION: {str([title, publisher, platform_yob, ISBN, OCN, result, filename])}')
       logging.info(str(e))
   return (1, counter)
 

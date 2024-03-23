@@ -29,7 +29,6 @@ class LanguageChoice(QWidget):
         transparent_pixmap = QPixmap(1, 1)
         transparent_pixmap.fill(Qt.GlobalColor.transparent)
 
-        self.setFixedSize(500, 400)  # Set the fixed size of the window
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
         # Set the window icon with the transparent QPixmap
         self.setWindowIcon(QIcon(transparent_pixmap))
@@ -38,6 +37,8 @@ class LanguageChoice(QWidget):
         self.window().setWindowTitle("     ")
         self.English_button.clicked.connect(self.english_text)
         self.French_button.clicked.connect(self.french_text)
+
+        self.setFixedSize(500, 280)
 
     def english_text(self):
         with open('source/config/config.yaml', 'r') as config_file:
