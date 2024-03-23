@@ -17,9 +17,9 @@ def img_resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 
-class NetworkFailurePage(QWidget):
+class NetworkPage(QWidget):
     def __init__(self, msg):
-        super(NetworkFailurePage, self).__init__()
+        super(NetworkPage, self).__init__()
 
         loadUi(img_resource_path("source/features/ui/internetConnectionPage.ui"), self)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
@@ -44,6 +44,6 @@ class NetworkFailurePage(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    widget = NetworkFailurePage(msg = "Could not download initial CRKN spreadsheets due to network error. Please try again")
+    widget = NetworkPage(msg = "Could not download initial CRKN spreadsheets due to network error. Please try again")
     widget.show()
     sys.exit(app.exec())

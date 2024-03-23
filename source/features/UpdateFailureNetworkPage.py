@@ -38,9 +38,16 @@ class NetworkUpdateFailurePage(QWidget):
 
         #self.continue_button.clicked.connect(self.on_continue_clicked)
         self.exit_button.clicked.connect(self.on_exit_clicked)
+        self.continue_button.clicked.connect(self.on_continue_clicked)
 
     def on_exit_clicked(self):
         sys.exit()
+    def on_continue_clicked(self):
+        from .HomePage import SetHomePage
+        self.home_page = SetHomePage()
+        self.home_page.show()
+        self.close()
+        
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

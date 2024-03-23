@@ -9,6 +9,7 @@ import time
 from .helpers.getLanguage import getLanguage
 import os
 from urllib import request
+from .NetworkFailurePage import NetworkPage
 
 def internet_on():
     try:
@@ -137,15 +138,17 @@ class WelcomePage(QWidget):
                 self.worker.finished.connect(self.post_thread_show_status_1)
                 self.worker.start()
             else:
-                print('No network connection: cant fetch data.')           
+                print('No network connection: cant fetch data.')
+                self.network_page = NetworkPage("Can't download spreadsheets for initial launch due to network connection error. Please check your internet connection and try again.")
+                self.network_page.show()
+                QTimer.singleShot(0, self.window().close)
+
         else:
             if not internet_on():
                 print('No network connection: Can not check for updates')
-                from .HomePage import SetHomePage
-                self.window().close()
-                new_window = SetHomePage()
-                m = new_window
-                new_window.window().show()
+                from .UpdateFailureNetworkPage import NetworkUpdateFailurePage
+                self.new_window = NetworkUpdateFailurePage()
+                self.new_window.window().show()
                 self.window().close()                
                 QTimer.singleShot(0, self.window().close)
 

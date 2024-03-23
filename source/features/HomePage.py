@@ -106,6 +106,9 @@ class SetHomePage(QWidget):
 
         if not internet_on():
             print('NO INTERNET')
+            from .NetworkFailurePage import NetworkPage
+            self.NPage = NetworkPage('Could not check for updates due to network error. Please check your network connection and try again.')
+            self.NPage.window().show()
             return 
 
         checker = UpdateChecker()
