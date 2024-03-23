@@ -17,12 +17,12 @@ def img_resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 
-class SetFirstTimeUpdateConfirm(QWidget):
-    def __init__(self):
-        super(SetFirstTimeUpdateConfirm, self).__init__()
+class NetworkFailurePage(QWidget):
+    def __init__(self, msg):
+        super(NetworkFailurePage, self).__init__()
 
         loadUi(img_resource_path("source/features/ui/internetConnectionPage.ui"), self)
-        # self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)
@@ -36,6 +36,7 @@ class SetFirstTimeUpdateConfirm(QWidget):
 
         # Evan - insert langauge here
 
+        self.optional_label.setText(msg)
         self.confirm_error.clicked.connect(self.on_confirm_clicked)
 
     def on_confirm_clicked(self):
@@ -43,6 +44,6 @@ class SetFirstTimeUpdateConfirm(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    widget = SetFirstTimeUpdateConfirm()
+    widget = NetworkFailurePage(msg = "Could not download initial CRKN spreadsheets due to network error. Please try again")
     widget.show()
     sys.exit(app.exec())

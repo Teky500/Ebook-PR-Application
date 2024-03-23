@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\internetConnectionPage.ui'
+# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\update_network_failure.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -93,29 +93,38 @@ class Ui_Form(object):
 "        background-color: #3a3a3a;\n"
 "        color: white;\n"
 "    }")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(Form)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.verticalLayout = QtWidgets.QVBoxLayout()
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.optional_label = QtWidgets.QLabel(parent=Form)
-        self.optional_label.setStyleSheet("font: 700 20pt \"Segoe UI\";")
-        self.optional_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.optional_label.setWordWrap(True)
-        self.optional_label.setObjectName("optional_label")
-        self.verticalLayout.addWidget(self.optional_label)
-        self.verticalLayout_2.addLayout(self.verticalLayout)
-        self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setContentsMargins(-1, -1, -1, 40)
+        self.horizontalLayoutWidget = QtWidgets.QWidget(parent=Form)
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 159, 481, 111))
+        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setSpacing(60)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.confirm_error = QtWidgets.QPushButton(parent=Form)
-        self.confirm_error.setMinimumSize(QtCore.QSize(0, 0))
-        self.confirm_error.setMaximumSize(QtCore.QSize(120, 16777215))
-        self.confirm_error.setStyleSheet("font: 700 18pt \"Segoe UI\";\n"
+        self.confirm_update_1 = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
+        self.confirm_update_1.setMinimumSize(QtCore.QSize(0, 0))
+        self.confirm_update_1.setMaximumSize(QtCore.QSize(150, 50))
+        self.confirm_update_1.setStyleSheet("font: 700 18pt \"Segoe UI\";\n"
 "")
-        self.confirm_error.setObjectName("confirm_error")
-        self.horizontalLayout.addWidget(self.confirm_error)
-        self.verticalLayout_2.addLayout(self.horizontalLayout)
+        self.confirm_update_1.setObjectName("confirm_update_1")
+        self.horizontalLayout.addWidget(self.confirm_update_1)
+        self.cancel_update_1 = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
+        self.cancel_update_1.setMinimumSize(QtCore.QSize(0, 0))
+        self.cancel_update_1.setMaximumSize(QtCore.QSize(150, 50))
+        self.cancel_update_1.setStyleSheet("font: 700 18pt \"Segoe UI\";")
+        self.cancel_update_1.setObjectName("cancel_update_1")
+        self.horizontalLayout.addWidget(self.cancel_update_1)
+        self.verticalLayoutWidget = QtWidgets.QWidget(parent=Form)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 40, 481, 81))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.label = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
+        self.label.setStyleSheet("font: 700 20pt \"Segoe UI\";")
+        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label.setWordWrap(True)
+        self.label.setObjectName("label")
+        self.verticalLayout.addWidget(self.label)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -123,5 +132,6 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.optional_label.setText(_translate("Form", "Please check your internet connection and try again!"))
-        self.confirm_error.setText(_translate("Form", "Ok"))
+        self.confirm_update_1.setText(_translate("Form", "Continue"))
+        self.cancel_update_1.setText(_translate("Form", "Exit"))
+        self.label.setText(_translate("Form", "Could not check for CRKN updates due to network error"))
