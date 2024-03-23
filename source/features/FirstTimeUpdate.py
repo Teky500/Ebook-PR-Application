@@ -74,15 +74,19 @@ class SetFirstTimeUpdate(QWidget):
             self.cancel_update_1.setText("Non")
             self.label.setText("<b>Vos données CRKN ne sont pas à jour,<b>")
             self.label_2.setText("<b>souhaitez-vous les mettre à jour?<b>")
+            # French "j" gets cut off by buttons so I moved it up
+            current_geometry = self.label_2.geometry()
+            self.label_2.setGeometry(current_geometry.x(), current_geometry.y() - 5, current_geometry.width(), current_geometry.height())
+
             self.label.setStyleSheet('''    
-                                            font-size: 18pt;
+                                            font-size: 16pt;
                                             background-color: #333333;
                                             color: #ffffff;
                                             padding: 5px;
                                             border-color: #333333;
                                      ''')
             self.label_2.setStyleSheet('''    
-                                            font-size: 18pt;
+                                            font-size: 16pt;
                                             background-color: #333333;
                                             color: #ffffff;
                                             padding: 5px;
@@ -113,7 +117,7 @@ class SetFirstTimeUpdate(QWidget):
         self.ss.window().close()
 
         if getLanguage() == 1:
-            self.first_time_update = SetFirstTimeUpdateConfirm("<b>Vos données CRKN sont déjà à jour !<b>", 0)
+            self.first_time_update = SetFirstTimeUpdateConfirm("<b>Vos données CRKN sont désormais à jour.<b>", 0)
         else:
             self.first_time_update = SetFirstTimeUpdateConfirm('Your CRKN data is now up to date.', 0)
 
