@@ -50,7 +50,7 @@ class CrknExcelExtractor:
             
             # Update config.yaml with the extracted links
             self.update_config(excel_links)
-            
+
             return excel_links
         except requests.exceptions.RequestException as e:
             logging.info(f"Error fetching content from {link}: {e}")

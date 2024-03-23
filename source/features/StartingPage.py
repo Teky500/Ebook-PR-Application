@@ -22,12 +22,15 @@ def internet_on():
 
 class Worker(QThread):
     finished = pyqtSignal()
-    def __init__(self):
+    def __init__(self, var):
         super(Worker, self).__init__()
-
+        self.var = var
     #Here is where the time consuming task is placed
     def run(self):
-        downloadFiles()
+        download_result = downloadFiles()
+        if not download_result:
+            logging.info('No excel links found to download!')
+            self.var.valid_link = False
         self.finished.emit()
 
 class Worker2(QThread):
@@ -41,6 +44,8 @@ class Worker2(QThread):
         checker = UpdateChecker()
         url = checker.config.get('link')
         new_excel_files = checker.get_website_excel_files(url)
+        if new_excel_files == []:
+            self.var.valid_link = False
         (added, removed) = checker.compare(new_excel_files)
         self.var.added = added
         self.var.removed = removed
@@ -51,7 +56,7 @@ class WelcomePage(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.language = getLanguage()
-
+        self.valid_link = True
         self.setup_ui()
 
     def setup_ui(self):
@@ -104,6 +109,15 @@ class WelcomePage(QWidget):
         super().setFixedSize(width, height)
         
     def post_thread_show_status_1(self):
+        if not self.valid_link:
+            logging.info('No network connection: cant fetch data.')
+            msg = "Did not find any excel files. URL is incorrect!" 
+            if getLanguage() == 1:
+                msg = "Cannot download spreadsheets. Veuillez vérifier votre connexion internet et réessayer!"
+            self.network_page = NetworkPage(msg)
+            self.network_page.show()
+            QTimer.singleShot(0, self.window().close)            
+            return
         self.window().close()
         self.set_institution = SetInstitution()
         self.set_institution.run()
@@ -113,6 +127,14 @@ class WelcomePage(QWidget):
         global m
 
         self.close()
+        if not self.valid_link:
+            logging.info('No excel files found on link!')
+            from .UpdateFailureNetworkPage import NetworkUpdateFailurePage
+            self.new_window = NetworkUpdateFailurePage()
+            self.new_window.window().show()
+            self.window().close()                
+            QTimer.singleShot(0, self.window().close)
+            return        
         if (len(self.added) + len(self.removed)) == 0:
             from .HomePage import SetHomePage
             logging.info('Status 1, found no updates')
@@ -134,7 +156,7 @@ class WelcomePage(QWidget):
         if self.getStatus() == 0:
             logging.info('Status 0')
             if internet_on():
-                self.worker = Worker()
+                self.worker = Worker(self)
                 self.worker.finished.connect(self.post_thread_show_status_1)
                 self.worker.start()
             else:

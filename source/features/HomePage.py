@@ -130,6 +130,12 @@ class SetHomePage(QWidget):
         checker = UpdateChecker()
         url = checker.config.get('link')
         new_excel_files = checker.get_website_excel_files(url)
+        if new_excel_files == []:
+            logging.info('Did not find any excel files on the URL!')
+            from .NetworkFailurePage import NetworkPage
+            self.NPage = NetworkPage('Your link is not correct, no excel files found!')
+            self.NPage.window().show()
+            return 
         (added, removed) = checker.compare(new_excel_files)
 
         if (len(added) + len(removed)) == 0:

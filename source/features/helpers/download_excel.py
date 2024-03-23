@@ -23,6 +23,8 @@ def downloadFiles():
     excel_links = extractor.extract_excel_links()
     logging.info("Excel Links Found:")
     logging.info(excel_links)
+    if excel_links == []:
+        return False
     entries = os.listdir('source/storage/excel/')
     excel_files = [i for i in entries if ('xlsx' in i) and ('CRKN_EbookPARightsTracking' in i)]
     for i in excel_files:
@@ -38,3 +40,4 @@ def downloadFiles():
     excel_files = [i for i in entries if ('xlsx' in i) and ('CRKN_EbookPARightsTracking' in i)]
     for i in excel_files:
         parseExcel(i) 
+    return True
