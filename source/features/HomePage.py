@@ -44,6 +44,7 @@ class SetHomePage(QWidget):
 
     def __init__(self):
         super(SetHomePage, self).__init__()
+
         loadUi(img_resource_path("source/features/ui/homepage.ui"), self)
 
         # Create a transparent QPixmap
