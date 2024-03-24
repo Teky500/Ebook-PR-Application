@@ -64,11 +64,11 @@ class SetHomePage(QWidget):
         #If set to french
         if getLanguage() == 1:
             self.search.setText("Chercher")
-            self.change.setText("Changer")
+            self.change.setText("Remise à zéro")
             self.update.setText("Mettre à jour")
             self.upload.setText("Mettre en ligne")
             self.unload.setText("Decharger")    #Check
-            self.exit.setText("Sortir")
+            self.exit.setText("Fermer")
 
         self.search.clicked.connect(self.search_page_show)
         self.upload.clicked.connect(self.upload_page_show)
@@ -137,7 +137,7 @@ class SetHomePage(QWidget):
             from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
 
             if getLanguage() == 1:
-                self.update_confirm_page = SetFirstTimeUpdateConfirm("<b>Vos données CRKN sont déjà à jour !<b>", 0)
+                self.update_confirm_page = SetFirstTimeUpdateConfirm("<b>Vos informations CRKN sont à jour!<b>", 0)
             else:
                 self.update_confirm_page = SetFirstTimeUpdateConfirm('Your CRKN data is already up to date!', 0)
             self.update_confirm_page.show()

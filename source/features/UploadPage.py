@@ -57,7 +57,7 @@ class UploadSpreadsheet(QWidget):
         self.window().setWindowTitle("     ")
 
         if getLanguage() == 1:
-            self.label.setText("<b>Mettre en ligne la feuille de calcul locale<b>")
+            self.label.setText("<b>Ajouter un fichier local<b>")
             #Change style sheet to reduce font size and fit text
             self.label.setStyleSheet("""
                 QLabel {
@@ -66,7 +66,7 @@ class UploadSpreadsheet(QWidget):
                 }
             """)
     
-            self.upload_button_1.setText("Mettre en ligne")
+            self.upload_button_1.setText("Ajouter")
             self.upload_local_file.setText("Soumettre")
             self.cancel_process.setText("Annuler")
             self.file_label_1.setText("aucun fichier sélectionné")
