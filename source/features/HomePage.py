@@ -60,9 +60,7 @@ class SetHomePage(QWidget):
             
         # Remove title default name
         self.window().setWindowTitle("     ")
-        self.unload_page = None
-        self.upload_page = None
-        self.search_page = None
+        self.current_page = None
         #If set to french
         if getLanguage() == 1:
             self.search.setText("Chercher")
@@ -92,28 +90,24 @@ class SetHomePage(QWidget):
     
     ######################## THREAD
     def upload_page_show(self):
-        self.upload_page = UploadSpreadsheet(self)
-        self.upload_page.show()
+        self.current_page = UploadSpreadsheet(self)
+        self.current_page.show()
 
     def search_page_show(self):
-        self.search_page = searchPageDriver()
-        self.search_page.show()
+        self.current_page = searchPageDriver()
+        self.current_page.show()
 
     ######################## THREAD
     def unload_page_show(self):
-        self.unload_page = UnloadSpreadsheet(self)
-        self.unload_page.show()
+        self.current_page = UnloadSpreadsheet(self)
+        self.current_page.show()
 
     def change_page_show(self):
         self.change_page = ChangeInstitution()
         self.change_page.show()
         self.window().close()
-        if self.unload_page:
-            self.unload_page.close()
-        if self.search_page:
-            self.search_page.close()
-        if self.upload_page:
-            self.upload_page.close()
+        if self.current_page:
+            self.current_page.close()
 
     def update_page_show(self):
 
@@ -149,10 +143,14 @@ class SetHomePage(QWidget):
             self.update_confirm_page.show()
 
             self.window().close()
+            if self.current_page:
+                self.current_page.close()
         else:
             self.update = SetFirstTimeUpdate(checker)
             self.update.window().show()
-            self.window().close()    
+            self.window().close()
+            if self.current_page:
+                self.close()
 
     def run(self):
 

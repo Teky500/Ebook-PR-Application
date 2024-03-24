@@ -35,7 +35,7 @@ def singleAddition(df, cursor, platform, University, filename, man_stat):
     ISBN = row[1]['Platform_eISBN']
     OCN = row[1]['OCN']
     result = row[1][University]
-    logging.info(f'ADDING ROW TO DATABASE: {str([title, publisher, platform_yob, ISBN, OCN, result, filename])}')
+    logging.info(f'ADDING ROW TO DATABASE: {str([str(title), str(publisher), str(platform_yob), str(ISBN), str(OCN), str(result), str(filename)])}')
     
     try:
       cursor.execute("INSERT INTO books (title, publisher, platform_yop, ISBN, OCN, result, spreadsheet) VALUES(?, ?, ?, ?, ?, ?, ?)", 
@@ -48,6 +48,12 @@ def singleAddition(df, cursor, platform, University, filename, man_stat):
   return (1, counter)
 
 def removeFromDatabase():
+  for i in os.listdir('source/storage/excel'):
+    if 'CRKN_EbookPARightsTracking' in i:
+      os.remove(f'source/storage/excel/{i}')
+  for i in os.listdir('source/storage/spreadsheets'):
+    if 'CRKN_EbookPARightsTracking' in i:
+      os.remove(f'source/storage/spreadsheets/{i}')
   db_path = 'source/storage/database/proj.db'
   db = sq.connect(db_path)
   cursor = db.cursor()

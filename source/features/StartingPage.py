@@ -27,6 +27,14 @@ class Worker(QThread):
         self.var = var
     #Here is where the time consuming task is placed
     def run(self):
+        for i in os.listdir('source/storage/excel'):
+            if i == '.gitignore':
+                continue
+            os.remove(f'source/storage/excel/{i}')
+        for i in os.listdir('source/storage/spreadsheets'):
+            if i == '.gitignore':
+                continue
+            os.remove(f'source/storage/spreadsheets/{i}')
         download_result = downloadFiles()
         if not download_result:
             logging.info('No excel links found to download!')
