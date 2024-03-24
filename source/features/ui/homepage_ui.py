@@ -118,7 +118,7 @@ class Ui_Form(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint)
-        self.verticalLayout_3.setContentsMargins(5, 20, 5, 50)
+        self.verticalLayout_3.setContentsMargins(5, 20, 5, 30)
         self.verticalLayout_3.setSpacing(20)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
@@ -166,6 +166,23 @@ class Ui_Form(object):
         self.exit.setObjectName("exit")
         self.horizontalLayout_7.addWidget(self.exit)
         self.verticalLayout_3.addLayout(self.horizontalLayout_7)
+        self.switch_language = QtWidgets.QPushButton(parent=Form)
+        self.switch_language.setMinimumSize(QtCore.QSize(0, 50))
+        self.switch_language.setMaximumSize(QtCore.QSize(16777215, 50))
+        self.switch_language.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.switch_language.setStyleSheet("    QPushButton {\n"
+"        background-color: #333333;\n"
+"        border: 1px solid #333333;\n"
+"        border-radius: 4px;\n"
+"        color: #ffffff;\n"
+"        padding: 5px;\n"
+"        font: 700 16pt \"Segoe UI\";\n"
+"    }\n"
+"    QPushButton:hover {\n"
+"        font: 700 18pt \"Segoe UI\";\n"
+"    }")
+        self.switch_language.setObjectName("switch_language")
+        self.verticalLayout_3.addWidget(self.switch_language)
         self.verticalLayout.addLayout(self.verticalLayout_3)
         self.horizontalLayout_3.addLayout(self.verticalLayout)
 
@@ -181,3 +198,4 @@ class Ui_Form(object):
         self.upload.setText(_translate("Form", "Upload Local"))
         self.unload.setText(_translate("Form", "Unload Local"))
         self.exit.setText(_translate("Form", "Exit"))
+        self.switch_language.setText(_translate("Form", "Switch Language (EN)"))
