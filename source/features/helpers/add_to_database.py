@@ -2,6 +2,7 @@ import sqlite3 as sq
 import os
 import pandas as pd
 import logging
+
 def openExcel(file):
     workbook = pd.read_excel(file, sheet_name='PA-Rights')
     workbook = pd.DataFrame(workbook)
@@ -13,6 +14,11 @@ def access_csv(file):
   try:
     df = df[df['Platform_eISBN'].notna()]
     df['Platform_eISBN'] = (df['Platform_eISBN'].apply(int).astype(str))
+    col = 'OCN'
+    df[col] = df[col].fillna(-1)
+    df[col] = df[col].astype(int)
+    df[col] = df[col].astype(str)
+    df[col] = df[col].replace('-1', '')
   except Exception as e:
     logging.info('ERROR FORMING DATAFRAME')
     logging.info(e)
@@ -33,7 +39,7 @@ def singleAddition(df, cursor, platform, University, filename, man_stat):
     publisher = row[1]['Publisher']
     platform_yob = row[1]['Platform_YOP']
     ISBN = row[1]['Platform_eISBN']
-    OCN = row[1]['OCN']
+    OCN = str(row[1]['OCN'])
     result = row[1][University]
     logging.info(f'ADDING ROW TO DATABASE: {row[0] + 4}')
     try:
@@ -77,9 +83,9 @@ def setDatabaseUni(university):
   cursor.executescript("""CREATE TABLE books 
     (ISBN text NOT NULL, 
     title text NOT NULL, 
-    publisher text NOT NULL, 
+    publisher text, 
     platform_yop int, 
-    OCN int, 
+    OCN text, 
     result text NOT NULL,
     spreadsheet text NOT NULL);
 CREATE TABLE platforms 

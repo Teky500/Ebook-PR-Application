@@ -112,6 +112,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
             self.download_button = QPushButton('Export')
             self.cancel_button = QPushButton('Cancel')
+            self.cancel_button.setText('Close')
 
             if getLanguage() == 1:
                 self.download_button.setText("Exporter")
@@ -143,7 +144,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def downloadTable(self):
         # Get the file path using a file dialog
-        file_path, _ = QFileDialog.getSaveFileName(self, 'Save File', '', 'CSV Files (*.csv);;TSV Files (*.tsv)')
+        file_path, _ = QFileDialog.getSaveFileName(self, 'Save File', '', 'TSV Files (*.tsv);;CSV Files (*.csv)')
         download_type = 0
 
         if file_path:

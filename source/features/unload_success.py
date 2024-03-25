@@ -20,9 +20,10 @@ def img_resource_path(relative_path):
 class UnloadSuccess(QWidget):
     def __init__(self, fileN):
         super(UnloadSuccess, self).__init__()
-        self.filePicked = ''
+        self.filePicked = fileN
 
         loadUi(img_resource_path("source/features/ui/unloadpage_success.ui"), self)
+
         if getLanguage() == 1:
             self.unload.setText("Succès!")
             #Not sure what happen to below message, keeping just in case
