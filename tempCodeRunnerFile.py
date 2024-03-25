@@ -1,1 +1,2 @@
-
+rtical {
+	        #     background: none;
