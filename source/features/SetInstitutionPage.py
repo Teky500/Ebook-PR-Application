@@ -1,5 +1,6 @@
 import sys
 from PyQt6.uic import loadUi
+from PyQt6 import QtWidgets, QtGui
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import QThread, pyqtSignal, Qt
@@ -39,6 +40,7 @@ class Worker(QThread):
                 logging.info('Tu as besoin de selectionez une institution')
             else:
                 logging.info('You need to select an institution')
+                              
         else:   
             setDatabaseUni(self.selected_text)
             with open('source/config/config.yaml', 'r') as config_file:
@@ -185,6 +187,36 @@ class SetInstitution(QWidget):
     def clicked_function(self):
         selected_text = self.institutions.currentText()
         if selected_text == '':
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle("messageBox")
+            if getLanguage() == 1:
+                msg.setText("Translate")
+            else:
+                msg.setText("You need to select an Institution!")
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+            msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+
+            msg.window().setWindowTitle("     ")
+            transparent_pixmap = QtGui.QPixmap(1, 1)
+            transparent_pixmap.fill(Qt.GlobalColor.transparent)
+            msg.setWindowIcon(QIcon(transparent_pixmap))
+
+            msg.resize(400, 200)
+
+            msg.setStyleSheet("""
+                                    QPushButton {
+                                        font-weight: bold;
+                                        min-width: 60px;
+                                    }         
+                                      
+                            """)
+
+            font = QtGui.QFont()
+            font.setPointSize(14) 
+            font.setBold(True) 
+            msg.setFont(font)
+
+            msg.exec()
             logging.info('You need to select an institution')
             return 
         self.window().hide()
