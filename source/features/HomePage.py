@@ -63,7 +63,7 @@ class SetHomePage(QWidget):
         self.current_page = None
         #If set to french
         self.language = getLanguage()
-        self.switch_language.setText('Francais')
+        self.switch_language.setText('Passer en Français')
         if getLanguage() == 1:
             self.search.setText("Chercher")
             self.change.setText("Remise à zéro")
@@ -71,7 +71,7 @@ class SetHomePage(QWidget):
             self.upload.setText("Mettre en ligne")
             self.unload.setText("Decharger")    #Check
             self.exit.setText("Fermer")
-            self.switch_language.setText("English")
+            self.switch_language.setText("Switch to English")
         self.search.clicked.connect(self.search_page_show)
         self.upload.clicked.connect(self.upload_page_show)
         self.unload.clicked.connect(self.unload_page_show)
@@ -88,7 +88,7 @@ class SetHomePage(QWidget):
             self.upload.setText("Upload Local")
             self.unload.setText("Unload Local")    #Check
             self.exit.setText("Exit")
-            self.switch_language.setText("Francais")
+            self.switch_language.setText("Passer en français")
             with open('source/config/config.yaml', 'r') as config_file:
                 yaml_file = yaml.safe_load(config_file)
                 yaml_file['Language'] = 0
@@ -102,7 +102,7 @@ class SetHomePage(QWidget):
             self.upload.setText("Mettre en ligne")
             self.unload.setText("Decharger")    #Check
             self.exit.setText("Fermer")
-            self.switch_language.setText("English")
+            self.switch_language.setText("Switch to English")
             with open('source/config/config.yaml', 'r') as config_file:
                 yaml_file = yaml.safe_load(config_file)
                 yaml_file['Language'] = 1

@@ -47,9 +47,14 @@ def man_upload(file):
             if df[University].isnull().values.any():
                 db.close()
                 if getLanguage() == 1:
+                    os.remove(f'source/storage/excel/{file_name}.xlsx')
+                    os.remove(f'source/storage/spreadsheets/{file_name}.csv')
                     return ['Valeur nulle trouvée dans la colonne Université']
                 else:
+                    os.remove(f'source/storage/excel/{file_name}.xlsx')
+                    os.remove(f'source/storage/spreadsheets/{file_name}.csv')
                     return ['Null value found in University Column!']
+                
             sAddResult =  singleAddition(df, cursor, platform, University, filename, 'N')
             if sAddResult == 0:
                 db.close()

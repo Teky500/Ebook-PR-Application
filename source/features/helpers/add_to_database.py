@@ -35,8 +35,7 @@ def singleAddition(df, cursor, platform, University, filename, man_stat):
     ISBN = row[1]['Platform_eISBN']
     OCN = row[1]['OCN']
     result = row[1][University]
-    logging.info(f'ADDING ROW TO DATABASE: {str([str(title), str(publisher), str(platform_yob), str(ISBN), str(OCN), str(result), str(filename)])}')
-    
+    logging.info(f'ADDING ROW TO DATABASE: {row[0] + 4}')
     try:
       cursor.execute("INSERT INTO books (title, publisher, platform_yop, ISBN, OCN, result, spreadsheet) VALUES(?, ?, ?, ?, ?, ?, ?)", 
                     (title, publisher, platform_yob, ISBN, OCN, result, filename))
