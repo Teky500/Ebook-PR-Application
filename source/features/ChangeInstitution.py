@@ -48,7 +48,7 @@ class ChangeInstitution(QWidget):
         self.home_page.show()
 
     def start_again(self):
-        from .StartingPage import WelcomePage
+        from .LanguageChoice import LanguageChoice
 
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
@@ -57,7 +57,7 @@ class ChangeInstitution(QWidget):
         with open('source/config/config.yaml', 'w') as config_file:
             yaml.dump(yaml_file, config_file)        
 
-        self.welcome_page = WelcomePage()
+        self.welcome_page = LanguageChoice('N')
         self.welcome_page.show()
         self.window().close()
 
