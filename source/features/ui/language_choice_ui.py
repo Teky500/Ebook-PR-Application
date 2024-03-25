@@ -129,6 +129,6 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.label.setText(_translate("Form", "Choose your language "))
-        self.French_button.setText(_translate("Form", "Francais"))
+        self.label.setText(_translate("Form", ""))
+        self.French_button.setText(_translate("Form", "Français"))
         self.English_button.setText(_translate("Form", "English"))

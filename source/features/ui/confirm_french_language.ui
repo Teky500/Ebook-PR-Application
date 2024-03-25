@@ -111,7 +111,7 @@
        <string notr="true">font: 700 20pt &quot;Segoe UI&quot;;</string>
       </property>
       <property name="text">
-       <string>Your language is now set to Francais</string>
+       <string>Your language is now set to Français</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
