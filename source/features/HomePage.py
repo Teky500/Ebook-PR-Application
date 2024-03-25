@@ -63,6 +63,7 @@ class SetHomePage(QWidget):
         self.current_page = None
         #If set to french
         self.language = getLanguage()
+        self.switch_language.setText('Francais')
         if getLanguage() == 1:
             self.search.setText("Chercher")
             self.change.setText("Remise à zéro")
@@ -70,7 +71,7 @@ class SetHomePage(QWidget):
             self.upload.setText("Mettre en ligne")
             self.unload.setText("Decharger")    #Check
             self.exit.setText("Fermer")
-
+            self.switch_language.setText("English")
         self.search.clicked.connect(self.search_page_show)
         self.upload.clicked.connect(self.upload_page_show)
         self.unload.clicked.connect(self.unload_page_show)
