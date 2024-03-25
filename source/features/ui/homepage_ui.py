@@ -100,13 +100,13 @@ class Ui_Form(object):
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.switch_language = QtWidgets.QPushButton(parent=Form)
-        self.switch_language.setMinimumSize(QtCore.QSize(0, 60))
-        self.switch_language.setMaximumSize(QtCore.QSize(260, 60))
+        self.switch_language.setMinimumSize(QtCore.QSize(0, 70))
+        self.switch_language.setMaximumSize(QtCore.QSize(200, 70))
         self.switch_language.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.switch_language.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.switch_language.setStyleSheet("    QPushButton {\n"
 "        background-color: #333333;\n"
-"        border: 1px solid #333333;\n"
+"        border: 1px solid #5a5a5a;\n"
 "        border-radius: 4px;\n"
 "        color: #ffffff;\n"
 "        padding: 5px;\n"
@@ -120,9 +120,7 @@ class Ui_Form(object):
         self.switch_language.setObjectName("switch_language")
         self.verticalLayout.addWidget(self.switch_language)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
-
-        self.horizontalLayout.setContentsMargins(0, 20, -1, -1)
-
+        self.horizontalLayout.setContentsMargins(0, 10, -1, -1)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.set_university_name = QtWidgets.QLabel(parent=Form)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -140,9 +138,7 @@ class Ui_Form(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint)
-
-        self.verticalLayout_3.setContentsMargins(5, 10, 5, 40)
-
+        self.verticalLayout_3.setContentsMargins(5, 10, 5, 60)
         self.verticalLayout_3.setSpacing(20)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
@@ -199,7 +195,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.switch_language.setText(_translate("Form", "Switch Language (EN)"))
+        self.switch_language.setText(_translate("Form", "English"))
         self.search.setText(_translate("Form", "Search E-book"))
         self.change.setText(_translate("Form", "Reset All"))
         self.update.setText(_translate("Form", "Update CRKN"))

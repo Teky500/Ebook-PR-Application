@@ -112,13 +112,13 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>60</height>
+         <height>70</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>260</width>
-         <height>60</height>
+         <width>200</width>
+         <height>70</height>
         </size>
        </property>
        <property name="cursor">
@@ -130,7 +130,7 @@
        <property name="styleSheet">
         <string notr="true">    QPushButton {
         background-color: #333333;
-        border: 1px solid #333333;
+        border: 1px solid #5a5a5a;
         border-radius: 4px;
         color: #ffffff;
         padding: 5px;
@@ -143,7 +143,7 @@
     }</string>
        </property>
        <property name="text">
-        <string>Switch Language (EN)</string>
+        <string>English</string>
        </property>
       </widget>
      </item>
@@ -153,9 +153,7 @@
         <number>0</number>
        </property>
        <property name="topMargin">
-
-        <number>20</number>
-
+        <number>10</number>
        </property>
        <item>
         <widget class="QLabel" name="set_university_name">
@@ -205,8 +203,7 @@
         <number>5</number>
        </property>
        <property name="bottomMargin">
-
-        <number>40</number>
+        <number>60</number>
        </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
