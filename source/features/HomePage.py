@@ -62,6 +62,7 @@ class SetHomePage(QWidget):
         self.window().setWindowTitle("     ")
         self.current_page = None
         #If set to french
+        self.language = getLanguage()
         if getLanguage() == 1:
             self.search.setText("Chercher")
             self.change.setText("Remise à zéro")
@@ -77,7 +78,36 @@ class SetHomePage(QWidget):
         self.change.clicked.connect(self.change_page_show)
         self.exit.clicked.connect(self.exit_homepage)
         self.set_university_name.setText(self.getUniversity())
-
+        self.switch_language.clicked.connect(self.switch_display_language)
+    def switch_display_language(self):
+        if self.language == 1:
+            self.search.setText("Search Book")
+            self.change.setText("Reset All")
+            self.update.setText("Update CRKN")
+            self.upload.setText("Upload Local")
+            self.unload.setText("Unload Local")    #Check
+            self.exit.setText("Exit")
+            self.switch_language.setText("Francais")
+            with open('source/config/config.yaml', 'r') as config_file:
+                yaml_file = yaml.safe_load(config_file)
+                yaml_file['Language'] = 0
+            with open('source/config/config.yaml', 'w') as config_file:
+                yaml.dump(yaml_file, config_file) 
+            self.language = 0
+        else:
+            self.search.setText("Chercher")
+            self.change.setText("Remise à zéro")
+            self.update.setText("Mettre à jour")
+            self.upload.setText("Mettre en ligne")
+            self.unload.setText("Decharger")    #Check
+            self.exit.setText("Fermer")
+            self.switch_language.setText("English")
+            with open('source/config/config.yaml', 'r') as config_file:
+                yaml_file = yaml.safe_load(config_file)
+                yaml_file['Language'] = 1
+            with open('source/config/config.yaml', 'w') as config_file:
+                yaml.dump(yaml_file, config_file)
+            self.language = 1
     def exit_homepage(self):
         sys.exit()
     
