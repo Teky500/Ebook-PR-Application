@@ -124,57 +124,7 @@ class SetInstitution(QWidget):
                 background-color: #3a3a3a;
                 width: 5px;
             }
-            QScrollBar:vertical {
-                border: none;
-                background-color: #CCCCCC;
-                width: 10px;
-                margin: 16px 0 16px 0;
-
-            }
-            QScrollBar::handle:vertical {
-                background-color: #444444;
-                border-radius: 5px;
-            }
-            QScrollBar:horizontal {
-                border: none;
-                background-color: #CCCCCC;
-                height: 10px;
-                margin: 0px 16px 0 16px;
-            }
-            QScrollBar::handle:horizontal {
-                background-color: #444444;
-                border-radius: 5px;
-            }
-                           
-            QTabWidget {
-                background-color: #2e2e2e;
-                border: none;
-            }
-            QTabBar::tab {
-                background-color: #2e2e2e;
-                color: #b1b1b1;
-                padding: 8px 20px;
-                border-top-left-radius: 5px;
-                border-top-right-radius: 5px;
-                border: none;
-            }
-        
-            QTabBar::tab:selected, QTabBar::tab:hover {
-                background-color: #3a3a3a;
-                color: white;
-            }
-
-            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
-                background: none;
-            }
-     
-            QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
-	            background: none;
-            }   
-
-            QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-	            background: none;
-            }       
+      
         ''')
 
         with open('source/config/config.yaml', 'r') as config_file:
