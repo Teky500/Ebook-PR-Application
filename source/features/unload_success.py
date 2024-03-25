@@ -40,9 +40,9 @@ class UnloadSuccess(QWidget):
         self.window().setWindowTitle("     ")
 
         if getLanguage() == 1:
-            self.label.setText(f'Fichier {fileN} supprimé avec succès')
+            self.label.setText(f'Fichier {self.filePicked} supprimé avec succès')
         else:
-            self.label.setText(f'Successfully removed file {fileN}')
+            self.label.setText(f'Successfully removed file {self.filePicked}')
         self.cancel_button.clicked.connect(self.close_window)
 
     def close_window(self):

@@ -164,13 +164,12 @@ class UploadSpreadsheet(QWidget):
             self.upload_success_page.window().show()            
 
         else:
-            r = ''
             if result[0] == 3:
-                r += 'No PA-Rights sheet!'
-            if 4 in result:
-                r = 'Incorrect headers!'
+                r = 'No PA-Rights sheet.'
             if 5 in result:
-                r += ' University not found on I3 cell on sheet!'
+                r = 'Chosen university does not match cell I3.'
+            if 4 in result:
+                r = 'One or more columns or headers are missing or wrong. \n Check documentation.'
             self.upload_success_page = UploadFailure(r)
             self.upload_success_page.window().show()
         self.filePicked = ''

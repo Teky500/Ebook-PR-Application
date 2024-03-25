@@ -53,5 +53,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon="C:\\Users\\Teky\\repos2\\Ebook-PR-Application\\Ebook.ico"
+    icon="Ebook.ico"
 )

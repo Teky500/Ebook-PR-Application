@@ -129,7 +129,7 @@ class UnloadSpreadsheet(QWidget):
         self.cIndex = self.unload_sheets.currentIndex()
         self.setButtonsEnabled(True)
         self.homePage.setHomePageButtonsEnabled(True)
-        self.unload_page = UnloadSuccess(self.filePicked)
+        self.unload_page = UnloadSuccess(self.unload_sheets.currentText())
         self.unload_page.window().show()
         self.unload_sheets.removeItem(self.cIndex)
         self.filePicked = ''
