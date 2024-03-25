@@ -119,6 +119,8 @@ class FileValidator:
             maybe_missing = cell_values[i]
 
             if (current_cell_value == None):
+                if cell_keys[i] == 'A1':
+                    self.error_message.append(2)
                 if 4 not in self.error_message:
                     self.error_message.append(4)
                 if getLanguage() == 1:

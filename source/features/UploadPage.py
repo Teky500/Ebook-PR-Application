@@ -170,6 +170,8 @@ class UploadSpreadsheet(QWidget):
                 r = 'Chosen university does not match cell I3.'
             if 4 in result:
                 r = 'One or more columns or headers are missing or wrong. \n Check documentation.'
+            if 2 in result:
+                r = 'Missing platform on cell A1.'
             self.upload_success_page = UploadFailure(r)
             self.upload_success_page.window().show()
         self.filePicked = ''

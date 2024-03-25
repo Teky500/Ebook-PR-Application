@@ -53,7 +53,7 @@ def man_upload(file):
                 else:
                     os.remove(f'source/storage/excel/{file_name}.xlsx')
                     os.remove(f'source/storage/spreadsheets/{file_name}.csv')
-                    return ['Null value found in University Column!']
+                    return ['University column is blank for one or more rows.']
                 
             sAddResult =  singleAddition(df, cursor, platform, University, filename, 'N')
             if sAddResult == 0:
