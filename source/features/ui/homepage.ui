@@ -153,7 +153,9 @@
         <number>0</number>
        </property>
        <property name="topMargin">
-        <number>0</number>
+
+        <number>20</number>
+
        </property>
        <item>
         <widget class="QLabel" name="set_university_name">
@@ -197,13 +199,14 @@
         <number>5</number>
        </property>
        <property name="topMargin">
-        <number>20</number>
+        <number>10</number>
        </property>
        <property name="rightMargin">
         <number>5</number>
        </property>
        <property name="bottomMargin">
-        <number>70</number>
+
+        <number>40</number>
        </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">

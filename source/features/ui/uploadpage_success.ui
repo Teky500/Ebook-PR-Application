@@ -112,7 +112,7 @@
        <item>
         <widget class="QLabel" name="unload">
          <property name="styleSheet">
-          <string notr="true">font: 700 56pt &quot;Segoe UI&quot;;</string>
+          <string notr="true">font: 700 38pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Success!</string>

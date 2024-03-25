@@ -120,7 +120,9 @@ class Ui_Form(object):
         self.switch_language.setObjectName("switch_language")
         self.verticalLayout.addWidget(self.switch_language)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setContentsMargins(0, 0, -1, -1)
+
+        self.horizontalLayout.setContentsMargins(0, 20, -1, -1)
+
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.set_university_name = QtWidgets.QLabel(parent=Form)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -138,7 +140,9 @@ class Ui_Form(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint)
-        self.verticalLayout_3.setContentsMargins(5, 20, 5, 70)
+
+        self.verticalLayout_3.setContentsMargins(5, 10, 5, 40)
+
         self.verticalLayout_3.setSpacing(20)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()

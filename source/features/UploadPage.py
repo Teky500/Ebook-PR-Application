@@ -90,6 +90,7 @@ class UploadSpreadsheet(QWidget):
                 self.file_label_1.setText(f"Fichier sélectionné: {fileName}")
                 self.upload_button_1.setText("Changer de fichier")
                 self.upload_button_1.setStyleSheet('''font-size: 16pt;
+                                                      font-weight: bold;
                                            ''')
             else:
                 self.file_label_1.setText(f"Selected File: {fileName}")

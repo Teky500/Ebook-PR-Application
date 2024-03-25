@@ -36,7 +36,8 @@ class UploadSuccess(QWidget):
         self.window().setWindowTitle("     ")
         
         if getLanguage() == 1:
-            self.unload.setStyleSheet('''font-size: 38pt;''')  
+            self.unload.setStyleSheet('''font-size: 38pt;
+                                         font-weight: bold;''')  
         self.unload.setText(msg)
         self.cancel_button.clicked.connect(self.close_window)
 
