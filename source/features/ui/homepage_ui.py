@@ -100,8 +100,8 @@ class Ui_Form(object):
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.switch_language = QtWidgets.QPushButton(parent=Form)
-        self.switch_language.setMinimumSize(QtCore.QSize(0, 70))
-        self.switch_language.setMaximumSize(QtCore.QSize(260, 70))
+        self.switch_language.setMinimumSize(QtCore.QSize(0, 60))
+        self.switch_language.setMaximumSize(QtCore.QSize(260, 60))
         self.switch_language.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.switch_language.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.switch_language.setStyleSheet("    QPushButton {\n"
@@ -113,12 +113,14 @@ class Ui_Form(object):
 "        font: 700 17pt \"Segoe UI\";\n"
 "    }\n"
 "    QPushButton:hover {\n"
-"        font: 700 18pt \"Segoe UI\";\n"
+"        font: 700 17pt \"Segoe UI\";\n"
+"       border: 1px solid #5a5a5a;\n"
+"\n"
 "    }")
         self.switch_language.setObjectName("switch_language")
         self.verticalLayout.addWidget(self.switch_language)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setContentsMargins(0, 20, -1, -1)
+        self.horizontalLayout.setContentsMargins(0, 0, -1, -1)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.set_university_name = QtWidgets.QLabel(parent=Form)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)

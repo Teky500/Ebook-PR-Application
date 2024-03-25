@@ -112,13 +112,13 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>70</height>
+         <height>60</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>260</width>
-         <height>70</height>
+         <height>60</height>
         </size>
        </property>
        <property name="cursor">
@@ -137,7 +137,9 @@
 		font: 700 17pt &quot;Segoe UI&quot;;
     }
     QPushButton:hover {
-		font: 700 18pt &quot;Segoe UI&quot;;
+		font: 700 17pt &quot;Segoe UI&quot;;
+       border: 1px solid #5a5a5a;
+
     }</string>
        </property>
        <property name="text">
@@ -151,7 +153,7 @@
         <number>0</number>
        </property>
        <property name="topMargin">
-        <number>20</number>
+        <number>0</number>
        </property>
        <item>
         <widget class="QLabel" name="set_university_name">
