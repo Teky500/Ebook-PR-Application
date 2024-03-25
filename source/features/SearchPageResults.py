@@ -136,7 +136,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
             self.resize(1092, 683)
 
-            self.download_button.clicked.connect(self.downloadTable) 
 
 
     def exitResultsPage(self):
@@ -146,9 +145,10 @@ class MainWindow(QtWidgets.QMainWindow):
         # Get the file path using a file dialog
         file_path, _ = QFileDialog.getSaveFileName(self, 'Save File', '', 'CSV Files (*.csv);;TSV Files (*.tsv)')
         download_type = 0
-        if file_path.endswith('.tsv'):
-            download_type = 1
+
         if file_path:
+            if file_path.endswith('.tsv'):
+                download_type = 1
             # Determine delimiter based on file extension
             if download_type == 0:
                 df = pd.DataFrame(self.data)
