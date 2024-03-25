@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\program\driver\features\ui\uploadpage_success.ui'
+# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\uploadpage_success.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -102,7 +102,7 @@ class Ui_Form(object):
         self.horizontalLayout.setContentsMargins(-1, 50, -1, -1)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.unload = QtWidgets.QLabel(parent=Form)
-        self.unload.setStyleSheet("font: 700 56pt \"Segoe UI\";")
+        self.unload.setStyleSheet("font: 700 38pt \"Segoe UI\";")
         self.unload.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.unload.setObjectName("unload")
         self.horizontalLayout.addWidget(self.unload)
