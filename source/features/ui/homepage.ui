@@ -108,12 +108,50 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
+      <widget class="QPushButton" name="switch_language">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>70</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>260</width>
+         <height>70</height>
+        </size>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">    QPushButton {
+        background-color: #333333;
+        border: 1px solid #333333;
+        border-radius: 4px;
+        color: #ffffff;
+        padding: 5px;
+		font: 700 17pt &quot;Segoe UI&quot;;
+    }
+    QPushButton:hover {
+		font: 700 18pt &quot;Segoe UI&quot;;
+    }</string>
+       </property>
+       <property name="text">
+        <string>Switch Language (EN)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <property name="leftMargin">
         <number>0</number>
        </property>
        <property name="topMargin">
-        <number>50</number>
+        <number>20</number>
        </property>
        <item>
         <widget class="QLabel" name="set_university_name">
@@ -146,7 +184,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0">
+      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0">
        <property name="spacing">
         <number>20</number>
        </property>
@@ -163,7 +201,7 @@
         <number>5</number>
        </property>
        <property name="bottomMargin">
-        <number>30</number>
+        <number>70</number>
        </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -325,41 +363,6 @@
           </widget>
          </item>
         </layout>
-       </item>
-       <item>
-        <widget class="QPushButton" name="switch_language">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>50</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>50</height>
-          </size>
-         </property>
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">    QPushButton {
-        background-color: #333333;
-        border: 1px solid #333333;
-        border-radius: 4px;
-        color: #ffffff;
-        padding: 5px;
-		font: 700 16pt &quot;Segoe UI&quot;;
-    }
-    QPushButton:hover {
-		font: 700 18pt &quot;Segoe UI&quot;;
-    }</string>
-         </property>
-         <property name="text">
-          <string>Switch Language (EN)</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </item>
