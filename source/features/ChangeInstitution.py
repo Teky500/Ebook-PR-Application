@@ -26,17 +26,6 @@ class ChangeInstitution(QWidget):
             self.cancel_change.setText("Non")
             self.confirm_change.setText("Oui")
             self.label.setText("<b>Cela commencera comme une nouvelle installation, et supprimera toutes les données chargées, êtes-vous sûr?<b>")
-            # self.label.setStyleSheet('''font-size: 14pt;
-            #                                background-color: #333333;
-            #                                 color: #ffffff;
-            #                                padding: 5px;
-            #                               border-color: #333333;''')
-            # self.label_2.setText("<b>et supprimera toutes les données chargées, êtes-vous sûr?<b>")
-            # self.label_2.setStyleSheet('''font-size: 14pt;
-            #                                background-color: #333333;
-            #                                 color: #ffffff;
-            #                                padding: 5px;
-            #                               border-color: #333333;''')
 
         self.cancel_change.clicked.connect(self.load_home_page)
         self.confirm_change.clicked.connect(self.start_again)

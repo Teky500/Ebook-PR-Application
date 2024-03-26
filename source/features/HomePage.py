@@ -64,7 +64,7 @@ class SetHomePage(QWidget):
         #If set to french
         self.language = getLanguage()
         self.switch_language.setText('Passer en Français')
-        if getLanguage() == 1:
+        if self.language == 1:
             self.search.setText("Chercher")
             self.change.setText("Remise à zéro")
             self.update.setText("Mettre à jour")
@@ -146,7 +146,7 @@ class SetHomePage(QWidget):
             logging.info('NO INTERNET')
             from .NetworkFailurePage import NetworkPage
             msg = 'Could not check for updates due to network error. Please check your network connection and try again.'
-            if getLanguage() == 1:
+            if self.language == 1:
                 msg = "Impossible de vérifier les mises à jour CRKN en raison d'une erreur réseau. Veuillez vérifier votre connexion internet et réessayer!"
             self.NPage = NetworkPage(msg)
             self.NPage.window().show()
@@ -158,7 +158,10 @@ class SetHomePage(QWidget):
         if new_excel_files == []:
             logging.info('Did not find any excel files on the URL!')
             from .NetworkFailurePage import NetworkPage
-            self.NPage = NetworkPage('Your link is not correct, no excel files found!')
+            msg = 'Your link is not correct, no excel files found!'
+            if self.language == 1:
+                msg = "Le lien est incorrect, pas de fichier excel trouvé!"
+            self.NPage = NetworkPage(msg)
             self.NPage.window().show()
             return 
         (added, removed) = checker.compare(new_excel_files)
@@ -166,11 +169,10 @@ class SetHomePage(QWidget):
         if (len(added) + len(removed)) == 0:
             logging.info('Found no updates')
             from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
-
+            msg = 'Your CRKN data is already up to date!'
             if getLanguage() == 1:
-                self.update_confirm_page = SetFirstTimeUpdateConfirm("<b>Vos informations CRKN sont à jour!<b>", 0)
-            else:
-                self.update_confirm_page = SetFirstTimeUpdateConfirm('Your CRKN data is already up to date!', 0)
+                msg = "<b>Vos informations CRKN sont à jour!<b>"
+            self.update_confirm_page = SetFirstTimeUpdateConfirm(msg, 0)
             self.update_confirm_page.show()
 
             self.window().close()
