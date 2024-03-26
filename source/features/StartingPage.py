@@ -170,9 +170,9 @@ class WelcomePage(QWidget):
             else:
 
                 logging.info('No network connection: cant fetch data.')
-                msg = "Can't download spreadsheets for initial launch due to network connection error. Please check your internet connection and try again" 
+                msg = "No Internet. Please connect to the internet and re-launch the application" 
                 if getLanguage() == 1:
-                    msg = "Cannot download spreadsheets. Veuillez vérifier votre connexion internet et réessayer!"
+                    msg = "Pas d'internet. Veuillez vous connecter à internet et relancer l'application"
                 self.network_page = NetworkPage(msg)
                 self.network_page.show()
                 QTimer.singleShot(0, self.window().close)
