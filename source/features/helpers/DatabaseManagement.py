@@ -8,7 +8,7 @@ def openExcel(file):
     workbook = pd.DataFrame(workbook)
     value = workbook.columns
     return value[0]
-def access_csv(file):
+def accessCSV(file):
   spreadsheet_csv = pd.read_csv(f'source/storage/spreadsheets/{file}', skiprows=[0,1])
   df = pd.DataFrame(spreadsheet_csv)
   try:
@@ -96,7 +96,7 @@ CREATE TABLE platforms
 """)
   for i in csv_files:
       filename =i[:-4] + '.xlsx'
-      df = access_csv(i)
+      df = accessCSV(i)
       try:  
         uni = df.columns.get_loc(University)
       except KeyError as e:

@@ -6,10 +6,10 @@ from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
 import yaml
 
-from .searchPageDriver import searchPageDriver
+from .SearchDriverPage import searchPageDriver
 from .UploadPage import UploadSpreadsheet
 from .UnloadPage import UnloadSpreadsheet
-from .helpers.crknUpdater import UpdateChecker
+from .helpers.CrknUpdating import UpdateChecker
 from .helpers.getLanguage import getLanguage
 from .FirstTimeUpdate import SetFirstTimeUpdate
 from .ChangeInstitution import ChangeInstitution
@@ -26,7 +26,7 @@ def internet_on():
     except request.URLError as err: 
         return False
 
-def img_resource_path(relative_path):
+def packagingPath(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
@@ -49,7 +49,7 @@ class SetHomePage(QWidget):
         super(SetHomePage, self).__init__()
 
 
-        loadUi(img_resource_path("source/features/ui/homepage.ui"), self)
+        loadUi(packagingPath("source/features/ui/homepage.ui"), self)
 
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)
@@ -154,7 +154,7 @@ class SetHomePage(QWidget):
 
         checker = UpdateChecker()
         url = checker.config.get('link')
-        new_excel_files = checker.get_website_excel_files(url)
+        new_excel_files = checker.getWebsiteExcelFiles(url)
         if new_excel_files == []:
             logging.info('Did not find any excel files on the URL!')
             from .NetworkFailurePage import NetworkPage

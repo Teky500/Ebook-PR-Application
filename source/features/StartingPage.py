@@ -3,8 +3,8 @@ from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
 from .SetInstitutionPage import SetInstitution
 import yaml
-from .helpers.download_excel import downloadFiles
-from .helpers.crknUpdater import UpdateChecker
+from .helpers.DownloadExcel import downloadFiles
+from .helpers.CrknUpdating import UpdateChecker
 import time
 from .helpers.getLanguage import getLanguage
 import os
@@ -51,7 +51,7 @@ class Worker2(QThread):
     def run(self):
         checker = UpdateChecker()
         url = checker.config.get('link')
-        new_excel_files = checker.get_website_excel_files(url)
+        new_excel_files = checker.getWebsiteExcelFiles(url)
         if new_excel_files == []:
             self.var.valid_link = False
         (added, removed) = checker.compare(new_excel_files)

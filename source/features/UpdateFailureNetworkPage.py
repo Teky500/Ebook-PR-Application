@@ -7,7 +7,7 @@ from .helpers.getLanguage import getLanguage
 import os
 # from .helpers.getLanguage import getLanguage (helpers import)
 
-def img_resource_path(relative_path):
+def packagingPath(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
@@ -22,7 +22,7 @@ class NetworkUpdateFailurePage(QWidget):
     def __init__(self):
         super(NetworkUpdateFailurePage, self).__init__()
 
-        loadUi(img_resource_path("source/features/ui/update_network_failure.ui"), self)
+        loadUi(packagingPath("source/features/ui/update_network_failure.ui"), self)
 
         if getLanguage() == 1:
             self.continue_button.setText("Continuer")

@@ -2,7 +2,7 @@ from urllib.request import urlretrieve
 import yaml
 import pandas as pd
 import os
-from .crknScrapper import CrknExcelExtractor
+from .CrknScrapping import CrknExcelExtractor
 import logging
 def openYaml(f_p):
     with open(f_p, "r") as stream:
@@ -20,7 +20,7 @@ def parseExcel(file):
 
 def downloadFiles():
     extractor = CrknExcelExtractor()
-    excel_links = extractor.extract_excel_links()
+    excel_links = extractor.extractExcelLinks()
     logging.info("Excel Links Found:")
     logging.info(excel_links)
     if excel_links == []:

@@ -7,7 +7,7 @@ from PyQt6.QtCore import Qt
 from .helpers.getLanguage import getLanguage
 import os
 
-def img_resource_path(relative_path):
+def packagingPath(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
@@ -22,7 +22,7 @@ class UnloadSuccess(QWidget):
         super(UnloadSuccess, self).__init__()
         self.filePicked = fileN
 
-        loadUi(img_resource_path("source/features/ui/unloadpage_success.ui"), self)
+        loadUi(packagingPath("source/features/ui/unloadpage_success.ui"), self)
 
         if getLanguage() == 1:
             self.unload.setText("Succès!")

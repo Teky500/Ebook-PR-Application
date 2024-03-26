@@ -4,7 +4,7 @@ from PyQt6 import QtWidgets, QtGui
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import QThread, pyqtSignal, Qt
-from .helpers.add_to_database import setDatabaseUni
+from .helpers.DatabaseManagement import setDatabaseUni
 from .helpers.getLanguage import getLanguage
 import pandas as pd
 from .SplashScreenPage import SplashScreen
@@ -12,7 +12,7 @@ import yaml
 import os
 
 import logging
-def img_resource_path(relative_path):
+def packagingPath(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
@@ -56,7 +56,7 @@ class Worker(QThread):
 class SetInstitution(QWidget):
     def __init__(self):
         super(SetInstitution, self).__init__()
-        loadUi(img_resource_path("source/features/ui/dropdown.ui"), self)
+        loadUi(packagingPath("source/features/ui/dropdown.ui"), self)
 
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)

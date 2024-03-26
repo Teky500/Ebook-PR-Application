@@ -8,13 +8,13 @@ from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
 import yaml
-from .helpers.manual_upload import man_upload
-from .upload_success import UploadSuccess
-from .upload_failure import UploadFailure
+from .helpers.LocalUpload import localFileUpload
+from .UploadSuccess import UploadSuccess
+from .UploadFailure import UploadFailure
 from .helpers.getLanguage import getLanguage
 
 import os
-def img_resource_path(relative_path):
+def packagingPath(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
@@ -34,7 +34,7 @@ class Worker(QThread):
     #Here is where the time consuming task is placed
     def run(self):
 
-        result = man_upload(self.file_path) 
+        result = localFileUpload(self.file_path) 
         self.finished.emit(result)
 
 class UploadSpreadsheet(QWidget):
@@ -44,7 +44,7 @@ class UploadSpreadsheet(QWidget):
         self.home_page = HomePage ############################### THREADING: Initialize home page
         self.filePicked = ''
         self.worker = Worker(None) ############################## THREAD: initialize worker
-        loadUi(img_resource_path("source/features/ui/upload.ui"), self)
+        loadUi(packagingPath("source/features/ui/upload.ui"), self)
 
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)

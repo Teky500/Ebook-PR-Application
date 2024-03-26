@@ -7,13 +7,13 @@ from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget, QMessageBox
 from PyQt6.QtCore import Qt
-from .helpers.unload_file import removeFile, getFiles
+from .helpers.LocalUnload import removeFile, getFiles
 from .helpers.getLanguage import getLanguage
 from .unload_success import UnloadSuccess
 import os
 import logging
 
-def img_resource_path(relative_path):
+def packagingPath(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
@@ -46,7 +46,7 @@ class UnloadSpreadsheet(QWidget):
         super(UnloadSpreadsheet, self).__init__()
         self.filePicked = ''
         self.homePage = HomePage
-        loadUi(img_resource_path("source/features/ui/unloadpage.ui"), self)
+        loadUi(packagingPath("source/features/ui/unloadpage.ui"), self)
         if getLanguage() == 1:
             self.unload.setText("Sélectionner le Tableau à Décharger")
             self.unload.setStyleSheet('''font-size: 45pt;

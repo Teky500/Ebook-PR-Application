@@ -6,14 +6,14 @@ from PyQt6.QtWidgets import QWidget, QApplication
 from PyQt6.QtCore import Qt
 from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
 from .helpers.getLanguage import getLanguage
-from .helpers.download_excel import downloadFiles
-from .helpers.add_to_database import access_csv, singleAddition, openExcel, removeFromDatabase
+from .helpers.DownloadExcel import downloadFiles
+from .helpers.DatabaseManagement import accessCSV, singleAddition, openExcel, removeFromDatabase
 import os
 import sqlite3 as sq
 import yaml
 import os
 import logging
-def img_resource_path(relative_path):
+def packagingPath(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
@@ -33,7 +33,7 @@ class Worker(QThread):
 
     #Time consuming task
     def run(self):
-        self.checker.update_config()
+        self.checker.updateConfig()
         removeFromDatabase()
 
         with open('source/config/config.yaml', 'r') as config_file:
@@ -48,7 +48,7 @@ class Worker(QThread):
 
         for i in csv_files:
             filename = i[:-4] + '.xlsx'
-            df = access_csv(i)
+            df = accessCSV(i)
             try:  
                 uni = df.columns.get_loc(University)
             except KeyError as e:
@@ -65,7 +65,7 @@ class SetFirstTimeUpdate(QWidget):
     def __init__(self, check):
         super(SetFirstTimeUpdate, self).__init__()
 
-        loadUi(img_resource_path("source/features/ui/updatefirst-timepage.ui"), self)
+        loadUi(packagingPath("source/features/ui/updatefirst-timepage.ui"), self)
         self.checker = check
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
 

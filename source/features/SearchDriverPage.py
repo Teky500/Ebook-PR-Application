@@ -1,7 +1,7 @@
 from PyQt6 import QtWidgets, QtGui
 import yaml
 from PyQt6.uic import loadUi
-from .helpers.search import search_title_substring, search_ISBN, search_OCN
+from .helpers.SearchBook import searchTitle, searchISBN, searchOCN
 from .helpers.getLanguage import getLanguage
 from .SearchPageResults import MainWindow
 from PyQt6.QtGui import QIcon, QPixmap
@@ -9,7 +9,7 @@ from PyQt6.QtCore import Qt
 import os
 import sys
 import logging
-def img_resource_path(relative_path):
+def packagingPath(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
@@ -24,7 +24,7 @@ def img_resource_path(relative_path):
 class searchPageDriver(QtWidgets.QWidget):
     def __init__(self, parent = None):
         super().__init__(parent)
-        loadUi(img_resource_path("source/features/ui/SearchPageModified.ui"), self)
+        loadUi(packagingPath("source/features/ui/SearchPageModified.ui"), self)
 
         transparent_pixmap = QPixmap(1, 1)
         transparent_pixmap.fill(Qt.GlobalColor.transparent)
@@ -105,7 +105,7 @@ class searchPageDriver(QtWidgets.QWidget):
                 #Case where no radio button selected (We have a default button so should never happen)
                 pass
             case 1:
-                s_result = search_title_substring(text, 'source/storage/database/proj.db')
+                s_result = searchTitle(text, 'source/storage/database/proj.db')
                 if s_result == []:
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle("messageBox")
@@ -146,7 +146,7 @@ class searchPageDriver(QtWidgets.QWidget):
             case 2:
                 pass
             case 3: 
-                s_result = search_OCN(text, 'source/storage/database/proj.db')
+                s_result = searchOCN(text, 'source/storage/database/proj.db')
                 if s_result == []:
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle("messageBox")
@@ -185,7 +185,7 @@ class searchPageDriver(QtWidgets.QWidget):
                 self.main_window.window().show()
 
             case 4:
-                s_result = search_ISBN(text, 'source/storage/database/proj.db')
+                s_result = searchISBN(text, 'source/storage/database/proj.db')
                 if s_result == []:
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle("messageBox")

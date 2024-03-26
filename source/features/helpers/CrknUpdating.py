@@ -11,13 +11,13 @@ import logging
 class UpdateChecker:
     def __init__(self, config_path='source/config/config.yaml'):
         self.config_path = config_path
-        self.config = self.load_config()
+        self.config = self.loadConfig()
 
-    def load_config(self):
+    def loadConfig(self):
         with open(self.config_path, 'r') as config_file:
             return yaml.safe_load(config_file)
 
-    def get_website_excel_files(self, url):
+    def getWebsiteExcelFiles(self, url):
         try:
             response = requests.get(url)
             if response.status_code == 200:
@@ -47,8 +47,8 @@ class UpdateChecker:
         # Show the UI for user interaction regardless of changes
         return (added_files, removed_files)
 
-    def update_config(self):
-        self.config['excel_links'] = self.get_website_excel_files(self.config['link'])
+    def updateConfig(self):
+        self.config['excel_links'] = self.getWebsiteExcelFiles(self.config['link'])
         logging.info('NEW CONFIG LINKS')
         logging.info(self.config['excel_links'])
         with open(self.config_path, 'w') as config_file:

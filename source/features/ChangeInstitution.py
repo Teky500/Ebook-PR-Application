@@ -6,7 +6,7 @@ import yaml
 import os
 from .helpers.getLanguage import getLanguage
 
-def img_resource_path(relative_path):
+def packagingPath(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
@@ -19,7 +19,7 @@ class ChangeInstitution(QWidget):
     def __init__(self):
         super(ChangeInstitution, self).__init__()
 
-        loadUi(img_resource_path("source/features/ui/changeOfInstitution.ui"), self)
+        loadUi(packagingPath("source/features/ui/changeOfInstitution.ui"), self)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
         if getLanguage() == 1:

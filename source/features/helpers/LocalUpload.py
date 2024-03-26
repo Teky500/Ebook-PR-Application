@@ -2,9 +2,9 @@ import openpyxl
 import logging
 from openpyxl.worksheet.datavalidation import DataValidation
 import pandas as pd
-from .add_to_database import singleAddition
+from .DatabaseManagement import singleAddition
 import sqlite3 as sq
-from .fileValidate import FileTemplate, FileValidator
+from .FileValidator import FileTemplate, FileValidator
 import yaml
 import shutil
 import os
@@ -27,7 +27,7 @@ def parseExcelManual(file):
     xfile.to_csv(f'source/storage/spreadsheets/{file[:-5]}.csv')
     return 1
 
-def man_upload(file):
+def localFileUpload(file):
     f = FileTemplate(file)
     V = FileValidator(f)
     if V.validFile():
@@ -39,7 +39,7 @@ def man_upload(file):
             file_name = file_name[:-5]
             db = sq.connect('source/storage/database/proj.db')
             cursor = db.cursor()
-            df = access_csv(file_name)
+            df = accessCSV(file_name)
 
             with open('source/config/config.yaml', 'r') as config_file:
                 yaml_file = yaml.safe_load(config_file)
@@ -76,7 +76,7 @@ def man_upload(file):
         logging.info('Invalid File!')
         logging.info(V.getErrorMessage())
         return V.getErrorMessage()
-def access_csv(file):
+def accessCSV(file):
   spreadsheet_csv = pd.read_csv(f'source/storage/spreadsheets/{file}.csv', skiprows=[0,1])
   df = pd.DataFrame(spreadsheet_csv)
   df = df[df['Platform_eISBN'].notna()]
