@@ -21,11 +21,16 @@ if __name__ == "__main__":
             logging.exception(line)
         logging.exception(value)
         sys.exit()
-
+    cwd = os.getcwd()
+    print(cwd)
     # Install exception handler
     sys.excepthook = my_handler
     pathes = ['source/storage/spreadsheets', 'source/storage/database', 'source/storage/excel', 'source/config', 'source/logs']
-    for newpath in pathes:
+    abs_pathes = []
+    for p in pathes:
+        new_path = os.path.join(cwd, p)
+        abs_pathes.append(new_path)
+    for newpath in abs_pathes:
         if not os.path.exists(newpath):
             os.makedirs(newpath)
         today = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
@@ -40,7 +45,7 @@ if __name__ == "__main__":
             yaml.dump(x, yF, default_flow_style=False)
     
     def getStatus():
-        with open('source/config/config.yaml', 'r') as config_file:
+        with open(os.path.join(cwd, 'source/config/config.yaml'), 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             status = yaml_file['Status']
         return status
