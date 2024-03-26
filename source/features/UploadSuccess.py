@@ -18,7 +18,7 @@ def img_resource_path(relative_path):
 class UploadSuccess(QWidget):
     def __init__(self):
         super(UploadSuccess, self).__init__()
-        self.filePicked = ''
+        self.file_picked = ''
 
         loadUi(img_resource_path("source/features/ui/uploadpage_success.ui"), self)
         

@@ -18,7 +18,7 @@ def img_resource_path(relative_path):
 class UnloadSuccess(QWidget):
     def __init__(self, fileN):
         super(UnloadSuccess, self).__init__()
-        self.filePicked = ''
+        self.file_picked = ''
 
         loadUi(img_resource_path("source/features/ui/unloadpage_success.ui"), self)
         

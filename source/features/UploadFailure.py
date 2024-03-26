@@ -18,7 +18,7 @@ def img_resource_path(relative_path):
 class UploadFailure(QWidget):
     def __init__(self, errorM):
         super(UploadFailure, self).__init__()
-        self.filePicked = ''
+        self.file_picked = ''
 
         loadUi(img_resource_path("source/features/ui/uploadpage_failure.ui"), self)
         

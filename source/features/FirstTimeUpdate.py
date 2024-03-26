@@ -70,7 +70,7 @@ class SetFirstTimeUpdate(QWidget):
     ######## THREADING: MODIFIED THIS CLASS
     def load_confirm_page(self):
         from .SplashScreenPage import SplashScreen
-        self.setButtonsEnabled(False)
+        self.buttons_unlocked(False)
         self.worker = Worker(self.checker)
         self.worker.finished.connect(self.handle_thread_finished)
         self.worker.start()
@@ -80,7 +80,7 @@ class SetFirstTimeUpdate(QWidget):
 
     ############ THREADING: CREATE NEW FUNCTION    
     def handle_thread_finished(self):
-        self.setButtonsEnabled(True)
+        self.buttons_unlocked(True)
         self.ss.window().close()
         global m
         new_window = SetFirstTimeUpdateConfirm('Your CRKN Data is now up to date!')
@@ -96,7 +96,7 @@ class SetFirstTimeUpdate(QWidget):
         self.window().hide()
         new_window.run()
 
-    def setButtonsEnabled(self, enabled):
+    def buttons_unlocked(self, enabled):
         self.confirm_update_1.setEnabled(enabled)
         self.cancel_update_1.setEnabled(enabled)
 

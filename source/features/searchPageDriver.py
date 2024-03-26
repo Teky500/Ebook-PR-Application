@@ -1,14 +1,14 @@
 from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import QMainWindow
 import yaml
-from .searchPage import Ui_Search_page
+from .SearchPage import Ui_Search_page
 from .helpers.EbookSearcher import search_title_substring, search_ISBN, search_OCN
 from .SearchPageResults import MainWindow
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
 
-class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
+class SearchPageDriver(QtWidgets.QWidget, Ui_Search_page):
     def __init__(self, parent = None):
         super().__init__(parent)
         self.setupUi(self)
@@ -27,14 +27,14 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
         self.pushButton.clicked.connect(self.search)
 
         #Title button
-        self.radioButton.clicked.connect(self.byTitle)
+        self.radioButton.clicked.connect(self.by_title)
         self.radioButton.setChecked(True)
         self.radio = 1 
         #Keyword button
-        self.radioButton_2.clicked.connect(self.byKeyword)
+        self.radioButton_2.clicked.connect(self.by_keyword)
 
         #OCN button
-        self.radioButton_3.clicked.connect(self.byOCN)
+        self.radioButton_3.clicked.connect(self.by_Ocn)
 
         #eISBN button
         self.radioButton_4.clicked.connect(self.by_eISBN)
@@ -42,14 +42,14 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
         #Cancel button
         self.pushButton_2.clicked.connect(self.close)
 
-        if self.getLanguage() == 1:
+        if self.get_language() == 1:
             self.label.setText("Recherche de Livre Électronique")
             self.pushButton.setText("Recherche")
             self.pushButton_2.setText("Annule la Recherche")
             self.radioButton.setText("Titre")
             self.radioButton_2.setText("Mot Clé")
 
-    def getLanguage(self):
+    def get_language(self):
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             language = yaml_file['Language']
@@ -61,11 +61,11 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
         # 0 = no button selected
         self.radio = 0
 
-    def byTitle(self):
+    def by_title(self):
         self.radio = 1
-    def byKeyword(self):
+    def by_keyword(self):
         self.radio = 2
-    def byOCN(self):
+    def by_Ocn(self):
         self.radio = 3
     def by_eISBN(self):
         self.radio = 4
@@ -226,6 +226,6 @@ class searchPageDriver(QtWidgets.QWidget, Ui_Search_page):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    ui = searchPageDriver()
+    ui = SearchPageDriver()
     ui.show()
     sys.exit(app.exec())

@@ -57,7 +57,7 @@ class WelcomePage(QWidget):
 
     def setup_ui(self):
         layout = QVBoxLayout(self)
-        if self.getLanguage() == 1:
+        if self.get_language() == 1:
             label = QLabel(f"Démarrage", self)
         else:
             label = QLabel(f"Starting", self)
@@ -82,13 +82,13 @@ class WelcomePage(QWidget):
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.show_next_page()
     #Method for fetching language configuration
-    def getLanguage(self):
+    def get_language(self):
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             language = yaml_file['Language']
         return language
 
-    def getStatus(self):
+    def get_status(self):
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             status = yaml_file['Status']
@@ -97,7 +97,7 @@ class WelcomePage(QWidget):
     def animate_text(self):
         dots = '.' * (self.animation_counter % 4)
         label = self.findChild(QLabel)
-        if self.getLanguage() == 1:
+        if self.get_language() == 1:
             label.setText(f"Démarrage{dots}")
         else:
             label.setText(f"Starting{dots}")
@@ -105,10 +105,11 @@ class WelcomePage(QWidget):
 
     def show_next_page(self):
         self.window().close()
-        self.openNewWindow()
+        self.open_new_window()
   
     def setFixedSize(self, width, height):
         super().setFixedSize(width, height)
+
     def post_thread_show_status_1(self):
         self.window().close()
         global m
@@ -134,9 +135,10 @@ class WelcomePage(QWidget):
             m = update
             m.window().show()
             self.window().close()
-    def openNewWindow(self):
+
+    def open_new_window(self):
         global m
-        if self.getStatus() == 0:
+        if self.get_status() == 0:
             print('Status 0')
             if internet_on():
                 self.worker = Worker()

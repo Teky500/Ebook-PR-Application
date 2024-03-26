@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
 import yaml
 
-from .searchPageDriver import searchPageDriver
+from .SearchPageDriver import SearchPageDriver
 from .UploadPage import UploadSpreadsheet
 from .UnloadPage import UnloadSpreadsheet
 from .helpers.CrknUpdater import UpdateChecker
@@ -41,13 +41,13 @@ def img_resource_path(relative_path):
 class SetHomePage(QWidget):
 
 
-    def getLanguage(self):
+    def get_language(self):
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             language = yaml_file['Language']
         return language
     
-    def getUniversity(self):
+    def get_university(self):
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             University = yaml_file['University']
@@ -70,7 +70,7 @@ class SetHomePage(QWidget):
         self.window().setWindowTitle("     ")
 
         #If set to french
-        if self.getLanguage() == 1:
+        if self.get_language() == 1:
             self.search.setText("Chercher")
             self.change.setText("Changer")
             self.update.setText("Mettre à jour")
@@ -96,13 +96,13 @@ class SetHomePage(QWidget):
         self.update.clicked.connect(self.update_page_show)
         self.change.clicked.connect(self.change_page_show)
         self.exit.clicked.connect(self.exit_homepage)
-        self.set_university_name.setText(self.getUniversity())
+        self.set_university_name.setText(self.get_university())
 
     def exit_homepage(self):
         sys.exit()
 
     
-    def setHomePageButtonsEnabled(self, enabled):
+    def set_homepage_buttons_enabled(self, enabled):
         self.search.setEnabled(enabled)
         self.upload.setEnabled(enabled)
         self.unload.setEnabled(enabled)

@@ -63,7 +63,7 @@ class SetInstitution(QWidget):
         # Remove title default name
         self.window().setWindowTitle("     ")
         
-        if self.getLanguage() == 1:
+        if self.get_language() == 1:
             self.institution.setText("Sélectionnez l\'Institution ci-dessous")
             self.submit_button_1.setText("Soumettre")
             
@@ -198,7 +198,7 @@ class SetInstitution(QWidget):
     def run(self):
         self.window().show()
 
-    def getLanguage(self):
+    def get_language(self):
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             language = yaml_file['Language']

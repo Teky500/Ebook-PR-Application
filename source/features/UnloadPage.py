@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import QWidget, QMessageBox
 from PyQt6.QtCore import Qt
 from .helpers.LocalUnload import remove_file, get_files
 import sqlite3 as sq
-from .unload_success import UnloadSuccess
+from .UnloadSuccess import UnloadSuccess
 import os
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -41,8 +41,8 @@ class Worker(QThread):
 class UnloadSpreadsheet(QWidget):
     def __init__(self, HomePage):
         super(UnloadSpreadsheet, self).__init__()
-        self.filePicked = ''
-        self.homePage = HomePage
+        self.file_picked = ''
+        self.home_page = HomePage
         loadUi(img_resource_path("source/features/ui/unloadpage.ui"), self)
 
         # Create a transparent QPixmap
@@ -61,7 +61,7 @@ class UnloadSpreadsheet(QWidget):
             self.unload_sheets.addItem(aF[0])
 
         # Add unload functionality here
-        self.submit_button.clicked.connect(self.unloadSpreadsheets)
+        self.submit_button.clicked.connect(self.unload_spreadsheets)
 
         # Cancel process here
         self.cancel_button.clicked.connect(self.close_window)
@@ -72,7 +72,7 @@ class UnloadSpreadsheet(QWidget):
         self.window().close()
 
 
-    def unloadSpreadsheets(self):
+    def unload_spreadsheets(self):
         if self.unload_sheets.currentText() == '':
             print('Must pick a spreadsheet!')
             msg = QMessageBox()
@@ -82,22 +82,22 @@ class UnloadSpreadsheet(QWidget):
             msg.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
             msg.exec()
             return
-        self.setButtonsEnabled(False)  # Disable buttons before starting the thread
-        self.homePage.setHomePageButtonsEnabled(False)
+        self.set_buttons_enabled(False)  # Disable buttons before starting the thread
+        self.home_page.set_homepage_buttons_enabled(False)
         self.worker = Worker(self, self.unload_sheets.currentText(), self.unload_sheets.currentIndex())
         self.worker.finished.connect(self.handle_thread_finished)
         self.worker.start()
 
     def handle_thread_finished(self):
         self.cIndex = self.unload_sheets.currentIndex()
-        self.setButtonsEnabled(True)
-        self.homePage.setHomePageButtonsEnabled(True)
+        self.set_buttons_enabled(True)
+        self.home_page.set_homepage_buttons_enabled(True)
         global m
-        m = UnloadSuccess(self.filePicked)
+        m = UnloadSuccess(self.file_picked)
         m.window().show()
         self.unload_sheets.removeItem(self.cIndex)
-        self.filePicked = ''
+        self.file_picked = ''
 
-    def setButtonsEnabled(self, enabled):
+    def set_buttons_enabled(self, enabled):
         self.submit_button.setEnabled(enabled)
         self.cancel_button.setEnabled(enabled)

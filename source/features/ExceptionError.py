@@ -4,7 +4,8 @@ from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
-from .helpers.LocalUplaod import man_upload
+from .helpers.LocalUpload import man_upload
+
 import os
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """

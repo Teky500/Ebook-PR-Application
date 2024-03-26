@@ -24,30 +24,30 @@ class TableModel(QtCore.QAbstractTableModel):
             return self._data[index.row()][index.column()]
 
 
-    def rowCount(self, index):
+    def row_count(self, index):
         # The length of the outer list.
         return len(self._data)
 
-    def columnCount(self, index):
+    def column_count(self, index):
         # The following takes the first sub-list, and returns
         # the length (only works if all rows are an equal length)
         return len(self._data[0])
 
-    def headerData(self, section, orientation, role):
+    def header_data(self, section, orientation, role):
         if role == Qt.ItemDataRole.DisplayRole:
             if orientation == Qt.Orientation.Horizontal and section < len(self._header_labels):
                 return self._header_labels[section]
             elif orientation == Qt.Orientation.Vertical:
                 return str(section + 1)
 
-    def setHeaderLabels(self, labels):
+    def set_header_labels(self, labels):
         self._header_labels = labels
         self.headerDataChanged.emit(Qt.Orientation.Horizontal, 0, len(labels) - 1)
 
 
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self, itemData, sType):
+    def __init__(self, item_data, sType):
         
         super().__init__()
         # Create a transparent QPixmap
@@ -61,7 +61,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.window().setWindowTitle("     ")
         
 
-        if itemData == []:
+        if item_data == []:
             print('Nothing Found')
             self.window().close()
             return None
@@ -93,7 +93,7 @@ class MainWindow(QtWidgets.QMainWindow):
             """)
 
         if True:
-            self.data = itemData
+            self.data = item_data
             main_widget = QWidget()
             self.setCentralWidget(main_widget)
             layout = QVBoxLayout()
@@ -117,10 +117,10 @@ class MainWindow(QtWidgets.QMainWindow):
             self.download_button.setText('Export to File')
             layout.addWidget(self.download_button)
             self.downloadType = 1
-            self.download_button.clicked.connect(self.downloadTable) # backend function here 
+            self.download_button.clicked.connect(self.download_table) # backend function here 
 
 
-    def downloadTable(self):
+    def download_table(self):
         # Get the file path using a file dialog
         file_path, _ = QFileDialog.getSaveFileName(self, 'Save File', '', 'CSV Files (*.csv);;TSV Files (*.tsv)')
         download_type = 0

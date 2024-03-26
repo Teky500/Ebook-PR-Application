@@ -3,7 +3,7 @@ import yaml
 import pandas as pd
 import os
 from .CrknScraper import CrknExcelExtractor
-def openYaml(f_p):
+def open_yaml(f_p):
     with open(f_p, "r") as stream:
         x = (yaml.safe_load(stream))
         return x['excel_links']

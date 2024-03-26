@@ -8,8 +8,8 @@ from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
 import yaml
 from .helpers.LocalUpload import man_upload
-from .upload_success import UploadSuccess
-from .upload_failure import UploadFailure
+from .UploadSuccess import UploadSuccess
+from .UploadFailure import UploadFailure
 
 import os
 def img_resource_path(relative_path):
@@ -41,7 +41,7 @@ class UploadSpreadsheet(QWidget):
     def __init__(self, HomePage): 
         super(UploadSpreadsheet, self).__init__()
         self.home_page = HomePage ############################### THREADING: Initialize home page
-        self.filePicked = ''
+        self.file_picked = ''
         self.worker = Worker(None) ############################## THREAD: initialize worker
         loadUi(img_resource_path("source/features/ui/upload.ui"), self)
 
@@ -55,7 +55,7 @@ class UploadSpreadsheet(QWidget):
         # Remove title default name
         self.window().setWindowTitle("     ")
 
-        if self.getLanguage() == 1:
+        if self.get_language() == 1:
             self.label.setText("Mettre en ligne la feuille de calcul locale")
             #Change style sheet to reduce font size and fit text
             self.label.setStyleSheet("""
@@ -76,34 +76,34 @@ class UploadSpreadsheet(QWidget):
 
 
         # Add upload button
-        self.upload_button_1.clicked.connect(self.uploadFile)
+        self.upload_button_1.clicked.connect(self.upload_file)
 
         # Cancel process
         self.cancel_process.clicked.connect(self.close_window)
-        self.upload_local_file.clicked.connect(self.submitFile)
+        self.upload_local_file.clicked.connect(self.submit_file)
         self.upload_local_file.hide()
         
 
 
-    def uploadFile(self):
+    def upload_file(self):
         # Open file dialog to select a file
-        fileName, _ = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*);;Spreadsheet Files (*.xls *.xlsx)")
-        if fileName:
-            print(f"File selected: {fileName}")
+        file_name, _ = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*);;Spreadsheet Files (*.xls *.xlsx)")
+        if file_name:
+            print(f"File selected: {file_name}")
             # Update the label to show the selected file path
-            self.filePicked = fileName
-            self.file_label_1.setText(f"Selected File: {fileName}")
+            self.file_picked = file_name
+            self.file_label_1.setText(f"Selected File: {file_name}")
             self.upload_button_1.setText('Change File')
             self.upload_local_file.show()
 
     ################################### THREAD (MODIFIED FUNCTION)
-    def submitFile(self):
-        if self.filePicked == "":
+    def submit_file(self):
+        if self.file_picked == "":
             print('NO FILE SELECTED')
         else:
-            self.home_page.setHomePageButtonsEnabled(False)
-            self.setUploadPageButtonsEnabled(False)
-            self.worker.file_path = self.filePicked
+            self.home_page.set_homepage_buttons_enabled(False)
+            self.set_upload_page_buttons_enabled(False)
+            self.worker.file_path = self.file_picked
             self.worker.finished.connect(self.handle_upload_result)
             self.worker.start()
             self.show_splash_screen('Loading Spreadsheet Data', 25)
@@ -138,14 +138,14 @@ class UploadSpreadsheet(QWidget):
     def close_window(self):
         self.window().close()
 
-    def getLanguage(self):
+    def get_language(self):
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
             language = yaml_file['Language']
         return language
     
     ################################# THREAD (NEW FUNCTION): TO DISABLE BUTTONS
-    def setUploadPageButtonsEnabled(self, enabled):
+    def set_upload_page_buttons_enabled(self, enabled):
         self.upload_button_1.setEnabled(enabled)
         self.upload_local_file.setEnabled(enabled)
         self.cancel_process.setEnabled(enabled)
@@ -153,8 +153,8 @@ class UploadSpreadsheet(QWidget):
     ############################## THREAD (NEW FUNCTION): to handle what happens after upload occurs
     def handle_upload_result(self, result):
         global m
-        self.setUploadPageButtonsEnabled(True)
-        self.home_page.setHomePageButtonsEnabled(True)
+        self.set_upload_page_buttons_enabled(True)
+        self.home_page.set_homepage_buttons_enabled(True)
         self.splash_screen.window().close()
         if result == []:
             m = UploadSuccess()
@@ -163,7 +163,7 @@ class UploadSpreadsheet(QWidget):
             r = str(result)
             m = UploadFailure(r)
             m.window().show()
-        self.filePicked = ''
+        self.file_picked = ''
         self.upload_local_file.hide()
         self.file_label_1.setText('No File Selected')
         self.upload_button_1.setText('Upload')
