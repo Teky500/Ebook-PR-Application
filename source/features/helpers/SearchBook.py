@@ -4,18 +4,16 @@ def startConnection(db_path):
   return db
 def searchTitle(title, db_path):
   title = title.strip()
-  newtitle = ''
-  for lt in title:
-    if lt == '*':
-      newtitle += '%'
-    elif lt == "'":
-      newtitle += '\''
+  newTitle = ''
+  for letter in title:
+    if letter == '*':
+      newTitle += '%'
     else:
-      newtitle += lt
+      newTitle += letter
   db = startConnection(db_path)
   cursor = db.cursor()
   query = f"SELECT books.*, platforms.platform  FROM BOOKS JOIN PLATFORMS ON Books.spreadsheet  = platforms.spreadsheet where title LIKE ?"
-  cursor.execute(query, (newtitle, ))
+  cursor.execute(query, (newTitle, ))
   result = cursor.fetchall()
   return result
 def searchISBN(ISBN, db_path):
