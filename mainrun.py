@@ -21,8 +21,8 @@ if __name__ == "__main__":
             logging.exception(line)
         logging.exception(value)
         sys.exit()
-    cwd = os.getcwd()
-    print(cwd)
+    cwd = sys.path[0]
+
     # Install exception handler
     sys.excepthook = my_handler
     pathes = ['source/storage/spreadsheets', 'source/storage/database', 'source/storage/excel', 'source/config', 'source/logs']
