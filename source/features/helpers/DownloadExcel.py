@@ -4,12 +4,14 @@ import pandas as pd
 import os
 from .CrknScrapping import CrknExcelExtractor
 import logging
+import ssl
 def openYaml(f_p):
     with open(f_p, "r") as stream:
         x = (yaml.safe_load(stream))
         return x['excel_links']
 
 def downloadExcel(url):
+    ssl._create_default_https_context = ssl._create_unverified_context
     name_convention = url.split('/')
     file_name = name_convention[-1]
     urlretrieve(url, f'source/storage/excel/{file_name}')

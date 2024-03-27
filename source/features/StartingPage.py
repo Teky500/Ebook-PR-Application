@@ -11,9 +11,10 @@ import os
 from urllib import request
 from .NetworkFailurePage import NetworkPage
 import logging
+import certifi
 def internet_on():
     try:
-        request.urlopen('https://www.google.com/', timeout=1)
+        request.urlopen('https://www.google.com/', timeout=1, cafile=certifi.where())
         return True
     except request.URLError as err: 
         logging.info(err)
