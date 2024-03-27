@@ -13,6 +13,7 @@ import sqlite3 as sq
 import yaml
 import os
 import logging
+from .helpers.DownloadExcel import updateConfig
 def packagingPath(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -33,7 +34,7 @@ class Worker(QThread):
 
     #Time consuming task
     def run(self):
-        self.checker.updateConfig()
+
         removeFromDatabase()
 
         with open('source/config/config.yaml', 'r') as config_file:
@@ -68,7 +69,7 @@ class SetFirstTimeUpdate(QWidget):
         loadUi(packagingPath("source/features/ui/updatefirst-timepage.ui"), self)
         self.checker = check
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
-
+        
         if getLanguage() == 1:
             self.confirm_update_1.setText("Oui")
             self.cancel_update_1.setText("Non")
@@ -115,7 +116,7 @@ class SetFirstTimeUpdate(QWidget):
     def handle_thread_finished(self):
         self.setButtonsEnabled(True)
         self.ss.window().close()
-
+        updateConfig()
         if getLanguage() == 1:
             self.first_time_update = SetFirstTimeUpdateConfirm("<b>Vos données CRKN sont désormais à jour.<b>", 0)
         else:

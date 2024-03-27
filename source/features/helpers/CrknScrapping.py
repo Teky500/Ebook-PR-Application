@@ -49,11 +49,12 @@ class CrknExcelExtractor:
             excel_links = [urljoin(link, a['href']) for a in soup.find_all('a', href=True) if a['href'].endswith('.xlsx')]
             
             # Update config.yaml with the extracted links
-            self.updateConfig(excel_links)
+
 
             return excel_links
         except requests.exceptions.RequestException as e:
-            logging.info(f"Error fetching content from {link}: {e}")
+            logging.critical(f"Error fetching content from {link}: {e}")
+
             return []
 
     def updateConfig(self, excel_links):#this class updates the config files with excel links found

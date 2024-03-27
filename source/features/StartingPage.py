@@ -12,6 +12,7 @@ from urllib import request
 from .NetworkFailurePage import NetworkPage
 import logging
 import certifi
+from .helpers.DownloadExcel import updateConfig
 def internet_on():
     try:
         request.urlopen('https://www.google.com/', timeout=1, cafile=certifi.where())
@@ -128,6 +129,7 @@ class WelcomePage(QWidget):
             QTimer.singleShot(0, self.window().close)            
             return
         self.window().close()
+        updateConfig()
         self.set_institution = SetInstitution()
         self.set_institution.run()
 
