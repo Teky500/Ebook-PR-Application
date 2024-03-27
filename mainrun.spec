@@ -41,7 +41,7 @@ exe = EXE(
     a.datas,
     [],
     name='Ebook-PA',
-    console=False,
+    console=True,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
