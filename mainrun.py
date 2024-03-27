@@ -27,7 +27,9 @@ if __name__ == "__main__":
         cwd = os.path.dirname(__file__)
         # Install exception handler
     sys.excepthook = my_handler
+    os.chdir(cwd)
     sys.path.append(cwd)
+    print(os.getcwd())
     print(sys.path)
     pathes = ['source/storage/spreadsheets', 'source/storage/database', 'source/storage/excel', 'source/config', 'source/logs']
     abs_pathes = []
