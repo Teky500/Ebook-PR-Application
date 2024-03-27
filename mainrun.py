@@ -11,7 +11,7 @@ import yaml
 import logging
 from datetime import datetime
 import traceback
-
+import os
 if __name__ == "__main__":
 
     # Configure logger to write to a file...
@@ -21,10 +21,14 @@ if __name__ == "__main__":
             logging.exception(line)
         logging.exception(value)
         sys.exit()
-    cwd = sys.path[0]
-
-    # Install exception handler
+    if getattr(sys, 'frozen', False):
+        cwd = os.path.dirname(sys.executable)
+    elif __file__:
+        cwd = os.path.dirname(__file__)
+        # Install exception handler
     sys.excepthook = my_handler
+    sys.path.append(cwd)
+    print(sys.path)
     pathes = ['source/storage/spreadsheets', 'source/storage/database', 'source/storage/excel', 'source/config', 'source/logs']
     abs_pathes = []
     for p in pathes:
@@ -34,14 +38,14 @@ if __name__ == "__main__":
         if not os.path.exists(newpath):
             os.makedirs(newpath)
         today = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
-    filename = "log_" + today
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s %(filename)s %(funcName)s %(lineno)d', handlers=[ logging.FileHandler(f'source/logs/{filename}'), logging.StreamHandler() ] )
+    filename = "log_" + today + '.txt'
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s %(filename)s %(funcName)s %(lineno)d', handlers=[ logging.FileHandler((f'source/logs/{filename}')), logging.StreamHandler() ] )
 
     logging.info('Starting app')
     logger = logging.getLogger('mylogger.app')
     x = {'Language': 0, 'Status': 0, 'Universities': ['Acadia Univ.', 'Algoma Univ.', 'Athabasca Univ.', "Bishop's Univ.", 'Brandon Univ.', 'Brock Univ.', 'Cape Breton Univ.', 'Capilano Univ.', 'Carleton Univ.', 'Concordia Univ.', 'Concordia Univ. of Edmonton', 'Dalhousie Univ.', "École nationale d'administration publique", 'École de technologie supérieure', 'HEC Montréal', 'Institut national de la recherche scientifique', 'Kwantlen Polytechnic Univ.', 'Lakehead Univ.', 'Laurentian Univ.', 'MacEwan Univ', 'McGill Univ.', 'McMaster Univ.', 'Memorial Univ. of Newfoundland', 'Mount Allison Univ.', 'Mount Royal Univ.', 'Mount Saint Vincent Univ.', 'Nipissing Univ.', 'NSCAD Univ.', 'OCAD Univ.', 'Polytechnique Montréal', "Queen's University", 'Royal Military College', 'Royal Roads Univ.', 'Ryerson Univ.', "Saint Mary's Univ.", 'Simon Fraser Univ.', 'St. Francis Xavier Univ.', 'TÉLUQ', "The King's Univ.", 'Thompson Rivers Univ.', 'Trent Univ.', 'Trinity Western Univ.', 'Univ. de Moncton', 'Univ. de Montréal', 'Univ. de Sherbrooke', 'Univ. du Québec à Chicoutimi', 'Univ. du Québec à Montréal', 'Univ. du Québec à Rimouski', 'Univ. du Québec à Trois-Rivières', 'Univ. du Québec en Abitibi-Témiscamingue', 'Univ. du Québec en Outaouais', 'Univ. Laval', 'Univ. Sainte-Anne', 'Univ. of Alberta', 'Univ. of British Columbia', 'Univ. of Calgary', 'Univ. of Guelph', 'Univ. of Lethbridge', 'Univ. of Manitoba', 'Univ. of New Brunswick', 'Univ. of Northern British Columbia', 'Univ. of Ontario Institute of Technology', 'Univ. of Ottawa', 'Univ. of Prince Edward Island', 'Univ. of Regina', 'Univ. of Saskatchewan', 'Univ. of the Fraser Valley', 'Univ. of Toronto', 'Univ. of Victoria', 'Univ. of Waterloo', 'Univ. of Windsor', 'Univ. of Wininpeg', 'Vancouver Island Univ.', 'Western Univ.', 'Wilfrid Laurier Univ.', 'York Univ.'], 'University': 'Acadia Univ.', 'excel_links': ['https://library.upei.ca/sites/default/files/CRKN_EbookPARightsTracking_TaylorFrancis_2024_02_06_2.xlsx', 'https://library.upei.ca/sites/default/files/CRKN_EbookPARightsTracking_Proquest_2024_02_06_3.xlsx'], 'link': 'https://library.upei.ca/test-page-ebooks-perpetual-access-project'}
-    if not os.path.isfile('source/config/config.yaml'):
-        with open("source/config/config.yaml", 'w') as yF:
+    if not os.path.isfile(('source/config/config.yaml')):
+        with open(("source/config/config.yaml"), 'w') as yF:
             yaml.dump(x, yF, default_flow_style=False)
     
     def getStatus():
