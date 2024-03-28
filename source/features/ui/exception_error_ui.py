@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\program\driver\features\ui\exception_error.ui'
+# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\exception_error.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -13,7 +13,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(1092, 683)
-        Form.setMinimumSize(QtCore.QSize(700, 500))
+        Form.setMinimumSize(QtCore.QSize(1092, 683))
         Form.setStyleSheet("  QWidget {\n"
 "        background-color: #333333;\n"
 "        color: #ffffff;\n"

@@ -14,7 +14,7 @@ class Ui_Form(object):
         Form.setObjectName("Form")
         Form.setEnabled(True)
         Form.resize(1092, 683)
-        Form.setMinimumSize(QtCore.QSize(700, 500))
+        Form.setMinimumSize(QtCore.QSize(1092, 683))
         Form.setStyleSheet("  QWidget {\n"
 "        background-color: #333333;\n"
 "        color: #ffffff;\n"
@@ -106,7 +106,7 @@ class Ui_Form(object):
         self.switch_language.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.switch_language.setStyleSheet("    QPushButton {\n"
 "        background-color: #333333;\n"
-"        border: 1px solid #333333;\n"
+"        border: 1px solid #5a5a5a;\n"
 "        border-radius: 4px;\n"
 "        color: #ffffff;\n"
 "        padding: 5px;\n"
@@ -120,9 +120,7 @@ class Ui_Form(object):
         self.switch_language.setObjectName("switch_language")
         self.verticalLayout.addWidget(self.switch_language)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
-
         self.horizontalLayout.setContentsMargins(0, 20, -1, -1)
-
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.set_university_name = QtWidgets.QLabel(parent=Form)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
@@ -140,9 +138,7 @@ class Ui_Form(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetDefaultConstraint)
-
-        self.verticalLayout_3.setContentsMargins(5, 10, 5, 40)
-
+        self.verticalLayout_3.setContentsMargins(5, 10, 5, 50)
         self.verticalLayout_3.setSpacing(20)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
