@@ -13,7 +13,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(1092, 683)
-        Form.setMinimumSize(QtCore.QSize(1092, 682))
+        Form.setMinimumSize(QtCore.QSize(1092, 683))
         Form.setStyleSheet("  QWidget {\n"
 "        background-color: #333333;\n"
 "        color: #ffffff;\n"
@@ -123,6 +123,7 @@ class Ui_Form(object):
         self.file_label_1 = QtWidgets.QLabel(parent=Form)
         self.file_label_1.setStyleSheet("font: italic 12pt \"Segoe UI\";")
         self.file_label_1.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter|QtCore.Qt.AlignmentFlag.AlignTop)
+        self.file_label_1.setWordWrap(True)
         self.file_label_1.setObjectName("file_label_1")
         self.horizontalLayout_2.addWidget(self.file_label_1)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
