@@ -2,7 +2,8 @@ import sys
 from source.features.StartingPage import WelcomePage
 
 from source.features.LanguageChoice import LanguageChoice
-from PyQt6.QtCore import Qt 
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QStackedWidget, QHBoxLayout
 
 
@@ -12,6 +13,7 @@ import logging
 from datetime import datetime
 import traceback
 import os
+
 if __name__ == "__main__":
 
     # Configure logger to write to a file...
@@ -57,8 +59,15 @@ if __name__ == "__main__":
         return status
 
             
-    
+    def packagingPath(relative_path):
+        """ Get absolute path to resource, works for dev and for PyInstaller """
+        try:
+            # PyInstaller creates a temp folder and stores path in _MEIPASS
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")    
     app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon(packagingPath('source/features/ui/Ebook.ico')))
     app.setStyleSheet("""
                            
             QWidget {
