@@ -43,6 +43,7 @@ class Worker(QThread):
 
 class UnloadSpreadsheet(QWidget):
     def __init__(self, HomePage):
+        # a = HomePage[100]
         super(UnloadSpreadsheet, self).__init__()
         self.filePicked = ''
         self.homePage = HomePage

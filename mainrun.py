@@ -14,6 +14,8 @@ from datetime import datetime
 import traceback
 import os
 
+from source.features.ExceptionError import ExceptionErrorPage
+
 if __name__ == "__main__":
 
     # Configure logger to write to a file...
@@ -22,7 +24,10 @@ if __name__ == "__main__":
         for line in traceback.TracebackException(type, value, tb).format(chain=True):
             logging.exception(line)
         logging.exception(value)
-        sys.exit()
+        QApplication.closeAllWindows()
+        global b
+        b = ExceptionErrorPage('Something went wrong. Please check the log file for a more detailed error.')
+        b.show()
     if getattr(sys, 'frozen', False):
         cwd = os.path.dirname(sys.executable)
     elif __file__:

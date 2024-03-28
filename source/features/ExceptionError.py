@@ -36,8 +36,8 @@ class ExceptionErrorPage(QWidget):
             
         # Remove title default name
         self.window().setWindowTitle("     ")
-
+        self.cancel_button.clicked.connect(self.close_window)
         self.label.setText(message)
 
     def close_window(self):
-        self.window().close()
+        sys.exit()

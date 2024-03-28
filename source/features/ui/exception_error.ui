@@ -177,7 +177,7 @@
           <string notr="true">font: 700 15pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
-          <string>OK</string>
+          <string>Exit</string>
          </property>
         </widget>
        </item>
