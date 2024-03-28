@@ -12,8 +12,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>700</width>
-    <height>500</height>
+    <width>1092</width>
+    <height>683</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -177,7 +177,7 @@
           <string notr="true">font: 700 15pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
-          <string>OK</string>
+          <string>Exit</string>
          </property>
         </widget>
        </item>

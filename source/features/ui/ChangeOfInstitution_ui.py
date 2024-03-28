@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\program\driver\features\ui\ChangeOfInstitution.ui'
+# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\ChangeOfInstitution.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -120,15 +120,11 @@ class Ui_Form(object):
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
-        self.label.setStyleSheet("font: 700 20pt \"Segoe UI\";")
+        self.label.setStyleSheet("font: 700 18pt \"Segoe UI\";")
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label.setWordWrap(True)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
-        self.label_2 = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
-        self.label_2.setStyleSheet("font: 700 20pt \"Segoe UI\";")
-        self.label_2.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_2.setObjectName("label_2")
-        self.verticalLayout.addWidget(self.label_2)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -138,5 +134,4 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.confirm_change.setText(_translate("Form", "Yes"))
         self.cancel_change.setText(_translate("Form", "No"))
-        self.label.setText(_translate("Form", "This change is going to reset your"))
-        self.label_2.setText(_translate("Form", "application, are you sure?"))
+        self.label.setText(_translate("Form", "This will start over as a new installation,  and remove all loaded data, are you sure?"))

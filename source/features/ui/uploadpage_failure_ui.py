@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\program\driver\features\ui\uploadpage_failure.ui'
+# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\uploadpage_failure.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -13,7 +13,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(1092, 683)
-        Form.setMinimumSize(QtCore.QSize(700, 500))
+        Form.setMinimumSize(QtCore.QSize(1092, 683))
         Form.setStyleSheet("  QWidget {\n"
 "        background-color: #333333;\n"
 "        color: #ffffff;\n"
@@ -99,7 +99,7 @@ class Ui_Form(object):
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setContentsMargins(-1, 50, -1, -1)
+        self.horizontalLayout.setContentsMargins(-1, 20, -1, -1)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.unload = QtWidgets.QLabel(parent=Form)
         self.unload.setStyleSheet("font: 700 56pt \"Segoe UI\";")
@@ -108,16 +108,23 @@ class Ui_Form(object):
         self.horizontalLayout.addWidget(self.unload)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setContentsMargins(10, -1, 10, -1)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.label = QtWidgets.QLabel(parent=Form)
-        self.label.setStyleSheet("font: italic 15pt \"Segoe UI\";")
+        self.label.setStyleSheet("background-color: #333333;   \n"
+"height: 100vh;\n"
+"margin: 0;\n"
+"border: #333333;\n"
+"text-align: center;\n"
+"font: italic 15pt \"Segoe UI\";")
         self.label.setText("")
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label.setWordWrap(True)
         self.label.setObjectName("label")
         self.horizontalLayout_3.addWidget(self.label)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_2.setContentsMargins(50, -1, 50, 350)
+        self.horizontalLayout_2.setContentsMargins(50, 10, 50, 350)
         self.horizontalLayout_2.setSpacing(6)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.cancel_button = QtWidgets.QPushButton(parent=Form)
@@ -137,4 +144,4 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.unload.setText(_translate("Form", "Failure!"))
-        self.cancel_button.setText(_translate("Form", "Cancel"))
+        self.cancel_button.setText(_translate("Form", "Ok"))

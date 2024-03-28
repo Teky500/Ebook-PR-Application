@@ -12,8 +12,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>700</width>
-    <height>500</height>
+    <width>1092</width>
+    <height>683</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -112,7 +112,7 @@
        <item>
         <widget class="QLabel" name="unload">
          <property name="styleSheet">
-          <string notr="true">font: 700 56pt &quot;Segoe UI&quot;;</string>
+          <string notr="true">font: 700 38pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Success!</string>

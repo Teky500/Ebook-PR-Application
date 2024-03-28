@@ -17,28 +17,29 @@ from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
 import yaml
+import logging
 
 class CrknExcelExtractor:
     def __init__(self, config_path='source/config/config.yaml'):
         self.config_path = config_path
-        self.load_config() #gets config file path
+        self.loadConfig() #gets config file path
 
-    def load_config(self):
+    def loadConfig(self):
         try:
             with open(self.config_path, 'r') as config_file:
                 self.config = yaml.safe_load(config_file) #opens config file
         except FileNotFoundError:# Returns error if config file not found/opened
-            print(f"Error: Config file '{self.config_path}' not found.") 
+            logging.info(f"Error: Config file '{self.config_path}' not found.") 
             self.config = {}
 
-    def get_initial_link(self):
+    def getInitialLink(self):
         return self.config.get('link')#gets initial website link to parse
 
-    def extract_excel_links(self):
-        link = self.get_initial_link()
+    def extractExcelLinks(self):
+        link = self.getInitialLink()
 
         if not link:
-            print("Error: 'link' not found in the config file.")
+            logging.info("Error: 'link' not found in the config file.")
             return []
 
         try:#class uses initial link to parse website to find all excel files on the website
@@ -48,14 +49,15 @@ class CrknExcelExtractor:
             excel_links = [urljoin(link, a['href']) for a in soup.find_all('a', href=True) if a['href'].endswith('.xlsx')]
             
             # Update config.yaml with the extracted links
-            self.update_config(excel_links)
-            
+
+
             return excel_links
         except requests.exceptions.RequestException as e:
-            print(f"Error fetching content from {link}: {e}")
+            logging.critical(f"Error fetching content from {link}: {e}")
+
             return []
 
-    def update_config(self, excel_links):#this class updates the config files with excel links found
+    def updateConfig(self, excel_links):#this class updates the config files with excel links found
         if 'excel_links' not in self.config:
             self.config['excel_links'] = []
         self.config['excel_links'].extend(excel_links)
