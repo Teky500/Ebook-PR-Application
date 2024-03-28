@@ -81,7 +81,7 @@ class UploadSpreadsheet(QWidget):
 
     def uploadFile(self):
         # Open file dialog to select a file
-        fileName, _ = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*);;Spreadsheet Files (*.xls *.xlsx)")
+        fileName, _ = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*);;Spreadsheet Files (*.xlsx)")
         if fileName:
             logging.info(f"File selected: {fileName}")
             # Update the label to show the selected file path
