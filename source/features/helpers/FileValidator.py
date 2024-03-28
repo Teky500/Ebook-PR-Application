@@ -98,7 +98,7 @@ class FileValidator:
             self.error_message.append(0)
             # ("Error: No File Provided")
 
-        elif file_extension not in [".xlsx", ".xls"]:
+        elif file_extension not in [".xlsx"]:
             self.error_message.append(1)
             # ("Error: Invalid File")
         elif (not os.path.isfile(path)):

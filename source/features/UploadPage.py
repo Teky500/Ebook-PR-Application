@@ -172,6 +172,8 @@ class UploadSpreadsheet(QWidget):
                 r = 'One or more columns or headers are missing or wrong. \n Check documentation.'
             if 2 in result:
                 r = 'Missing platform on cell A1.'
+            if 1 in result:
+                r = 'Invalid file, please upload a .xlsx file.'
             self.upload_success_page = UploadFailure(r)
             self.upload_success_page.window().show()
         self.filePicked = ''
