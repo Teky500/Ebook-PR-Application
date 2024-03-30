@@ -19,7 +19,7 @@ class ChangeInstitution(QWidget):
     def __init__(self):
         super(ChangeInstitution, self).__init__()
 
-        loadUi(packagingPath("source/features/ui/changeOfInstitution.ui"), self)
+        loadUi(packagingPath("source/features/ui/ChangeOfInstitution.ui"), self)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
         if getLanguage() == 1:
