@@ -166,14 +166,24 @@ class UploadSpreadsheet(QWidget):
         else:
             if result[0] == 3:
                 r = 'No PA-Rights sheet.'
-            if 5 in result:
-                r = 'Chosen university does not match cell I3.'
-            if 4 in result:
-                r = 'One or more columns or headers are missing or wrong. \n Check documentation.'
-            if 2 in result:
-                r = 'Missing platform on cell A1.'
-            if 1 in result:
-                r = 'Invalid file, please upload a .xlsx file.'
+                if getLanguage() == 1:
+                    r = 'Aucune feuille de droits PA.'
+                if 5 in result:
+                    r = 'Chosen university does not match cell I3.'
+                    if getLanguage() == 1:
+                        r = "L'université choisie ne correspond pas à la cellule I3."
+                if 4 in result:
+                    r = 'One or more columns or headers are missing or wrong. \n Check documentation.'
+                    if getLanguage() == 1:
+                        r = 'Une ou plusieurs colonnes ou en-têtes sont manquantes ou incorrectes. \n Vérifiez la documentation.'
+                if 2 in result:
+                    r = 'Missing platform on cell A1.'
+                    if getLanguage() == 1:
+                        r = 'Plateforme manquante dans la cellule A1.'
+                if 1 in result:
+                    r = 'Invalid file, please upload a .xlsx file.'
+                    if getLanguage() == 1:
+                        r = 'Fichier invalide, veuillez télécharger un fichier .xlsx.'
             self.upload_success_page = UploadFailure(r)
             self.upload_success_page.window().show()
         self.filePicked = ''
