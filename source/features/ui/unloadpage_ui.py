@@ -102,7 +102,7 @@ class Ui_Form(object):
         self.horizontalLayout.setContentsMargins(20, 50, 20, -1)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.unload = QtWidgets.QLabel(parent=Form)
-        self.unload.setStyleSheet("font: 700 45pt \"Segoe UI\";")
+        self.unload.setStyleSheet("font: 700 50pt \"Segoe UI\";")
         self.unload.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.unload.setWordWrap(True)
         self.unload.setObjectName("unload")

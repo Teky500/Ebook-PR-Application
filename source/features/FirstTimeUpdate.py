@@ -3,6 +3,7 @@ import sys
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication
+from PyQt6.QtCore import Qt, QTimer, QPoint, QPointF
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QPixmap
 from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
@@ -66,6 +67,8 @@ class Worker(QThread):
 class SetFirstTimeUpdate(QWidget):
     def __init__(self, check):
         super(SetFirstTimeUpdate, self).__init__()
+        self.oldPosition = QPointF()
+
 
         loadUi(packagingPath("source/features/ui/updatefirst-timepage.ui"), self)
         # Create a transparent QPixmap
@@ -109,6 +112,18 @@ class SetFirstTimeUpdate(QWidget):
             self.ss = SplashScreen("Updating", 35)
         self.ss.window().show()
         self.window().hide()
+
+    def mousePressEvent(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            self.oldPosition = event.globalPosition()
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            delta = event.globalPosition() - self.oldPosition
+            window_position = self.window().pos() + delta.toPoint()
+            self.window().move(window_position)
+            self.oldPosition = event.globalPosition()
+
 
     ############ THREADING: CREATE NEW FUNCTION    
     def handle_thread_finished(self):
