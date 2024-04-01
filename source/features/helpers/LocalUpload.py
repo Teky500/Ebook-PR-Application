@@ -94,6 +94,11 @@ def accessCSV(file) -> pd.DataFrame:
   try:
     df = df[df['Platform_eISBN'].notna()]
     df['Platform_eISBN'] = (df['Platform_eISBN'].apply(int).astype(str))
+    col = 'OCN'
+    df[col] = df[col].fillna(-1)
+    df[col] = df[col].astype(int)
+    df[col] = df[col].astype(str)
+    df[col] = df[col].replace('-1', '')
   except Exception as e:
       logging.critical(str(e))
       logging.critcal('Failed to parse ISBN column.')
