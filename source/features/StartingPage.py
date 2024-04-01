@@ -17,7 +17,7 @@ from .helpers.DownloadExcel import updateConfig
 from PyQt6.QtCore import Qt, QTimer, QPoint, QPointF
 def internet_on():
     try:
-        request.urlopen('https://www.google.com/', timeout=1, cafile=certifi.where())
+        request.urlopen('https://www.pinging.net/', timeout=1, cafile=certifi.where())
         return True
     except request.URLError as err: 
         logging.info(err)
