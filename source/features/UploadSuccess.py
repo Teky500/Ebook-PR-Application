@@ -36,11 +36,11 @@ class UploadSuccess(QWidget):
         self.window().setWindowTitle("     ")
         
         if getLanguage() == 1:
-            self.unload.setStyleSheet('''font-size: 38pt;
+            self.upload_sucess.setStyleSheet('''font-size: 38pt;
                                          font-weight: bold;''')  
-            self.unload.setText("Succès!")
+            self.upload_sucess.setText("Succès!")
         else:
-            self.unload.setText(msg)
+            self.upload_sucess.setText(msg)
         self.cancel_button.clicked.connect(self.close_window)
 
     def close_window(self):

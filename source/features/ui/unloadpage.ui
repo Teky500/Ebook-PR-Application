@@ -118,7 +118,7 @@
        <item>
         <widget class="QLabel" name="unload">
          <property name="styleSheet">
-          <string notr="true">font: 700 50pt &quot;Segoe UI&quot;;</string>
+          <string notr="true">font: 700 45pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Select Spreadsheet To Unload</string>

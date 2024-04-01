@@ -177,7 +177,7 @@ class SetInstitution(QWidget):
         if getLanguage() == 1:
             self.ss = self.show_splash_screen('Chargement des données CRKN', 20)
         else:
-            self.ss = self.show_splash_screen('Loading CRKN Data', 30)
+            self.ss = self.show_splash_screen('Loading CRKN Data', 25)
 
 
     def post_thread_action(self):
