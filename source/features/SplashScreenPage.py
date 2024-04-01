@@ -19,13 +19,26 @@ class SplashScreen(QWidget):
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
         self.initUI()
-        self.setStyleSheet('''
-                                       
-        QFrame {
-            background-color: #333333;
-            color: white;
-        }
-       
+        self.setStyleSheet('''                   
+                           
+            QWidget {
+                background-color: #333333;
+                color: #ffffff;
+                border-color: #333333;
+            }
+            QPushButton {
+                background-color: #4d4d4d;
+                border: 1px solid #4d4d4d;
+                border-radius: 4px;
+                color: #ffffff;
+                padding: 5px;
+            }
+            QPushButton:hover {
+                background-color: #5a5a5a;
+                border: 1px solid #5a5a5a;
+            }
+            
+      
         ''')
 
     def initUI(self):

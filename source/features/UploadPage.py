@@ -112,6 +112,7 @@ class UploadSpreadsheet(QWidget):
             else:
                 self.show_splash_screen('Loading Spreadsheet Data', 20)
             self.setStyleSheet("""
+                               
                     QWidget{
                         background-color: gray;
                         color: #ffffff;
