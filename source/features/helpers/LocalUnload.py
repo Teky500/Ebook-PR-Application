@@ -6,7 +6,7 @@ import sys
 def removeFile(file):
     try:
         os.remove(f'source/storage/excel/{file}')
-        os.remove(f'source/storage/spreadsheets/{file[:-4]}csv')
+        os.remove(f'source/storage/spreadsheets/{file[:-4]}tsv')
         db = sq.connect('source/storage/database/proj.db')
         cursor = db.cursor()
         cursor.execute(f"DELETE FROM books WHERE spreadsheet = '{file}'")

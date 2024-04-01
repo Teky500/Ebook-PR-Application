@@ -9,7 +9,7 @@ def openExcel(file):
     value = workbook.columns
     return value[0]
 def accessCSV(file):
-  spreadsheet_csv = pd.read_csv(f'source/storage/spreadsheets/{file}', skiprows=[0,1])
+  spreadsheet_csv = pd.read_csv(f'source/storage/spreadsheets/{file}', skiprows=[0,1], delimiter='\t')
   df = pd.DataFrame(spreadsheet_csv)
   try:
     df = df[df['Platform_eISBN'].notna()]
@@ -77,7 +77,7 @@ def setDatabaseUni(university):
   # clean csv file (should be done in another file, but done here for now)
   # using skiprows=[0,1] to skip the first two fluff lines. Not a long term solution, we have to look for something else, but this will do for now.
   entries = os.listdir('source/storage/spreadsheets/')
-  csv_files = [i for i in entries if ('.csv' in i) and ('CRKN_EbookPARightsTracking' in i)]
+  csv_files = [i for i in entries if ('.tsv' in i) and ('CRKN_EbookPARightsTracking' in i)]
   db = sq.connect(db_path)
   cursor = db.cursor()
   cursor.executescript("""CREATE TABLE books 

@@ -44,7 +44,7 @@ class Worker(QThread):
         downloadFiles()
 
         entries = os.listdir('source/storage/spreadsheets/')
-        csv_files = [i for i in entries if ('.csv' in i) and ('CRKN_EbookPARightsTracking' in i)]
+        csv_files = [i for i in entries if ('.tsv' in i) and ('CRKN_EbookPARightsTracking' in i)]
         db = sq.connect('source/storage/database/proj.db')
         cursor = db.cursor()
 

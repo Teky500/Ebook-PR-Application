@@ -30,10 +30,10 @@ def parseExcelManual(file):
     except Exception as e:
         logging.info(file)
         logging.critical(str(e))
-        logging.critical('Failed to parse the excel file into CSV.')
+        logging.critical('Failed to parse the excel file into TSV.')
         sys.exit()
     logging.info(excelFile)
-    excelFile.to_csv(f'source/storage/spreadsheets/{file[:-5]}.csv')
+    excelFile.to_csv(f'source/storage/spreadsheets/{file[:-5]}.tsv', sep='\t')
     return 1
 # Local file upload functionality. Returns a list of errors or numbers that are later mapped to errors.
 def localFileUpload(file) -> list:
@@ -58,11 +58,11 @@ def localFileUpload(file) -> list:
                 db.close()
                 if getLanguage() == 1:
                     os.remove(f'source/storage/excel/{baseFileName}.xlsx')
-                    os.remove(f'source/storage/spreadsheets/{baseFileName}.csv')
+                    os.remove(f'source/storage/spreadsheets/{baseFileName}.tsv')
                     return ['Valeur nulle trouvée dans la colonne Université']
                 else:
                     os.remove(f'source/storage/excel/{baseFileName}.xlsx')
-                    os.remove(f'source/storage/spreadsheets/{baseFileName}.csv')
+                    os.remove(f'source/storage/spreadsheets/{baseFileName}.tsv')
                     return ['University column is blank for one or more rows.']
             # Add to database, and if the addition result is 0, the file was already here previously.    
             sAddResult =  singleAddition(df, cursor, platform, University, fileNameWithExtension, 'N')
@@ -88,7 +88,7 @@ def localFileUpload(file) -> list:
         return validator.getErrorMessage()
 # Access the CSV file and return a DataFrame with only the data without the platform.
 def accessCSV(file) -> pd.DataFrame:
-  spreadsheet_csv = pd.read_csv(f'source/storage/spreadsheets/{file}.csv', skiprows=[0,1])
+  spreadsheet_csv = pd.read_csv(f'source/storage/spreadsheets/{file}.tsv', skiprows=[0,1], delimiter='\t')
   df = pd.DataFrame(spreadsheet_csv)
   # Remove any NA ISBN, and turn ISBN to strings and strip them of decimals.
   try:

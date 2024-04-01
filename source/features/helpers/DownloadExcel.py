@@ -24,7 +24,7 @@ def downloadExcel(url):
 def parseExcel(file):
     xfile = pd.read_excel(f'source/storage/excel/{file}', sheet_name= "PA-Rights")
     logging.info(xfile)
-    xfile.to_csv(f'source/storage/spreadsheets/{file[:-5]}.csv')
+    xfile.to_csv(f'source/storage/spreadsheets/{file[:-5]}.tsv', sep='\t')
 
 def downloadFiles():
     extractor = CrknExcelExtractor()
@@ -37,7 +37,7 @@ def downloadFiles():
     excel_files = [i for i in entries if ('xlsx' in i) and ('CRKN_EbookPARightsTracking' in i)]
     for i in excel_files:
         os.remove(f"source/storage/excel/{i}")
-    csv_files = [i for i in entries if ('csv' in i) and ('CRKN_EbookPARightsTracking' in i)]
+    csv_files = [i for i in entries if ('tsv' in i) and ('CRKN_EbookPARightsTracking' in i)]
     for i in csv_files:
         os.remove(f"source/storage/csv/{i}")
     logging.info(excel_files)
