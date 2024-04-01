@@ -110,7 +110,7 @@ class UploadSpreadsheet(QWidget):
             if getLanguage() == 1:
                self.show_splash_screen('Chargement des Données du Tableau', 18)
             else:
-                self.show_splash_screen('Loading Spreadsheet Data', 25)
+                self.show_splash_screen('Loading Spreadsheet Data', 20)
             self.setStyleSheet("""
                     QWidget{
                         background-color: gray;

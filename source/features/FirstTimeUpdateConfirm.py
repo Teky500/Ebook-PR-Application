@@ -2,6 +2,7 @@ import sys
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon, QPixmap
 import os
 from .helpers.getLanguage import getLanguage
 
@@ -21,7 +22,15 @@ class SetFirstTimeUpdateConfirm(QWidget):
         super(SetFirstTimeUpdateConfirm, self).__init__()
 
         loadUi(packagingPath("source/features/ui/confirmfirst-timepage.ui"), self)
-        self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        # Create a transparent QPixmap
+        transparent_pixmap = QPixmap(1, 1)
+        transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+        # Set the window icon with the transparent QPixmap
+        self.setWindowIcon(QIcon(transparent_pixmap))
+            
+        # Remove title default name
+        self.window().setWindowTitle("     ")
 
         if getLanguage() == 1:
             self.label.setText("Vos données CRKN sont désormais à jour!")

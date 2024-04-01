@@ -27,8 +27,6 @@ class NetworkPage(QWidget):
         if getLanguage() == 1:
             self.optional_label.setText("Veuillez vérifier votre connexion internet et réessayer!")
 
-        self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
-
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)
         transparent_pixmap.fill(Qt.GlobalColor.transparent)
