@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\ChangeOfInstitution.ui'
+# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\updatefirst-timepage.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -110,19 +110,19 @@ class Ui_Form(object):
         self.horizontalLayout.setContentsMargins(-1, -1, -1, 300)
         self.horizontalLayout.setSpacing(60)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.confirm_change = QtWidgets.QPushButton(parent=Form)
-        self.confirm_change.setMinimumSize(QtCore.QSize(100, 60))
-        self.confirm_change.setMaximumSize(QtCore.QSize(170, 60))
-        self.confirm_change.setStyleSheet("font: 700 18pt \"Segoe UI\";\n"
+        self.confirm_update_1 = QtWidgets.QPushButton(parent=Form)
+        self.confirm_update_1.setMinimumSize(QtCore.QSize(100, 60))
+        self.confirm_update_1.setMaximumSize(QtCore.QSize(170, 60))
+        self.confirm_update_1.setStyleSheet("font: 700 18pt \"Segoe UI\";\n"
 "")
-        self.confirm_change.setObjectName("confirm_change")
-        self.horizontalLayout.addWidget(self.confirm_change)
-        self.cancel_change = QtWidgets.QPushButton(parent=Form)
-        self.cancel_change.setMinimumSize(QtCore.QSize(100, 60))
-        self.cancel_change.setMaximumSize(QtCore.QSize(170, 60))
-        self.cancel_change.setStyleSheet("font: 700 18pt \"Segoe UI\";")
-        self.cancel_change.setObjectName("cancel_change")
-        self.horizontalLayout.addWidget(self.cancel_change)
+        self.confirm_update_1.setObjectName("confirm_update_1")
+        self.horizontalLayout.addWidget(self.confirm_update_1)
+        self.cancel_update_1 = QtWidgets.QPushButton(parent=Form)
+        self.cancel_update_1.setMinimumSize(QtCore.QSize(100, 60))
+        self.cancel_update_1.setMaximumSize(QtCore.QSize(170, 60))
+        self.cancel_update_1.setStyleSheet("font: 700 18pt \"Segoe UI\";")
+        self.cancel_update_1.setObjectName("cancel_update_1")
+        self.horizontalLayout.addWidget(self.cancel_update_1)
         self.verticalLayout_2.addLayout(self.horizontalLayout)
 
         self.retranslateUi(Form)
@@ -131,6 +131,6 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.label.setText(_translate("Form", "This will start over as a new installation, and remove all loaded data, are you sure?"))
-        self.confirm_change.setText(_translate("Form", "Yes"))
-        self.cancel_change.setText(_translate("Form", "No"))
+        self.label.setText(_translate("Form", "Your CRKN data is not up to date, would you like to update?"))
+        self.confirm_update_1.setText(_translate("Form", "Yes"))
+        self.cancel_update_1.setText(_translate("Form", "No"))

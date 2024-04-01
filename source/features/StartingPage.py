@@ -1,5 +1,6 @@
 import sys
 from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
+from PyQt6.QtGui import QMouseEvent
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
 from .SetInstitutionPage import SetInstitution
 import yaml
@@ -13,6 +14,7 @@ from .NetworkFailurePage import NetworkPage
 import logging
 import certifi
 from .helpers.DownloadExcel import updateConfig
+from PyQt6.QtCore import Qt, QTimer, QPoint, QPointF
 def internet_on():
     try:
         request.urlopen('https://www.google.com/', timeout=1, cafile=certifi.where())
@@ -62,12 +64,15 @@ class Worker2(QThread):
         self.var.checker = checker
         self.finished.emit()
 
+
 class WelcomePage(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.language = getLanguage()
         self.valid_link = True
         self.setup_ui()
+        self.oldPosition = QPointF()
+
 
     def setup_ui(self):
         layout = QVBoxLayout(self)
@@ -94,6 +99,16 @@ class WelcomePage(QWidget):
         self.window().setFixedSize(500, 280)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.show_next_page()
+
+    def mousePressEvent(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            self.oldPosition = event.globalPosition()
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            delta = QPointF(event.globalPosition() - self.oldPosition)
+            self.move(self.pos() + delta.toPoint())
+            self.oldPosition = event.globalPosition()
 
     def getStatus(self):
         with open('source/config/config.yaml', 'r') as config_file:
@@ -135,7 +150,6 @@ class WelcomePage(QWidget):
 
     def post_thread_show_status_2(self):
         self.animation_timer.stop()
-        global m
 
         self.close()
         if not self.valid_link:
@@ -163,7 +177,6 @@ class WelcomePage(QWidget):
             self.window().close()
 
     def openNewWindow(self):
-        global m
         if self.getStatus() == 0:
             logging.info('Status 0')
             if internet_on():

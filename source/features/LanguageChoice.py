@@ -5,6 +5,7 @@ from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
 from .StartingPage import WelcomePage
+from PyQt6.QtCore import Qt, QTimer, QPointF
 import os
 import yaml
 
@@ -21,9 +22,12 @@ def packagingPath(relative_path):
 class LanguageChoice(QWidget):
     def __init__(self, errorM):
         super(LanguageChoice, self).__init__()
+        self.oldPosition = QPointF()
+
 
         loadUi(packagingPath("source/features/ui/language_choice.ui"), self)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
+
         
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)
@@ -39,6 +43,7 @@ class LanguageChoice(QWidget):
         self.French_button.clicked.connect(self.french_text)
 
         self.setFixedSize(500, 280)
+
 
     def english_text(self):
         with open('source/config/config.yaml', 'r') as config_file:
@@ -58,3 +63,14 @@ class LanguageChoice(QWidget):
         self.new_page = WelcomePage()
         self.new_page.window().show()
         self.window().close()
+
+    def mousePressEvent(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            self.oldPosition = event.globalPosition()
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            delta = event.globalPosition() - self.oldPosition
+            window_position = self.window().pos() + delta.toPoint()
+            self.window().move(window_position)
+            self.oldPosition = event.globalPosition()

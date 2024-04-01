@@ -58,6 +58,7 @@ class SetInstitution(QWidget):
         super(SetInstitution, self).__init__()
         loadUi(packagingPath("source/features/ui/dropdown.ui"), self)
 
+
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)
         transparent_pixmap.fill(Qt.GlobalColor.transparent)
@@ -177,6 +178,8 @@ class SetInstitution(QWidget):
             self.ss = self.show_splash_screen('Chargement des données CRKN', 20)
         else:
             self.ss = self.show_splash_screen('Loading CRKN Data', 30)
+
+
     def post_thread_action(self):
         self.home_page = self.ss.show_home_page()
     

@@ -2,7 +2,7 @@ import sys
 from source.features.StartingPage import WelcomePage
 
 from source.features.LanguageChoice import LanguageChoice
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QTimer, QEventLoop
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QStackedWidget, QHBoxLayout
 
@@ -21,6 +21,8 @@ if __name__ == "__main__":
     # Configure logger to write to a file...
 
     def my_handler(type, value, tb):
+        if type == KeyboardInterrupt:
+            sys.exit()
         for line in traceback.TracebackException(type, value, tb).format(chain=True):
             logging.exception(line)
         logging.exception(value)
@@ -72,7 +74,7 @@ if __name__ == "__main__":
         except Exception:
             base_path = os.path.abspath(".")    
     app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon(packagingPath('source/features/ui/Ebook.ico')))
+
     app.setStyleSheet("""
                            
             QWidget {
@@ -163,9 +165,11 @@ if __name__ == "__main__":
     main_layout.addWidget(page)
 
     main_window.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-
+    main_window.setWindowTitle('Ebook PR Application')
     main_window.show()
-
+    def active_event():
+        QTimer.singleShot(1, active_event)
+    active_event()
     screen_geometry = app.primaryScreen().geometry()
     center_point = screen_geometry.center()
     main_window.move(center_point - main_window.rect().center())

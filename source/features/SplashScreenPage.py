@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import  QWidget, QVBoxLayout, QLabel
 from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtCore import Qt, QTimer, QPoint, QPointF
 import yaml
 from .HomePage import SetHomePage
 from .helpers.getLanguage import getLanguage
@@ -7,6 +8,8 @@ from .helpers.getLanguage import getLanguage
 class SplashScreen(QWidget):
     def __init__(self, loading_text, size_font):
         super().__init__()
+        self.oldPosition = QPointF()
+
         
         self.loading_text = loading_text
         self.size_font = size_font
@@ -45,6 +48,17 @@ class SplashScreen(QWidget):
 
         self.animation_timer.start(600)
         self.page_timer.start(5000)
+
+    def mousePressEvent(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            self.oldPosition = event.globalPosition()
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            delta = event.globalPosition() - self.oldPosition
+            window_position = self.window().pos() + delta.toPoint()
+            self.window().move(window_position)
+            self.oldPosition = event.globalPosition()
 
     def animate_text(self):
         dots = '.' * (self.animation_counter % 4)

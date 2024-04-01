@@ -91,7 +91,7 @@ class SetHomePage(QWidget):
             self.upload.setText("Upload Local")
             self.unload.setText("Unload Local")    #Check
             self.exit.setText("Exit")
-            self.switch_language.setText("Passer en français")
+            self.switch_language.setText("Passer en Français")
             with open('source/config/config.yaml', 'r') as config_file:
                 yaml_file = yaml.safe_load(config_file)
                 yaml_file['Language'] = 0

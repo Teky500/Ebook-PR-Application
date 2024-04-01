@@ -4,6 +4,7 @@ from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon, QPixmap
 from .FirstTimeUpdateConfirm import SetFirstTimeUpdateConfirm
 from .helpers.getLanguage import getLanguage
 from .helpers.DownloadExcel import downloadFiles
@@ -43,7 +44,7 @@ class Worker(QThread):
         downloadFiles()
 
         entries = os.listdir('source/storage/spreadsheets/')
-        csv_files = [i for i in entries if ('.csv' in i) and ('CRKN_EbookPARightsTracking' in i)]
+        csv_files = [i for i in entries if ('.tsv' in i) and ('CRKN_EbookPARightsTracking' in i)]
         db = sq.connect('source/storage/database/proj.db')
         cursor = db.cursor()
 
@@ -66,28 +67,26 @@ class SetFirstTimeUpdate(QWidget):
     def __init__(self, check):
         super(SetFirstTimeUpdate, self).__init__()
 
+
         loadUi(packagingPath("source/features/ui/updatefirst-timepage.ui"), self)
+        # Create a transparent QPixmap
+        transparent_pixmap = QPixmap(1, 1)
+        transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+        # Set the window icon with the transparent QPixmap
+        self.setWindowIcon(QIcon(transparent_pixmap))
+            
+        # Remove title default name
+        self.window().setWindowTitle("     ")
         self.checker = check
-        self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
         
         if getLanguage() == 1:
             self.confirm_update_1.setText("Oui")
             self.cancel_update_1.setText("Non")
-            self.label.setText("<b>Vos données CRKN ne sont pas à jour,<b>")
-            self.label_2.setText("<b>souhaitez-vous les mettre à jour?<b>")
-            # French "j" gets cut off by buttons so I moved it up
-            current_geometry = self.label_2.geometry()
-            self.label_2.setGeometry(current_geometry.x(), current_geometry.y() - 5, current_geometry.width(), current_geometry.height())
+            self.label.setText("<b>Vos données CRKN ne sont pas à jour, souhaitez-vous les mettre à jour?<b>")
 
             self.label.setStyleSheet('''    
-                                            font-size: 16pt;
-                                            background-color: #333333;
-                                            color: #ffffff;
-                                            padding: 5px;
-                                            border-color: #333333;
-                                     ''')
-            self.label_2.setStyleSheet('''    
-                                            font-size: 16pt;
+                                            font-size: 35pt;
                                             background-color: #333333;
                                             color: #ffffff;
                                             padding: 5px;
@@ -111,6 +110,7 @@ class SetFirstTimeUpdate(QWidget):
             self.ss = SplashScreen("Updating", 35)
         self.ss.window().show()
         self.window().hide()
+
 
     ############ THREADING: CREATE NEW FUNCTION    
     def handle_thread_finished(self):
