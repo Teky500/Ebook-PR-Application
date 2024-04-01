@@ -6,6 +6,7 @@ from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import QThread, pyqtSignal, Qt
 from .helpers.DatabaseManagement import setDatabaseUni
 from .helpers.getLanguage import getLanguage
+from PyQt6.QtCore import Qt, QTimer, QPoint, QPointF
 import pandas as pd
 from .SplashScreenPage import SplashScreen
 import yaml
@@ -57,6 +58,8 @@ class SetInstitution(QWidget):
     def __init__(self):
         super(SetInstitution, self).__init__()
         loadUi(packagingPath("source/features/ui/dropdown.ui"), self)
+        self.oldPosition = QPointF()
+
 
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)
@@ -177,6 +180,18 @@ class SetInstitution(QWidget):
             self.ss = self.show_splash_screen('Chargement des données CRKN', 20)
         else:
             self.ss = self.show_splash_screen('Loading CRKN Data', 30)
+
+    def mousePressEvent(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            self.oldPosition = event.globalPosition()
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            delta = event.globalPosition() - self.oldPosition
+            window_position = self.window().pos() + delta.toPoint()
+            self.window().move(window_position)
+            self.oldPosition = event.globalPosition()
+
     def post_thread_action(self):
         self.home_page = self.ss.show_home_page()
     

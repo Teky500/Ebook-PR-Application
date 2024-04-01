@@ -29,8 +29,6 @@ class NetworkUpdateFailurePage(QWidget):
             self.exit_button.setText("Sortir")
             self.label.setText("Impossible de vérifier les mises à jour CRKN en raison d'une erreur réseau")
 
-        self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
-
         # Create a transparent QPixmap
         transparent_pixmap = QPixmap(1, 1)
         transparent_pixmap.fill(Qt.GlobalColor.transparent)

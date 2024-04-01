@@ -55,7 +55,7 @@
        <item>
         <widget class="QLabel" name="institution">
          <property name="styleSheet">
-          <string notr="true">font: 700 65pt &quot;Segoe UI&quot;;</string>
+          <string notr="true">font: 700 50pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Set Your Institution Below</string>

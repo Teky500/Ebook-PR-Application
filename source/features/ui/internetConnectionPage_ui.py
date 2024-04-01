@@ -12,7 +12,8 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(500, 280)
+        Form.resize(1092, 683)
+        Form.setMinimumSize(QtCore.QSize(1092, 683))
         Form.setStyleSheet("    QWidget {\n"
 "        background-color: #333333;\n"
 "        color: #ffffff;\n"
@@ -96,22 +97,22 @@ class Ui_Form(object):
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.verticalLayout = QtWidgets.QVBoxLayout()
-        self.verticalLayout.setContentsMargins(-1, -1, -1, 20)
+        self.verticalLayout.setContentsMargins(15, -1, 15, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.optional_label = QtWidgets.QLabel(parent=Form)
-        self.optional_label.setStyleSheet("font: 700 20pt \"Segoe UI\";")
+        self.optional_label.setStyleSheet("font: 700 35pt \"Segoe UI\";")
         self.optional_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.optional_label.setWordWrap(True)
         self.optional_label.setObjectName("optional_label")
         self.verticalLayout.addWidget(self.optional_label)
         self.verticalLayout_2.addLayout(self.verticalLayout)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setContentsMargins(-1, -1, -1, 30)
+        self.horizontalLayout.setContentsMargins(-1, -1, -1, 300)
         self.horizontalLayout.setSpacing(60)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.confirm_error = QtWidgets.QPushButton(parent=Form)
-        self.confirm_error.setMinimumSize(QtCore.QSize(0, 0))
-        self.confirm_error.setMaximumSize(QtCore.QSize(120, 16777215))
+        self.confirm_error.setMinimumSize(QtCore.QSize(100, 60))
+        self.confirm_error.setMaximumSize(QtCore.QSize(170, 60))
         self.confirm_error.setStyleSheet("font: 700 18pt \"Segoe UI\";\n"
 "")
         self.confirm_error.setObjectName("confirm_error")

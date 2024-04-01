@@ -1,6 +1,7 @@
 import sys
 from PyQt6.uic import loadUi
 from PyQt6.QtWidgets import QWidget, QApplication
+from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import Qt
 import yaml
 import os
@@ -20,7 +21,15 @@ class ChangeInstitution(QWidget):
         super(ChangeInstitution, self).__init__()
 
         loadUi(packagingPath("source/features/ui/ChangeOfInstitution.ui"), self)
-        self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        transparent_pixmap = QPixmap(1, 1)
+        transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+        # Set the window icon with the transparent QPixmap
+        self.setWindowIcon(QIcon(transparent_pixmap))
+            
+        # Remove title default name
+        self.window().setWindowTitle("     ")
+
 
         if getLanguage() == 1:
             self.cancel_change.setText("Non")
