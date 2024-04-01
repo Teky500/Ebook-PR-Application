@@ -28,7 +28,7 @@ def searchOCN(OCN, db_path):
   OCN = OCN.strip()
   db = startConnection(db_path)
   cursor = db.cursor()
-  query = f"SELECT books.*, platforms.platform  FROM BOOKS JOIN PLATFORMS ON Books.spreadsheet  = platforms.spreadsheet where ISBN = ?"
+  query = f"SELECT books.*, platforms.platform  FROM BOOKS JOIN PLATFORMS ON Books.spreadsheet  = platforms.spreadsheet where OCN = ?"
   cursor.execute(query, (OCN, ))
   result = cursor.fetchall()
   return result
