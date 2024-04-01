@@ -12,8 +12,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>700</width>
-    <height>500</height>
+    <width>1092</width>
+    <height>683</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -110,9 +110,9 @@
         <number>50</number>
        </property>
        <item>
-        <widget class="QLabel" name="unload">
+        <widget class="QLabel" name="upload_sucess">
          <property name="styleSheet">
-          <string notr="true">font: 700 56pt &quot;Segoe UI&quot;;</string>
+          <string notr="true">font: 700 35pt &quot;Segoe UI&quot;;</string>
          </property>
          <property name="text">
           <string>Success!</string>
@@ -120,22 +120,8 @@
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="styleSheet">
-          <string notr="true">font: 700 15pt &quot;Segoe UI&quot;;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

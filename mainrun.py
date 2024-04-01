@@ -1,11 +1,87 @@
 import sys
 from source.features.StartingPage import WelcomePage
-from source.features.Themes import Theme, getTheme
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
+from source.features.helpers.getLanguage import getLanguage
+
+from source.features.LanguageChoice import LanguageChoice
+from PyQt6.QtCore import Qt, QTimer, QEventLoop
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QStackedWidget, QHBoxLayout
+
+
+import os
+import yaml
+import logging
+from datetime import datetime
+import traceback
+import os
+
+from source.features.ExceptionError import ExceptionErrorPage
 
 if __name__ == "__main__":
 
+    # Configure logger to write to a file...
+
+    def my_handler(type, value, tb):
+        if type == KeyboardInterrupt:
+            sys.exit()
+        for line in traceback.TracebackException(type, value, tb).format(chain=True):
+            logging.exception(line)
+        logging.exception(value)
+        QApplication.closeAllWindows()
+        global b
+        msg = 'Something went wrong. Please check the log file for a more detailed error.'
+        try:
+            if getLanguage() == 1:
+                msg = "Quelque chose s'est mal passé. Veuillez vérifier le fichier journal pour une erreur plus détaillée."
+        except:
+            pass
+        b = ExceptionErrorPage(msg)
+        b.show()
+    if getattr(sys, 'frozen', False):
+        cwd = os.path.dirname(sys.executable)
+    elif __file__:
+        cwd = os.path.dirname(__file__)
+        # Install exception handler
+    sys.excepthook = my_handler
+    os.chdir(cwd)
+    sys.path.append(cwd)
+    print(os.getcwd())
+    print(sys.path)
+    pathes = ['source/storage/spreadsheets', 'source/storage/database', 'source/storage/excel', 'source/config', 'source/logs']
+    abs_pathes = []
+    for p in pathes:
+        new_path = os.path.join(cwd, p)
+        abs_pathes.append(new_path)
+    for newpath in abs_pathes:
+        if not os.path.exists(newpath):
+            os.makedirs(newpath)
+        today = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
+    filename = "log_" + today + '.txt'
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s %(filename)s %(funcName)s %(lineno)d', handlers=[ logging.FileHandler((f'source/logs/{filename}')), logging.StreamHandler() ] )
+
+    logging.info('Starting app')
+    logger = logging.getLogger('mylogger.app')
+    x = {'Language': 0, 'Status': 0, 'Universities': ['Acadia Univ.', 'Algoma Univ.', 'Athabasca Univ.', "Bishop's Univ.", 'Brandon Univ.', 'Brock Univ.', 'Cape Breton Univ.', 'Capilano Univ.', 'Carleton Univ.', 'Concordia Univ.', 'Concordia Univ. of Edmonton', 'Dalhousie Univ.', "École nationale d'administration publique", 'École de technologie supérieure', 'HEC Montréal', 'Institut national de la recherche scientifique', 'Kwantlen Polytechnic Univ.', 'Lakehead Univ.', 'Laurentian Univ.', 'MacEwan Univ', 'McGill Univ.', 'McMaster Univ.', 'Memorial Univ. of Newfoundland', 'Mount Allison Univ.', 'Mount Royal Univ.', 'Mount Saint Vincent Univ.', 'Nipissing Univ.', 'NSCAD Univ.', 'OCAD Univ.', 'Polytechnique Montréal', "Queen's University", 'Royal Military College', 'Royal Roads Univ.', 'Ryerson Univ.', "Saint Mary's Univ.", 'Simon Fraser Univ.', 'St. Francis Xavier Univ.', 'TÉLUQ', "The King's Univ.", 'Thompson Rivers Univ.', 'Trent Univ.', 'Trinity Western Univ.', 'Univ. de Moncton', 'Univ. de Montréal', 'Univ. de Sherbrooke', 'Univ. du Québec à Chicoutimi', 'Univ. du Québec à Montréal', 'Univ. du Québec à Rimouski', 'Univ. du Québec à Trois-Rivières', 'Univ. du Québec en Abitibi-Témiscamingue', 'Univ. du Québec en Outaouais', 'Univ. Laval', 'Univ. Sainte-Anne', 'Univ. of Alberta', 'Univ. of British Columbia', 'Univ. of Calgary', 'Univ. of Guelph', 'Univ. of Lethbridge', 'Univ. of Manitoba', 'Univ. of New Brunswick', 'Univ. of Northern British Columbia', 'Univ. of Ontario Institute of Technology', 'Univ. of Ottawa', 'Univ. of Prince Edward Island', 'Univ. of Regina', 'Univ. of Saskatchewan', 'Univ. of the Fraser Valley', 'Univ. of Toronto', 'Univ. of Victoria', 'Univ. of Waterloo', 'Univ. of Windsor', 'Univ. of Wininpeg', 'Vancouver Island Univ.', 'Western Univ.', 'Wilfrid Laurier Univ.', 'York Univ.'], 'University': 'Acadia Univ.', 'excel_links': ['https://library.upei.ca/sites/default/files/CRKN_EbookPARightsTracking_TaylorFrancis_2024_02_06_2.xlsx', 'https://library.upei.ca/sites/default/files/CRKN_EbookPARightsTracking_Proquest_2024_02_06_3.xlsx'], 'link': 'https://library.upei.ca/test-page-ebooks-perpetual-access-project'}
+    if not os.path.isfile(('source/config/config.yaml')):
+        with open(("source/config/config.yaml"), 'w') as yF:
+            yaml.dump(x, yF, default_flow_style=False)
+    
+    def getStatus():
+        with open(os.path.join(cwd, 'source/config/config.yaml'), 'r') as config_file:
+            yaml_file = yaml.safe_load(config_file)
+            status = yaml_file['Status']
+        return status
+
+            
+    def packagingPath(relative_path):
+        """ Get absolute path to resource, works for dev and for PyInstaller """
+        try:
+            # PyInstaller creates a temp folder and stores path in _MEIPASS
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")    
     app = QApplication(sys.argv)
+
     app.setStyleSheet("""
                            
             QWidget {
@@ -69,25 +145,40 @@ if __name__ == "__main__":
 
             """)
 
-    main_window = QWidget()
-    main_layout = QVBoxLayout(main_window)
-    theme = Theme(getTheme())
-    themeColour = theme.getColor()
-    if themeColour == {}:
-        pass
-        
-    else:
-        bg_col = themeColour['background_color']
-        txt_col = themeColour['text_color']
-        main_window.setStyleSheet(f'background-color: {bg_col}; color: {txt_col}')
-
-    stacked_widget = QStackedWidget(main_window)
-    welcome_page = WelcomePage(stacked_widget)
-  
-    stacked_widget.addWidget(welcome_page)
-    main_layout.addWidget(stacked_widget)
-
+    # main_window = QWidget()
+    # main_layout = QVBoxLayout(main_window)
+    # stacked_widget = QStackedWidget(main_window)
     
+    # if getStatus() == 0:
+    #     page = LanguageChoice(stacked_widget)
+    # else:
+    #     page = WelcomePage(stacked_widget)
+    
+    # stacked_widget.addWidget(page)
+    # main_layout.addWidget(stacked_widget)
+
+    # main_window.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+
+    # main_window.show()
+
+    main_window = QWidget()
+    main_layout = QHBoxLayout(main_window)
+
+    if getStatus() == 0:
+        page = LanguageChoice(main_window)
+    else:
+        page = WelcomePage(main_window)
+
+    main_layout.addWidget(page)
+
+    main_window.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+    main_window.setWindowTitle('Ebook PR Application')
     main_window.show()
+    def active_event():
+        QTimer.singleShot(1, active_event)
+    active_event()
+    screen_geometry = app.primaryScreen().geometry()
+    center_point = screen_geometry.center()
+    main_window.move(center_point - main_window.rect().center())
 
     sys.exit(app.exec())

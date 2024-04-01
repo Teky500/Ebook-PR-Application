@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\program\driver\features\ui\uploadpage_success.ui'
+# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\uploadpage_success.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -13,7 +13,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(1092, 683)
-        Form.setMinimumSize(QtCore.QSize(700, 500))
+        Form.setMinimumSize(QtCore.QSize(1092, 683))
         Form.setStyleSheet("  QWidget {\n"
 "        background-color: #333333;\n"
 "        color: #ffffff;\n"
@@ -101,21 +101,13 @@ class Ui_Form(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setContentsMargins(-1, 50, -1, -1)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.unload = QtWidgets.QLabel(parent=Form)
-        self.unload.setStyleSheet("font: 700 56pt \"Segoe UI\";")
-        self.unload.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.unload.setObjectName("unload")
-        self.horizontalLayout.addWidget(self.unload)
+        self.upload_sucess = QtWidgets.QLabel(parent=Form)
+        self.upload_sucess.setStyleSheet("font: 700 35pt \"Segoe UI\";")
+        self.upload_sucess.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.upload_sucess.setWordWrap(True)
+        self.upload_sucess.setObjectName("upload_sucess")
+        self.horizontalLayout.addWidget(self.upload_sucess)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.label = QtWidgets.QLabel(parent=Form)
-        self.label.setStyleSheet("font: 700 15pt \"Segoe UI\";")
-        self.label.setText("")
-        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label.setObjectName("label")
-        self.horizontalLayout_3.addWidget(self.label)
-        self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setContentsMargins(50, -1, 50, 350)
         self.horizontalLayout_2.setSpacing(6)
@@ -136,5 +128,5 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.unload.setText(_translate("Form", "Success!"))
+        self.upload_sucess.setText(_translate("Form", "Success!"))
         self.cancel_button.setText(_translate("Form", "OK"))

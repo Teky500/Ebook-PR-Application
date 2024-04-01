@@ -1,27 +1,82 @@
 import sys
-from .Themes import Theme, getTheme
-from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtCore import Qt, QTimer, QThread, pyqtSignal
+from PyQt6.QtGui import QMouseEvent
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QStackedWidget
 from .SetInstitutionPage import SetInstitution
 import yaml
-from .helpers.crknScrapper import CrknExcelExtractor
-from .helpers.download_excel import downloadExcel, parseExcel, downloadFiles
-from .helpers.crknUpdater import UpdateChecker
-
-
+from .helpers.DownloadExcel import downloadFiles
+from .helpers.CrknUpdating import UpdateChecker
+import time
+from .helpers.getLanguage import getLanguage
 import os
-theme = Theme(getTheme())
-themeColour = theme.getColor()
+from urllib import request
+from .NetworkFailurePage import NetworkPage
+import logging
+import certifi
+from .helpers.DownloadExcel import updateConfig
+from PyQt6.QtCore import Qt, QTimer, QPoint, QPointF
+def internet_on():
+    try:
+        request.urlopen('https://www.pinging.net/', timeout=1, cafile=certifi.where())
+        return True
+    except request.URLError as err: 
+        logging.info(err)
+        return False
+
+
+class Worker(QThread):
+    finished = pyqtSignal()
+    def __init__(self, var):
+        super(Worker, self).__init__()
+        self.var = var
+    #Here is where the time consuming task is placed
+    def run(self):
+        for i in os.listdir('source/storage/excel'):
+            if i == '.gitignore':
+                continue
+            os.remove(f'source/storage/excel/{i}')
+        for i in os.listdir('source/storage/spreadsheets'):
+            if i == '.gitignore':
+                continue
+            os.remove(f'source/storage/spreadsheets/{i}')
+        download_result = downloadFiles()
+        if not download_result:
+            logging.info('No excel links found to download!')
+            self.var.valid_link = False
+        self.finished.emit()
+
+class Worker2(QThread):
+    finished = pyqtSignal()
+    def __init__(self, var):
+        super(Worker2, self).__init__()
+        self.var = var
+
+    #Here is where the time consuming task is placed
+    def run(self):
+        checker = UpdateChecker()
+        url = checker.config.get('link')
+        new_excel_files = checker.getWebsiteExcelFiles(url)
+        if new_excel_files == []:
+            self.var.valid_link = False
+        (added, removed) = checker.compare(new_excel_files)
+        self.var.added = added
+        self.var.removed = removed
+        self.var.checker = checker
+        self.finished.emit()
+
+
 class WelcomePage(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-       
+        self.language = getLanguage()
+        self.valid_link = True
         self.setup_ui()
+        self.oldPosition = QPointF()
 
 
     def setup_ui(self):
         layout = QVBoxLayout(self)
-        if self.getLanguage() == 1:
+        if self.language == 1:
             label = QLabel(f"Démarrage", self)
         else:
             label = QLabel(f"Starting", self)
@@ -38,20 +93,22 @@ class WelcomePage(QWidget):
         self.animation_counter = 0
 
         self.page_timer = QTimer(self)
-        self.page_timer.timeout.connect(self.show_next_page)
 
         self.animation_timer.start(600)
-        self.page_timer.start(5000)
 
         self.window().setFixedSize(500, 280)
         self.window().setWindowFlags(Qt.WindowType.FramelessWindowHint)
+        self.show_next_page()
 
-    #Method for fetching language configuration
-    def getLanguage(self):
-        with open('source/config/config.yaml', 'r') as config_file:
-            yaml_file = yaml.safe_load(config_file)
-            language = yaml_file['Language']
-        return language
+    def mousePressEvent(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            self.oldPosition = event.globalPosition()
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            delta = QPointF(event.globalPosition() - self.oldPosition)
+            self.move(self.pos() + delta.toPoint())
+            self.oldPosition = event.globalPosition()
 
     def getStatus(self):
         with open('source/config/config.yaml', 'r') as config_file:
@@ -62,51 +119,94 @@ class WelcomePage(QWidget):
     def animate_text(self):
         dots = '.' * (self.animation_counter % 4)
         label = self.findChild(QLabel)
-        if self.getLanguage() == 1:
+        if self.language == 1:
             label.setText(f"Démarrage{dots}")
         else:
             label.setText(f"Starting{dots}")
         self.animation_counter += 1
 
     def show_next_page(self):
-        self.page_timer.stop()
         self.window().close()
+
         self.openNewWindow()
   
     def setFixedSize(self, width, height):
         super().setFixedSize(width, height)
+        
+    def post_thread_show_status_1(self):
+        if not self.valid_link:
+            logging.info('No network connection: cant fetch data.')
+            msg = "Did not find any excel files. URL is incorrect!" 
+            if getLanguage() == 1:
+                msg = "Cannot download spreadsheets. Veuillez vérifier votre connexion internet et réessayer!"
+            self.network_page = NetworkPage(msg)
+            self.network_page.show()
+            QTimer.singleShot(0, self.window().close)            
+            return
+        self.window().close()
+        updateConfig()
+        self.set_institution = SetInstitution()
+        self.set_institution.run()
+
+    def post_thread_show_status_2(self):
+        self.animation_timer.stop()
+
+        self.close()
+        if not self.valid_link:
+            logging.info('No excel files found on link!')
+            from .UpdateFailureNetworkPage import NetworkUpdateFailurePage
+            self.new_window = NetworkUpdateFailurePage()
+            self.new_window.window().show()
+            self.window().close()                
+            QTimer.singleShot(0, self.window().close)
+            return        
+        if (len(self.added) + len(self.removed)) == 0:
+            from .HomePage import SetHomePage
+            logging.info('Status 1, found no updates')
+            self.window().close()
+            self.home_page = SetHomePage()
+            self.home_page.window().show()
+            self.window().close()
+        else:
+            from .FirstTimeUpdate import SetFirstTimeUpdate
+            logging.info('Status 1, found update')
+            logging.info(self.added, self.removed)
+            self.window().close()
+            self.update = SetFirstTimeUpdate(self.checker)
+            self.update.window().show()
+            self.window().close()
 
     def openNewWindow(self):
         if self.getStatus() == 0:
-            print('Status 0')
-            downloadFiles()
-            global m
-            new_window = SetInstitution()
-            m = new_window
-            new_window.run()
-        else:
-            checker = UpdateChecker()
-            url = checker.config.get('link')
-            new_excel_files = checker.get_website_excel_files(url)
-            (added, removed) = checker.compare(new_excel_files)
-            if (len(added) + len(removed)) == 0:
-                from .HomePage import SetHomePage
-                print('Status 1, found no updates')
-                new_window = SetHomePage()
-                m = new_window
-                new_window.window().show()
-                self.window().close()
+            logging.info('Status 0')
+            if internet_on():
+                self.worker = Worker(self)
+                self.worker.finished.connect(self.post_thread_show_status_1)
+                self.worker.start()
             else:
-                from .FirstTimeUpdate import SetFirstTimeUpdate
-                print('Status 1, found update')
-                print(added, removed)
-                update = SetFirstTimeUpdate(checker)
-                m = update
-                m.window().show()
-                self.window().close()
+
+                logging.info('No network connection: cant fetch data.')
+                msg = "No Internet. Please connect to the internet and re-launch the application" 
+                if getLanguage() == 1:
+                    msg = "Pas d'internet. Veuillez vous connecter à internet et relancer l'application"
+                self.network_page = NetworkPage(msg)
+                self.network_page.show()
+                QTimer.singleShot(0, self.window().close)
+
+        else:
+            if not internet_on():
+                logging.info('No network connection: Can not check for updates')
+                from .UpdateFailureNetworkPage import NetworkUpdateFailurePage
+                self.new_window = NetworkUpdateFailurePage()
+                self.new_window.window().show()
+                self.window().close()                
+                QTimer.singleShot(0, self.window().close)
 
 
-
+            else:
+                self.worker = Worker2(self)
+                self.worker.finished.connect(self.post_thread_show_status_2)
+                self.worker.start()  
 
 
 
@@ -179,21 +279,12 @@ def extra_run():
     main_window = QWidget()
     main_layout = QVBoxLayout(main_window)
 
-    if themeColour == {}:
-        pass
-        
-    else:
-        bg_col = themeColour['background_color']
-        txt_col = themeColour['text_color']
-        main_window.setStyleSheet(f'background-color: {bg_col}; color: {txt_col}')
-
     stacked_widget = QStackedWidget(main_window)
     welcome_page = WelcomePage(stacked_widget)
   
     stacked_widget.addWidget(welcome_page)
     main_layout.addWidget(stacked_widget)
 
-    
     main_window.show()
 
     sys.exit(app.exec())

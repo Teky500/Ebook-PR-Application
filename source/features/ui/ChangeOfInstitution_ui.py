@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\program\driver\features\ui\ChangeOfInstitution.ui'
+# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\ChangeOfInstitution.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -12,7 +12,8 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(500, 280)
+        Form.resize(1092, 683)
+        Form.setMinimumSize(QtCore.QSize(1092, 683))
         Form.setStyleSheet("    QWidget {\n"
 "        background-color: #333333;\n"
 "        color: #ffffff;\n"
@@ -93,42 +94,36 @@ class Ui_Form(object):
 "        background-color: #3a3a3a;\n"
 "        color: white;\n"
 "    }")
-        self.horizontalLayoutWidget = QtWidgets.QWidget(parent=Form)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 159, 481, 111))
-        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(Form)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setContentsMargins(15, -1, 15, -1)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.label = QtWidgets.QLabel(parent=Form)
+        self.label.setStyleSheet("font: 700 35pt \"Segoe UI\";")
+        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label.setWordWrap(True)
+        self.label.setObjectName("label")
+        self.verticalLayout.addWidget(self.label)
+        self.verticalLayout_2.addLayout(self.verticalLayout)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setContentsMargins(-1, -1, -1, 300)
         self.horizontalLayout.setSpacing(60)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.confirm_change = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
-        self.confirm_change.setMinimumSize(QtCore.QSize(0, 0))
-        self.confirm_change.setMaximumSize(QtCore.QSize(120, 16777215))
+        self.confirm_change = QtWidgets.QPushButton(parent=Form)
+        self.confirm_change.setMinimumSize(QtCore.QSize(100, 60))
+        self.confirm_change.setMaximumSize(QtCore.QSize(170, 60))
         self.confirm_change.setStyleSheet("font: 700 18pt \"Segoe UI\";\n"
 "")
         self.confirm_change.setObjectName("confirm_change")
         self.horizontalLayout.addWidget(self.confirm_change)
-        self.cancel_change = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget)
-        self.cancel_change.setMinimumSize(QtCore.QSize(0, 0))
-        self.cancel_change.setMaximumSize(QtCore.QSize(120, 16777215))
+        self.cancel_change = QtWidgets.QPushButton(parent=Form)
+        self.cancel_change.setMinimumSize(QtCore.QSize(100, 60))
+        self.cancel_change.setMaximumSize(QtCore.QSize(170, 60))
         self.cancel_change.setStyleSheet("font: 700 18pt \"Segoe UI\";")
         self.cancel_change.setObjectName("cancel_change")
         self.horizontalLayout.addWidget(self.cancel_change)
-        self.verticalLayoutWidget = QtWidgets.QWidget(parent=Form)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 40, 481, 96))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.label = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
-        self.label.setStyleSheet("font: 700 20pt \"Segoe UI\";")
-        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label.setObjectName("label")
-        self.verticalLayout.addWidget(self.label)
-        self.label_2 = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
-        self.label_2.setStyleSheet("font: 700 20pt \"Segoe UI\";")
-        self.label_2.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.label_2.setObjectName("label_2")
-        self.verticalLayout.addWidget(self.label_2)
+        self.verticalLayout_2.addLayout(self.horizontalLayout)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -136,7 +131,6 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
+        self.label.setText(_translate("Form", "This will start over as a new installation, and remove all loaded data, are you sure?"))
         self.confirm_change.setText(_translate("Form", "Yes"))
         self.cancel_change.setText(_translate("Form", "No"))
-        self.label.setText(_translate("Form", "This change is going to reset your"))
-        self.label_2.setText(_translate("Form", "application, are you sure?"))

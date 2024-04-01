@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\program\driver\features\ui\upload.ui'
+# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\upload.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -13,7 +13,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(1092, 683)
-        Form.setMinimumSize(QtCore.QSize(1092, 682))
+        Form.setMinimumSize(QtCore.QSize(1092, 683))
         Form.setStyleSheet("  QWidget {\n"
 "        background-color: #333333;\n"
 "        color: #ffffff;\n"
@@ -97,13 +97,14 @@ class Ui_Form(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setContentsMargins(5, -1, 5, 0)
+        self.horizontalLayout.setContentsMargins(20, -1, 20, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.label = QtWidgets.QLabel(parent=Form)
         self.label.setMinimumSize(QtCore.QSize(0, 0))
         self.label.setMaximumSize(QtCore.QSize(1200, 200))
-        self.label.setStyleSheet("font: 700 60pt \"Segoe UI\";")
+        self.label.setStyleSheet("font: 700 50pt \"Segoe UI\";")
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label.setWordWrap(True)
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -111,8 +112,8 @@ class Ui_Form(object):
         self.horizontalLayout_4.setContentsMargins(-1, 50, -1, -1)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.upload_button_1 = QtWidgets.QPushButton(parent=Form)
-        self.upload_button_1.setMinimumSize(QtCore.QSize(100, 60))
-        self.upload_button_1.setMaximumSize(QtCore.QSize(200, 80))
+        self.upload_button_1.setMinimumSize(QtCore.QSize(100, 70))
+        self.upload_button_1.setMaximumSize(QtCore.QSize(200, 70))
         self.upload_button_1.setStyleSheet("font: 700 18pt \"Segoe UI\";")
         self.upload_button_1.setObjectName("upload_button_1")
         self.horizontalLayout_4.addWidget(self.upload_button_1)
@@ -123,22 +124,23 @@ class Ui_Form(object):
         self.file_label_1 = QtWidgets.QLabel(parent=Form)
         self.file_label_1.setStyleSheet("font: italic 12pt \"Segoe UI\";")
         self.file_label_1.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter|QtCore.Qt.AlignmentFlag.AlignTop)
+        self.file_label_1.setWordWrap(True)
         self.file_label_1.setObjectName("file_label_1")
         self.horizontalLayout_2.addWidget(self.file_label_1)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_3.setContentsMargins(19, -1, 20, 70)
+        self.horizontalLayout_3.setContentsMargins(200, -1, 200, 70)
         self.horizontalLayout_3.setSpacing(300)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.upload_local_file = QtWidgets.QPushButton(parent=Form)
-        self.upload_local_file.setMinimumSize(QtCore.QSize(100, 60))
-        self.upload_local_file.setMaximumSize(QtCore.QSize(200, 80))
+        self.upload_local_file.setMinimumSize(QtCore.QSize(100, 70))
+        self.upload_local_file.setMaximumSize(QtCore.QSize(170, 70))
         self.upload_local_file.setStyleSheet("font: 700 18pt \"Segoe UI\";")
         self.upload_local_file.setObjectName("upload_local_file")
         self.horizontalLayout_3.addWidget(self.upload_local_file)
         self.cancel_process = QtWidgets.QPushButton(parent=Form)
-        self.cancel_process.setMinimumSize(QtCore.QSize(100, 60))
-        self.cancel_process.setMaximumSize(QtCore.QSize(200, 80))
+        self.cancel_process.setMinimumSize(QtCore.QSize(100, 70))
+        self.cancel_process.setMaximumSize(QtCore.QSize(170, 70))
         self.cancel_process.setStyleSheet("font: 700 18pt \"Segoe UI\";")
         self.cancel_process.setObjectName("cancel_process")
         self.horizontalLayout_3.addWidget(self.cancel_process)

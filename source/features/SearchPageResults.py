@@ -1,10 +1,15 @@
-import csv
-import sys
-from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QPushButton, QFileDialog
+from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QVBoxLayout, QWidget, QPushButton, QFileDialog, QHBoxLayout
+
+from .helpers.getLanguage import getLanguage
 import pandas as pd
+import logging
 class TableModel(QtCore.QAbstractTableModel):
+
     def __init__(self, data):
         super(TableModel, self).__init__()
         self._data = data
@@ -19,7 +24,6 @@ class TableModel(QtCore.QAbstractTableModel):
         
         if role == Qt.ItemDataRole.ToolTipRole:
             return self._data[index.row()][index.column()]
-
 
     def rowCount(self, index):
         # The length of the outer list.
@@ -41,16 +45,24 @@ class TableModel(QtCore.QAbstractTableModel):
         self._header_labels = labels
         self.headerDataChanged.emit(Qt.Orientation.Horizontal, 0, len(labels) - 1)
 
-
-
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self, itemData, sType):
-
+    def __init__(self, itemData, sType):    
         super().__init__()
+
+        # Create a transparent QPixmap
+        transparent_pixmap = QPixmap(1, 1)
+        transparent_pixmap.fill(Qt.GlobalColor.transparent)
+
+        # Set the window icon with the transparent QPixmap
+        self.setWindowIcon(QIcon(transparent_pixmap))
+            
+        # Remove title default name
+        self.window().setWindowTitle("     ")
         if itemData == []:
-            print('Nothing Found')
+            logging.info('Nothing Found')
             self.window().close()
             return None
+        
         self.setStyleSheet("""
              
             QTableView {    
@@ -78,43 +90,7 @@ class MainWindow(QtWidgets.QMainWindow):
                            
             """)
 
-        if sType == 0 or sType == 3:
-            self.data = [itemData[0][:-2]]
-            self.data2 = []
-            for i in itemData:
-                self.data2.append(i[-2:])
-            main_widget = QWidget()
-            self.setCentralWidget(main_widget)
-            layout = QVBoxLayout()
-            main_widget.setLayout(layout)
-            self.table = QtWidgets.QTableView()
-            self.table2 = QtWidgets.QTableView()
-
-
-            self.model = TableModel(self.data)
-            self.model2 = TableModel(self.data2)
-            self.table.setModel(self.model)
-            self.table2.setModel(self.model2)
-
-            header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN']
-            self.model.setHeaderLabels(header_labels)
-
-            header_labels2 = ['PA Rights', 'File Path']
-            self.model2.setHeaderLabels(header_labels2)
-
-            self.table.resizeColumnsToContents()
-            self.table2.resizeColumnsToContents()
-
-            layout.addWidget(self.table)
-            layout.addWidget(self.table2)
-
-            # Add a button for downloading
-            self.download_button = QPushButton("Download")
-            layout.addWidget(self.download_button)
-            self.downloadType = 0
-            self.download_button.clicked.connect(self.downloadTable) # backend function here
-
-        if sType == 1 or sType == 2:
+        if True:
             self.data = itemData
             main_widget = QWidget()
             self.setCentralWidget(main_widget)
@@ -122,36 +98,70 @@ class MainWindow(QtWidgets.QMainWindow):
             main_widget.setLayout(layout)
             self.table = QtWidgets.QTableView()
 
-
             self.model = TableModel(self.data)
             self.table.setModel(self.model)
 
-            header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Path']
+            if getLanguage() == 1:
+                header_labels = ['eISBN', 'Titre', 'Éditeur', 'Année', 'OCN', 'Droits PA', 'Nom du fichier', 'Plate-forme']
+            else:
+                header_labels = ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Name', 'Platform']
             self.model.setHeaderLabels(header_labels)
 
+            layout.addWidget(self.table)
+            button_layout = QHBoxLayout()
+
+            self.download_button = QPushButton('Export')
+            self.cancel_button = QPushButton('Cancel')
+            self.cancel_button.setText('Close')
+
+            if getLanguage() == 1:
+                self.download_button.setText("Exporter")
+                self.cancel_button.setText("Annuler")
+
+
+            button_style = "QPushButton { font-size: 18px; font-weight: bold; background-color: #4d4d4d; border: 1px solid #4d4d4d; border-radius: 4px; color: #ffffff; padding: 5px;}"
+            self.download_button.setStyleSheet(button_style)
+            self.cancel_button.setStyleSheet(button_style)
+
+            button_layout.addWidget(self.download_button)
+            button_layout.addWidget(self.cancel_button)
+
+
+            self.downloadType = 1
+            self.download_button.clicked.connect(self.downloadTable)
+            self.cancel_button.clicked.connect(self.exitResultsPage)
+
+            layout.addLayout(button_layout)
 
             self.table.resizeColumnsToContents()
 
-            layout.addWidget(self.table)
+            self.resize(1092, 683)
 
-            # Add a button for downloading
-            self.download_button = QPushButton("Download")
-            layout.addWidget(self.download_button)
-            self.downloadType = 1
-            self.download_button.clicked.connect(self.downloadTable) # backend function here 
 
+
+    def exitResultsPage(self):
+        self.close()
 
     def downloadTable(self):
         # Get the file path using a file dialog
-        file_path, _ = QFileDialog.getSaveFileName(self, 'Save File', '', 'CSV Files (*.csv);;TSV Files (*.tsv)')
-
+        file_path, ext = QFileDialog.getSaveFileName(self, 'Save File', '', 'TSV Files (*.tsv);;CSV Files (*.csv)')
+        download_type = 0
+        if ext == 'TSV Files (*.tsv)':
+            download_type = 1
         if file_path:
+            if not file_path.endswith('.tsv') and not file_path.endswith('.csv'):
+                if download_type == 1:
+                    file_path = file_path + '.tsv'
+                else:
+                    file_path = file_path + '.csv'
             # Determine delimiter based on file extension
-            if self.downloadType == 0:
-                df = pd.DataFrame(self.data2)
-                df.to_csv(file_path, header=['PA Rights', 'File Path'], index=False)
-            if self.downloadType == 1:
+            if download_type == 0:
                 df = pd.DataFrame(self.data)
                 df[0] = df[0].astype(float).map(lambda x: '{:.0f}'.format(x))
                 df[0] = df[0].astype(str)
-                df.to_csv(file_path, header= ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Path'], index=False)
+                df.to_csv(file_path, header= ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Name', 'Platform'], index=False)
+            if download_type == 1:
+                df = pd.DataFrame(self.data)
+                df[0] = df[0].astype(float).map(lambda x: '{:.0f}'.format(x))
+                df[0] = df[0].astype(str)
+                df.to_csv(file_path, header= ['eISBN', 'Title', 'Publisher', 'Year', 'OCN', 'PA Rights','File Name', 'Platform'], index=False, sep='\t')

@@ -4,27 +4,32 @@ import requests
 from bs4 import BeautifulSoup
 import yaml
 from urllib.parse import urljoin
-
+import logging
 
 
 
 class UpdateChecker:
     def __init__(self, config_path='source/config/config.yaml'):
         self.config_path = config_path
-        self.config = self.load_config()
+        self.config = self.loadConfig()
 
-    def load_config(self):
+    def loadConfig(self):
         with open(self.config_path, 'r') as config_file:
             return yaml.safe_load(config_file)
 
-    def get_website_excel_files(self, url):
-        response = requests.get(url)
-        if response.status_code == 200:
-            soup = BeautifulSoup(response.text, 'html.parser')
-            base_url = response.url
-            return [urljoin(url, a['href']) for a in soup.find_all('a', href=True) if a['href'].endswith('.xlsx')]
-        else:
-            print(f"Failed to fetch URL. Status code: {response.status_code}")
+    def getWebsiteExcelFiles(self, url):
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.text, 'html.parser')
+                base_url = response.url
+                return [urljoin(url, a['href']) for a in soup.find_all('a', href=True) if a['href'].endswith('.xlsx')]
+            else:
+                logging.info(f"Failed to fetch URL. Status code: {response.status_code}")
+                return []
+        except Exception as E:
+            logging.info(E)
+            logging.info('Could not fetch links. Are you connected to the internet?')
             return []
 
     def compare(self, new_excel_files):
@@ -42,10 +47,10 @@ class UpdateChecker:
         # Show the UI for user interaction regardless of changes
         return (added_files, removed_files)
 
-    def update_config(self):
-        self.config['excel_links'] = self.get_website_excel_files(self.config['link'])
-        print('NEW CONFIG LINKS')
-        print(self.config['excel_links'])
+    def updateConfig(self):
+        self.config['excel_links'] = self.getWebsiteExcelFiles(self.config['link'])
+        logging.info('NEW CONFIG LINKS')
+        logging.info(self.config['excel_links'])
         with open(self.config_path, 'w') as config_file:
             yaml.dump(self.config, config_file)
 

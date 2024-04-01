@@ -194,6 +194,7 @@ class Ui_Search_page(object):
         self.label.setText(_translate("Search_page", "E-Book Search"))
         self.pushButton.setText(_translate("Search_page", "Search"))
         self.radioButton_2.setText(_translate("Search_page", "Keyword"))
+        self.radioButton_2.hide()
         self.radioButton_3.setText(_translate("Search_page", "OCN"))
         self.radioButton.setText(_translate("Search_page", "Title"))
         self.radioButton_4.setText(_translate("Search_page", "eISBN"))

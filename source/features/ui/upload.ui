@@ -13,7 +13,7 @@
   <property name="minimumSize">
    <size>
     <width>1092</width>
-    <height>682</height>
+    <height>683</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -105,10 +105,10 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="leftMargin">
-      <number>5</number>
+      <number>20</number>
      </property>
      <property name="rightMargin">
-      <number>5</number>
+      <number>20</number>
      </property>
      <property name="bottomMargin">
       <number>0</number>
@@ -128,13 +128,16 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 700 60pt &quot;Segoe UI&quot;;</string>
+        <string notr="true">font: 700 50pt &quot;Segoe UI&quot;;</string>
        </property>
        <property name="text">
         <string>Upload Local Spreadsheet</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -150,13 +153,13 @@
        <property name="minimumSize">
         <size>
          <width>100</width>
-         <height>60</height>
+         <height>70</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>200</width>
-         <height>80</height>
+         <height>70</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -185,6 +188,9 @@
        <property name="alignment">
         <set>Qt::AlignHCenter|Qt::AlignTop</set>
        </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
@@ -195,10 +201,10 @@
       <number>300</number>
      </property>
      <property name="leftMargin">
-      <number>19</number>
+      <number>200</number>
      </property>
      <property name="rightMargin">
-      <number>20</number>
+      <number>200</number>
      </property>
      <property name="bottomMargin">
       <number>70</number>
@@ -208,13 +214,13 @@
        <property name="minimumSize">
         <size>
          <width>100</width>
-         <height>60</height>
+         <height>70</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>200</width>
-         <height>80</height>
+         <width>170</width>
+         <height>70</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -230,13 +236,13 @@
        <property name="minimumSize">
         <size>
          <width>100</width>
-         <height>60</height>
+         <height>70</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>200</width>
-         <height>80</height>
+         <width>170</width>
+         <height>70</height>
         </size>
        </property>
        <property name="styleSheet">

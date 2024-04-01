@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\program\driver\features\ui\unloadpage.ui'
+# Form implementation generated from reading ui file 'c:\Users\hp\Desktop\VSC\Cloned\Ebook-PR-Application\source\features\ui\unloadpage.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -13,7 +13,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(1092, 683)
-        Form.setMinimumSize(QtCore.QSize(700, 500))
+        Form.setMinimumSize(QtCore.QSize(1092, 683))
         Form.setStyleSheet("  QWidget {\n"
 "        background-color: #333333;\n"
 "        color: #ffffff;\n"
@@ -99,11 +99,12 @@ class Ui_Form(object):
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setContentsMargins(-1, 50, -1, -1)
+        self.horizontalLayout.setContentsMargins(20, 50, 20, -1)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.unload = QtWidgets.QLabel(parent=Form)
-        self.unload.setStyleSheet("font: 700 56pt \"Segoe UI\";")
+        self.unload.setStyleSheet("font: 700 45pt \"Segoe UI\";")
         self.unload.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.unload.setWordWrap(True)
         self.unload.setObjectName("unload")
         self.horizontalLayout.addWidget(self.unload)
         self.verticalLayout.addLayout(self.horizontalLayout)
