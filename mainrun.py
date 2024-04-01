@@ -1,5 +1,6 @@
 import sys
 from source.features.StartingPage import WelcomePage
+from source.features.helpers.getLanguage import getLanguage
 
 from source.features.LanguageChoice import LanguageChoice
 from PyQt6.QtCore import Qt, QTimer, QEventLoop
@@ -28,7 +29,13 @@ if __name__ == "__main__":
         logging.exception(value)
         QApplication.closeAllWindows()
         global b
-        b = ExceptionErrorPage('Something went wrong. Please check the log file for a more detailed error.')
+        msg = 'Something went wrong. Please check the log file for a more detailed error.'
+        try:
+            if getLanguage() == 1:
+                msg = "Quelque chose s'est mal passé. Veuillez vérifier le fichier journal pour une erreur plus détaillée."
+        except:
+            pass
+        b = ExceptionErrorPage(msg)
         b.show()
     if getattr(sys, 'frozen', False):
         cwd = os.path.dirname(sys.executable)

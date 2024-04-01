@@ -41,6 +41,7 @@ def packagingPath(relative_path):
 class SetHomePage(QWidget):
     
     def getUniversity(self):
+
         print(os.getcwd())
         with open('source/config/config.yaml', 'r') as config_file:
             yaml_file = yaml.safe_load(config_file)
