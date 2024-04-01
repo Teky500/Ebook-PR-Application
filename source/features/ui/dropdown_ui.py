@@ -39,7 +39,7 @@ class Ui_Form(object):
         self.horizontalLayout_2.setContentsMargins(-1, 50, 0, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.institution = QtWidgets.QLabel(parent=Form)
-        self.institution.setStyleSheet("font: 700 65pt \"Segoe UI\";")
+        self.institution.setStyleSheet("font: 700 50pt \"Segoe UI\";")
         self.institution.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.institution.setObjectName("institution")
         self.horizontalLayout_2.addWidget(self.institution)
