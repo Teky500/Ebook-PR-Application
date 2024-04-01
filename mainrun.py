@@ -74,7 +74,7 @@ if __name__ == "__main__":
         except Exception:
             base_path = os.path.abspath(".")    
     app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon(packagingPath('source/features/ui/Ebook.ico')))
+
     app.setStyleSheet("""
                            
             QWidget {
