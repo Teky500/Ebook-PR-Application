@@ -144,12 +144,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def downloadTable(self):
         # Get the file path using a file dialog
-        file_path, _ = QFileDialog.getSaveFileName(self, 'Save File', '', 'TSV Files (*.tsv);;CSV Files (*.csv)')
+        file_path, ext = QFileDialog.getSaveFileName(self, 'Save File', '', 'TSV Files (*.tsv);;CSV Files (*.csv)')
         download_type = 0
-
+        if ext == 'TSV Files (*.tsv)':
+            download_type = 1
         if file_path:
-            if file_path.endswith('.tsv'):
-                download_type = 1
+            if not file_path.endswith('.tsv') and not file_path.endswith('.csv'):
+                if download_type == 1:
+                    file_path = file_path + '.tsv'
+                else:
+                    file_path = file_path + '.csv'
             # Determine delimiter based on file extension
             if download_type == 0:
                 df = pd.DataFrame(self.data)
