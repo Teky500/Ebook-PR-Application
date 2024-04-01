@@ -2,7 +2,7 @@ import sys
 from source.features.StartingPage import WelcomePage
 
 from source.features.LanguageChoice import LanguageChoice
-from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtCore import Qt, QTimer, QEventLoop
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QStackedWidget, QHBoxLayout
 
@@ -168,10 +168,8 @@ if __name__ == "__main__":
     main_window.setWindowTitle('Ebook PR Application')
     main_window.show()
     def active_event():
-        pass
-    event_checker = QTimer(app)
-    event_checker.timeout.connect(active_event)
-    event_checker.start(0)
+        QTimer.singleShot(1, active_event)
+    active_event()
     screen_geometry = app.primaryScreen().geometry()
     center_point = screen_geometry.center()
     main_window.move(center_point - main_window.rect().center())
