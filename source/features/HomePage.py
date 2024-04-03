@@ -69,10 +69,10 @@ class SetHomePage(QWidget):
         self.language = getLanguage()
         self.switch_language.setText('Passer en Français')
         if self.language == 1:
-            self.search.setText("Chercher")
-            self.change.setText("Remise à zéro")
+            self.search.setText("Rechercher")
+            self.change.setText("Réinitialiser")
             self.update.setText("Mettre à jour")
-            self.upload.setText("Mettre en ligne")
+            self.upload.setText("Téléverser")
             self.unload.setText("Decharger")    #Check
             self.exit.setText("Fermer")
             self.switch_language.setText("Switch to English")
@@ -100,10 +100,10 @@ class SetHomePage(QWidget):
                 yaml.dump(yaml_file, config_file) 
             self.language = 0
         else:
-            self.search.setText("Chercher")
-            self.change.setText("Remise à zéro")
+            self.search.setText("Rechercher")
+            self.change.setText("Réinitialiser")
             self.update.setText("Mettre à jour")
-            self.upload.setText("Mettre en ligne")
+            self.upload.setText("Téléverser")
             self.unload.setText("Decharger")    #Check
             self.exit.setText("Fermer")
             self.switch_language.setText("Switch to English")

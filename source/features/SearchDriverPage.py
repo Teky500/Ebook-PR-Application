@@ -50,7 +50,7 @@ class searchPageDriver(QtWidgets.QWidget):
 
         if getLanguage() == 1:
             self.label.setText("<font size='2'>Recherche de Livre Électronique</font>")
-            self.search_ebook.setText("Recherche")
+            self.search_ebook.setText("Rechercher")
             self.cancel_search.setText("Annuler")
             self.radio_button_2.setText("Titre")
 
@@ -75,7 +75,7 @@ class searchPageDriver(QtWidgets.QWidget):
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle("messageBox")
             if getLanguage() == 1:
-                msg.setText("Le champ de recherche ne peut pas être vide!")
+                msg.setText("Aucune correspondance trouvée!")
             else:
                 msg.setText("Search field can not be empty!")
             msg.setIcon(QtWidgets.QMessageBox.Icon.Information)

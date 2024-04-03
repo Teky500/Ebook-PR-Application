@@ -34,7 +34,7 @@ class ChangeInstitution(QWidget):
         if getLanguage() == 1:
             self.cancel_change.setText("Non")
             self.confirm_change.setText("Oui")
-            self.label.setText("<b>Cela commencera comme une nouvelle installation, et supprimera toutes les données chargées, êtes-vous sûr?<b>")
+            self.label.setText("<b>Cela commencera par une nouvelle installation, et supprimera toutes les données chargées, êtes-vous sûr?<b>")
 
         self.cancel_change.clicked.connect(self.load_home_page)
         self.confirm_change.clicked.connect(self.start_again)
